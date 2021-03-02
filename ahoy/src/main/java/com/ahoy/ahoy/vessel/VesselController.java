@@ -8,8 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class VesselController {
 
     @Autowired
@@ -19,21 +22,11 @@ public class VesselController {
     private VesselService vesselService;
 
     @GetMapping("/queryDB")
-    public String vesselsWithName(){
-        System.out.println("Finding!");
-        System.out.println(vesselRepository.findByFullName("Titanic").toString());
-        return "vesselFinder";
+    public List<Vessel> vesselsWithName(){
+        List<Vessel> l1 = vesselRepository.findByFullName("RMS Titanic");
+        return vesselService.doubleVessels(l1);
     }
 
-    @GetMapping("/index")
-    public String index(Model model){
-        model.addAttribute("vesselDetails", new Vessel());
-        return "index";
-    }
 
-    @PostMapping("/index")
-    public String indexSubmit(@ModelAttribute("vesselDetails") Vessel v){
-        return "result";
-    }
 
 }

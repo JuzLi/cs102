@@ -9,12 +9,13 @@ import javax.persistence.*;
 public class Vessel {
 
     @Id
+    @Column(name = "abbrvsim")
     private String shortName;
 
-
+    @Column(name = "fullvsim")
     private String longName;
 
-
+    @Column(name = "vesselname")
     private String fullName;
 
     public Vessel(){};
