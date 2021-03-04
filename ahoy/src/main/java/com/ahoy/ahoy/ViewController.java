@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ViewController {
-
+    @GetMapping("/homepage")
+    public String homePage(){
+        return "homepage";
+    }
     @GetMapping("/index")
     public String index(Model model){
         model.addAttribute("vesselDetails", new Vessel());
