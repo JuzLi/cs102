@@ -54,8 +54,6 @@ create table user(
 
 
 
-
-
 create table alert(
  alerttype varchar(30) not null,
  alertcontent varchar (100) not null,

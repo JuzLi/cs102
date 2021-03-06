@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/styles/bootstrap.css}" rel="stylesheet" />
+</head>
+<body>
+<form action = "#" th:action = "@{/register}" th:object = "${userSignUp}" method = "post">
+    <input type = "text" th:field = "*{username}" placeholder="User Name">
+    <input type = "text" th:field = "*{email}" placeholder="Email">
+    <input type = "password" th:field = "*{password}" placeholder="Password">
+    <input type = "submit">
+
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
+</form>
+</body>
+</html>
