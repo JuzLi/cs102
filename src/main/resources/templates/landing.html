@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Monoton');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700');
+
+
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+
+.button1 {
+    width:185px;
+    height:80px;
+    position:absolute;
+    margin-left: 770px;
+    margin-top: 450px;
+    display: inline-block;
+    justify-content: center;
+	background: rgb(253, 253, 253);
+	position: relative;
+	padding: 1.6em 2.8em;
+	text-decoration: none;
+
+}
+.button__canvas1{
+		position: absolute;
+		top: calc(var(--offset) * -1);
+		left: calc(var(--offset) * -1);
+		width: calc(100% + var(--offset) * 2);
+		height: calc(100% + var(--offset) * 2);
+
+}
+
+.button__text1{
+		position: relative;
+		color: rgb(0, 0, 0);
+		font-weight: bold;
+		letter-spacing: .02em;
+        text-align:center;
+}
+
+.button2 {
+    width:185px;
+    height:80px;
+    position:absolute;
+    margin-left: 770px;
+    margin-top: 50px;
+    display: inline-block;
+    justify-content: center;
+	background: rgb(253, 253, 253);
+	position: relative;
+	padding: 1.6em 2.8em;
+	text-decoration: none;
+
+}
+.button__canvas2{
+		position: absolute;
+		top: calc(var(--offset) * -1);
+		left: calc(var(--offset) * -1);
+		width: calc(100% + var(--offset) * 2);
+		height: calc(100% + var(--offset) * 2);
+
+}
+
+.button__text2{
+		position: relative;
+		color: rgb(0, 0, 0);
+		font-weight: bold;
+		letter-spacing: .02em;
+        text-align:center;
+        margin-left:15px;
+}
+
+.button3 {
+    width:185px;
+    height:80px;
+    position:absolute;
+    margin-left: 770px;
+    margin-top: 47.5px;
+    display: inline-block;
+    justify-content: center;
+	background: rgb(253, 253, 253);
+	position: relative;
+	padding: 1.6em 2.8em;
+	text-decoration: none;
+
+}
+.button__canvas3{
+		position: absolute;
+		top: calc(var(--offset) * -1);
+		left: calc(var(--offset) * -1);
+		width: calc(100% + var(--offset) * 2);
+		height: calc(100% + var(--offset) * 2);
+
+}
+
+.button__text3{
+		position: relative;
+		color: rgb(0, 0, 0);
+		font-weight: bold;
+		letter-spacing: .02em;
+        text-align:center;
+        margin-left:20px;
+}
+
+.poster-title {
+	position: absolute !important;
+	font-family: 'Open Sans Condensed', sans-serif;
+	color: rgb(255, 255, 255);
+	font-size: 7em;
+	letter-spacing: 0.05em;
+	top: 25% !important;
+	width: 100%;
+	text-align: center;
+}
+.poster-subtitle {
+	position: absolute !important;
+	font-family: 'Open Sans Condensed', sans-serif;
+	color: rgb(255, 255, 255);
+	font-size: 1.5em;
+	letter-spacing: 0.05em;
+	top: 40% !important;
+	width: 100%;
+	text-align: center;
+}
+
+.poster-image {
+	position: absolute !important;
+	height: 112%;
+	width: 113%;
+	top: -6% !important;
+	left: -6% !important;
+    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9) ), url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat;
+	/* background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9) ), url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/769286/MrRobotS2_16x9_FeaturedPromo_1920x1080.jpg) no-repeat; */
+	background-size: cover;
+	background-position: center center;
+}
+.poster-image-overlay {
+	position: absolute !important;
+	height: 100%;
+	width: 100%;
+	background: rgb(0, 0, 0);
+	background-size: 18%;
+	left: 0%;
+	background-attachment: fixed;
+	background-position: center center;
+	opacity: 0.5;
+}
+
+
+@media screen and (max-width: 742px) {
+	.poster-title {
+		position: absolute !important;
+		font-family: 'Monoton', cursive;
+		color: red;
+		font-size: 5em;
+		letter-spacing: 0.05em;
+		top: 10% ;
+		width: 100%;
+		text-align: center;
+	}
+
+}
+
+
+@media screen and (max-width: 531px) {
+	.poster-subtitle {
+		position: absolute !important;
+		font-family: 'Monoton', cursive;
+		color: red;
+		font-size: 2em;
+		letter-spacing: 0.05em;
+		top: 0%;
+		width: 100%;
+		text-align: center;
+	}
+
+}
+@media screen and (max-width: 742px) {
+	.poster-title {
+		position: absolute !important;
+		font-family: 'Monoton', cursive;
+		color: red;
+		font-size: 5em;
+		letter-spacing: 0.05em;
+		top: 10% ;
+		width: 100%;
+		text-align: center;
+	}
+
+}
+
+
+</style>
+</head>
+<body>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+<div id="posterParallax" class="poster">
+    <div data-depth="0.6" class="poster-image layer"></div>
+    <div class="poster-image-overlay"></div>
+    <div data-depth="0.3" class="poster-title layer">AHOY</div>
+    <div data-depth="0.3" class="poster-subtitle layer">Where shipment is made easy</div>
+    <a href="#" class="button1">
+        <canvas class="button__canvas1"></canvas>
+        <span class="button__text1">List of Users</span>
+    </a>
+    <a th:href="@{register}" class="button2">
+        <canvas class="button__canvas2"></canvas>
+        <span class="button__text2">Register</span>
+    </a>
+    <a th:href="@{login}" class="button3">
+        <canvas class="button__canvas3"></canvas>
+        <span class="button__text3">Login</span>
+    </a>
+</div>
+</body>
+</html>
