@@ -1,6 +1,8 @@
 package com.ahoy.ahoy.portnet;
 
 import com.ahoy.ahoy.repo.VesselRepository;
+import com.ahoy.ahoy.vessel.Vessel;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -26,7 +28,10 @@ public class PortnetConnector {
         PortnetConnector.apiKey = value;
     }
 
-    public static void getUpdate(String dateFrom, String dateTo) {
+    public static List<Vessel> getUpdate(String dateFrom, String dateTo) {
+
+        List<Vessel> vessels = new ArrayList<>();
+
         String url = "https://api.portnet.com/vsspp/pp/bizfn/berthingSchedule/retrieveByBerthingDate/v1.2";
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -44,7 +49,25 @@ public class PortnetConnector {
         if (response.getStatusCode() == HttpStatus.OK) {
             JsonObject jsonObject = JsonParser.parseString(Objects.requireNonNull(response.getBody())).getAsJsonObject();
             JsonArray vesselArray = (JsonArray) jsonObject.get("results").getAsJsonArray();
-            vesselRepository.save(vesselArray);
+            Gson gson = new Gson();
+
+//            for (int i = 0; i < vesselArray.size(); i++) {
+//                Vessel v = gson.fromJson(vesselArray.get(i).toString(), Vessel.class);
+//                vessels.add(v);
+//            }
+
+            for ( int i=0; i< vesselArray.size(); i++){
+                Vessel v = new Vessel();
+                v.setFullName(vesselArray.get(i).getAsString());
+                v.setLongName(vesselArray.get(i).getAsString());
+                v.setShortName(vesselArray.get(i).getAsString());
+
+                vessels.add(v);
+            }
+            return vessels;
+            }
+        return null;
         }
-    }
+
 }
+
