@@ -1,8 +1,10 @@
 package com.ahoy.ahoy.portnet;
 
+import com.ahoy.ahoy.repo.VesselRepository;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -12,6 +14,9 @@ import java.util.*;
 
 @Component
 public class PortnetConnector {
+
+    @Autowired
+    private VesselRepository vesselRepository;
 
     private static String apiKey;
 
@@ -39,7 +44,7 @@ public class PortnetConnector {
         if (response.getStatusCode() == HttpStatus.OK) {
             JsonObject jsonObject = JsonParser.parseString(Objects.requireNonNull(response.getBody())).getAsJsonObject();
             JsonArray vesselArray = (JsonArray) jsonObject.get("results").getAsJsonArray();
-            PortNetConnectorDAO.insert(vesselArray);
+            vesselRepository.save(vesselArray);
         }
     }
 }
