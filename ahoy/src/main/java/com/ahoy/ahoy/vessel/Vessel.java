@@ -15,14 +15,10 @@ public class Vessel {
     @Column(name = "fullvsim")
     private String longName;
 
-    @Column(name = "vesselname")
-    private String fullName;
-
     public Vessel(){};
-    public Vessel(String shortName, String longName, String fullName) {
+    public Vessel(String shortName, String longName) {
         this.shortName = shortName;
         this.longName = longName;
-        this.fullName = fullName;
     }
 
     public String getShortName() {
@@ -41,20 +37,11 @@ public class Vessel {
         this.longName = longName;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     @Override
     public String toString() {
         return "Vessel{" +
                 "shortName='" + shortName + '\'' +
                 ", longName='" + longName + '\'' +
-                ", fullName='" + fullName + '\'' +
                 '}';
     }
 }

@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public interface VesselRepository extends JpaRepository <Vessel,Integer> {
 
-    @Query("Select v from Vessel v where v.fullName = :name")
-    List<Vessel> findByFullName(@Param("name") String name);
+    @Query("Select v from Vessel v where v.longName = :name")
+    Vessel findByFullName(@Param("name") String name);
+
+    //provides functions crud
 }

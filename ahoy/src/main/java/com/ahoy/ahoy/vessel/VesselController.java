@@ -26,17 +26,12 @@ public class VesselController {
     @Autowired
     PortnetConnector portnetConnector;
 
-    @GetMapping("/queryDB")
-    public List<Vessel> vesselsWithName(){
-        List<Vessel> l1 = vesselRepository.findByFullName("RMS Titanic");
-        return vesselService.doubleVessels(l1);
-    }
 
-    @GetMapping("/getRequest")
-    public List<Vessel> allVesselsName(){
-        List<Vessel> l1 = portnetConnector.getUpdate("2021-03-02","2021-03-02");
-        return vesselService.doubleVessels(l1);
-    }
+//    @GetMapping("/getRequest")
+//    public List<Vessel> allVesselsName(){
+//        List<Vessel> l1 = portnetConnector.getUpdate("2021-03-02","2021-03-02");
+//        return vesselService.doubleVessels(l1);
+//    }
 
 
 

@@ -2,10 +2,7 @@ package com.ahoy.ahoy.portnet;
 
 import com.ahoy.ahoy.repo.VesselRepository;
 import com.ahoy.ahoy.vessel.Vessel;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -28,7 +25,7 @@ public class PortnetConnector {
         PortnetConnector.apiKey = value;
     }
 
-    public static List<Vessel> getUpdate(String dateFrom, String dateTo) {
+    public List<Vessel> getUpdate(String dateFrom, String dateTo) {
 
         List<Vessel> vessels = new ArrayList<>();
 
@@ -49,21 +46,24 @@ public class PortnetConnector {
         if (response.getStatusCode() == HttpStatus.OK) {
             JsonObject jsonObject = JsonParser.parseString(Objects.requireNonNull(response.getBody())).getAsJsonObject();
             JsonArray vesselArray = (JsonArray) jsonObject.get("results").getAsJsonArray();
+//            System.out.println(vesselArray);
             Gson gson = new Gson();
 
-//            for (int i = 0; i < vesselArray.size(); i++) {
-//                Vessel v = gson.fromJson(vesselArray.get(i).toString(), Vessel.class);
+            for (int i = 0; i < vesselArray.size(); i++) {
+                JsonObject j = vesselArray.get(i).getAsJsonObject();
+                Vessel v = new Vessel(j.get("abbrVslM").getAsString(),j.get("fullVslM").getAsString());
+                vessels.add(v);
+                vesselRepository.save(v);
+            }
+
+//            for ( int i=0; i< vesselArray.size(); i++){
+//                Vessel v = new Vessel();
+//                v.setFullName(vesselArray.get(i).getAsString());
+//                v.setLongName(vesselArray.get(i).getAsString());
+//                v.setShortName(vesselArray.get(i).getAsString());
+//
 //                vessels.add(v);
 //            }
-
-            for ( int i=0; i< vesselArray.size(); i++){
-                Vessel v = new Vessel();
-                v.setFullName(vesselArray.get(i).getAsString());
-                v.setLongName(vesselArray.get(i).getAsString());
-                v.setShortName(vesselArray.get(i).getAsString());
-
-                vessels.add(v);
-            }
             return vessels;
             }
         return null;
