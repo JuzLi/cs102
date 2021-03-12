@@ -22,6 +22,7 @@ public class VesselController {
     private VesselService vesselService;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Autowired
     PortnetConnector portnetConnector;
 
@@ -32,12 +33,17 @@ public class VesselController {
 //        return vesselService.doubleVessels(l1);
 //    }
 =======
+=======
+>>>>>>> parent of acadcd2 (save to sql v1.1 a lot errors)
     @GetMapping("/queryDB")
     public List<Vessel> vesselsWithName(){
         List<Vessel> l1 = vesselRepository.findByFullName("RMS Titanic");
         return vesselService.doubleVessels(l1);
     }
+<<<<<<< HEAD
 >>>>>>> parent of acadcd2... save to sql v1.1 a lot errors
+=======
+>>>>>>> parent of acadcd2 (save to sql v1.1 a lot errors)
 
 
 
