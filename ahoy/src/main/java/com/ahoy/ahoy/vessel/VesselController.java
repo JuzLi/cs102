@@ -1,9 +1,7 @@
 package com.ahoy.ahoy.vessel;
 
 
-import com.ahoy.ahoy.portnet.PortnetConnector;
 import com.ahoy.ahoy.repo.VesselRepository;
-import com.google.gson.JsonArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +21,7 @@ public class VesselController {
     @Autowired
     private VesselService vesselService;
 
+<<<<<<< HEAD
     @Autowired
     PortnetConnector portnetConnector;
 
@@ -32,6 +31,13 @@ public class VesselController {
 //        List<Vessel> l1 = portnetConnector.getUpdate("2021-03-02","2021-03-02");
 //        return vesselService.doubleVessels(l1);
 //    }
+=======
+    @GetMapping("/queryDB")
+    public List<Vessel> vesselsWithName(){
+        List<Vessel> l1 = vesselRepository.findByFullName("RMS Titanic");
+        return vesselService.doubleVessels(l1);
+    }
+>>>>>>> parent of acadcd2... save to sql v1.1 a lot errors
 
 
 
