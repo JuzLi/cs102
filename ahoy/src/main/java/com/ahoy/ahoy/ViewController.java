@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ViewController {
@@ -21,27 +20,10 @@ public class ViewController {
     @Autowired
     UserService userService;
 
-
-    @GetMapping("/")
-    public String landing(){
-        return "landing";
-    }
-
     @GetMapping("/homepage")
     public String homePage(){
         return "homepage";
     }
-
-    @RequestMapping("/signup")
-    public String signup(){
-        return "signup";
-    }
-
-    @GetMapping("/login")
-    public String loginPage(){
-        return "login";
-    }
-
     @GetMapping("/index")
     public String index(Model model){
         model.addAttribute("vesselDetails", new Vessel());
