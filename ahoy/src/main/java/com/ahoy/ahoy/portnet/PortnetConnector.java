@@ -1,17 +1,8 @@
 package com.ahoy.ahoy.portnet;
 
 import com.ahoy.ahoy.repo.VesselRepository;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import com.ahoy.ahoy.vessel.Vessel;
 import com.google.gson.*;
-=======
-=======
->>>>>>> parent of acadcd2 (save to sql v1.1 a lot errors)
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
->>>>>>> parent of acadcd2... save to sql v1.1 a lot errors
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -34,18 +25,10 @@ public class PortnetConnector {
         PortnetConnector.apiKey = value;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     public List<Vessel> getUpdate(String dateFrom, String dateTo) {
 
         List<Vessel> vessels = new ArrayList<>();
 
-=======
-    public static void getUpdate(String dateFrom, String dateTo) {
->>>>>>> parent of acadcd2... save to sql v1.1 a lot errors
-=======
-    public static void getUpdate(String dateFrom, String dateTo) {
->>>>>>> parent of acadcd2 (save to sql v1.1 a lot errors)
         String url = "https://api.portnet.com/vsspp/pp/bizfn/berthingSchedule/retrieveByBerthingDate/v1.2";
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -63,8 +46,6 @@ public class PortnetConnector {
         if (response.getStatusCode() == HttpStatus.OK) {
             JsonObject jsonObject = JsonParser.parseString(Objects.requireNonNull(response.getBody())).getAsJsonObject();
             JsonArray vesselArray = (JsonArray) jsonObject.get("results").getAsJsonArray();
-<<<<<<< HEAD
-<<<<<<< HEAD
 //            System.out.println(vesselArray);
             Gson gson = new Gson();
 
@@ -86,12 +67,7 @@ public class PortnetConnector {
             return vessels;
             }
         return null;
-=======
-            vesselRepository.save(vesselArray);
->>>>>>> parent of acadcd2... save to sql v1.1 a lot errors
-=======
-            vesselRepository.save(vesselArray);
->>>>>>> parent of acadcd2 (save to sql v1.1 a lot errors)
         }
-    }
+
 }
+
