@@ -18,10 +18,9 @@ public class VesselService {
 
 
 
-    public void createVessel(String abbrvsim, String fullvsim){
-        Vessel v  = vesselRepository.findByFullName(fullvsim);
-        if(v==null){
-            vesselRepository.save(new Vessel(abbrvsim,fullvsim));
+    public void createVessel(Vessel v){
+        if(vesselRepository.findByFullName(v.getFullvslm()) == null){
+            vesselRepository.save(v);
         }
     }
 

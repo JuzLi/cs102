@@ -10,9 +10,8 @@ public class BerthService {
     @Autowired
     BerthRepository berthRepository;
 
-    public void createBerth(String berthnum){
-        if(berthRepository.findByBerthNum(berthnum) == null){
-            Berth b = new Berth(berthnum);
+    public void createBerth(Berth b){
+        if(berthRepository.findByBerthNum(b.getBerthnum()) == null){
             berthRepository.save(b);
         }
     }

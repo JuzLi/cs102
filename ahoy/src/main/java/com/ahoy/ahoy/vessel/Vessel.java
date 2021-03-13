@@ -1,8 +1,10 @@
 package com.ahoy.ahoy.vessel;
 
+import com.ahoy.ahoy.voyage.Voyage;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "vessel")
@@ -14,6 +16,9 @@ public class Vessel {
 
     @Column(name = "fullvslm")
     private String fullvslm;
+
+    @OneToMany(mappedBy = "vessel")
+    private Set<Voyage> voyage;
 
     public Vessel(){};
 
