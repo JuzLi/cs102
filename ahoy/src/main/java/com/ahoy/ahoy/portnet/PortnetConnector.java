@@ -25,7 +25,7 @@ public class PortnetConnector {
         PortnetConnector.apiKey = value;
     }
 
-    public List<Vessel> getUpdate(String dateFrom, String dateTo) {
+    public JsonArray getUpdate(String dateFrom, String dateTo) {
 
         List<Vessel> vessels = new ArrayList<>();
 
@@ -42,32 +42,34 @@ public class PortnetConnector {
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
 
         ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
-
         if (response.getStatusCode() == HttpStatus.OK) {
             JsonObject jsonObject = JsonParser.parseString(Objects.requireNonNull(response.getBody())).getAsJsonObject();
-            JsonArray vesselArray = (JsonArray) jsonObject.get("results").getAsJsonArray();
-//            System.out.println(vesselArray);
-            Gson gson = new Gson();
-
-            for (int i = 0; i < vesselArray.size(); i++) {
-                JsonObject j = vesselArray.get(i).getAsJsonObject();
-                Vessel v = new Vessel(j.get("abbrVslM").getAsString(),j.get("fullVslM").getAsString());
-                vessels.add(v);
-                vesselRepository.save(v);
-            }
-
-//            for ( int i=0; i< vesselArray.size(); i++){
-//                Vessel v = new Vessel();
-//                v.setFullName(vesselArray.get(i).getAsString());
-//                v.setLongName(vesselArray.get(i).getAsString());
-//                v.setShortName(vesselArray.get(i).getAsString());
-//
-//                vessels.add(v);
-//            }
-            return vessels;
-            }
-        return null;
+            JsonArray postResults = (JsonArray) jsonObject.get("results").getAsJsonArray();
+            return postResults;
         }
+        return null;
+
+    }
+
+    public JsonObject getVesselDetails(String fullVslM, String inVoyN) {
+        String url = "https://api.portnet.com/extapi/vessels/predictedbtr/?vslvoy=";
+
+        String s = fullVslM + inVoyN;
+        String s2 = s.replaceAll("/", "");
+        String vslvoy = s2.replaceAll("\\s", "");
+        String getURL = url + vslvoy;
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Apikey", apiKey);
+        HttpEntity entity = new HttpEntity(headers);
+        ResponseEntity<String> response = restTemplate.exchange(getURL, HttpMethod.GET, entity, String.class);
+
+//        System.out.println(response.getBody());
+        JsonObject j = new Gson().fromJson(response.getBody(),JsonObject.class);
+        return j;
+    }
+
 
 }
 

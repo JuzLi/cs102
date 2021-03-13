@@ -3,8 +3,7 @@ use CS102;
 
 create table vessel
 ( abbrvsim varchar (100) not null primary key,
-  fullvsim varchar (100) not null,
-  vesselname varchar(100) not null
+  fullvsim varchar (100) not null
  );
  
  create table berth

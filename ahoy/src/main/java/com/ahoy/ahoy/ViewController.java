@@ -20,6 +20,9 @@ public class ViewController {
     @Autowired
     UserService userService;
 
+    @GetMapping("/")
+    public String landing(){return "landing";}
+
     @GetMapping("/homepage")
     public String homePage(){
         return "homepage";

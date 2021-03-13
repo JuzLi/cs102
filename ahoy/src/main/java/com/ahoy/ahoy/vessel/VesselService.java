@@ -16,15 +16,9 @@ public class VesselService {
     @Autowired
     private VesselRepository vesselRepository;
 
-//    public List<Vessel> doubleVessels(List<Vessel> l1){
-//        List<Vessel> returnList = new ArrayList<Vessel>();
-//        for(int i = 0; i < 2; i++){
-//            for(int j = 0; j < l1.size(); j++){
-//                returnList.add(l1.get(j));
-//            }
-//        }
-//        return returnList;
-//    }
+    @Autowired
+    PortnetConnector portnetConnector;
+
 
     public void createVessel(String abbrvsim, String fullvsim){
         Vessel v  = vesselRepository.findByFullName(fullvsim);
@@ -34,9 +28,10 @@ public class VesselService {
     }
 
 
-    @Scheduled(cron = "${vessel.timing}")
-    public void hello(){
-        System.out.println("Hello");
-    }
-    //main function, calls crud
+//    @Scheduled(cron = "${post.timing}")
+//    public void hello(){
+//        portnetConnector.getUpdate("2021-03-02", "2021-03-05");
+//        System.out.println("Hello");
+//    }
+
 }
