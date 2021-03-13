@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface VesselRepository extends JpaRepository <Vessel,Integer> {
 
-    @Query("Select v from Vessel v where v.longName = :name")
+    @Query("Select v from Vessel v where v.abbrvslm = :name")
     Vessel findByFullName(@Param("name") String name);
 
     //provides functions crud

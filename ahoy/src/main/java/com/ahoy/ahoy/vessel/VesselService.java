@@ -16,8 +16,6 @@ public class VesselService {
     @Autowired
     private VesselRepository vesselRepository;
 
-    @Autowired
-    PortnetConnector portnetConnector;
 
 
     public void createVessel(String abbrvsim, String fullvsim){
@@ -27,11 +25,5 @@ public class VesselService {
         }
     }
 
-
-//    @Scheduled(cron = "${post.timing}")
-//    public void hello(){
-//        portnetConnector.getUpdate("2021-03-02", "2021-03-05");
-//        System.out.println("Hello");
-//    }
 
 }

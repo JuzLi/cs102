@@ -1,9 +1,12 @@
 package com.ahoy.ahoy.scheduled;
 
 
+import com.ahoy.ahoy.berth.BerthService;
 import com.ahoy.ahoy.portnet.PortnetConnector;
 import com.ahoy.ahoy.vessel.VesselService;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,10 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import com.google.gson.*;
+
 
 @Service
 public class DatabaseUpdate {
@@ -25,6 +27,9 @@ public class DatabaseUpdate {
 
     @Autowired
     VesselService vesselService;
+
+    @Autowired
+    BerthService berthService;
 
     @Scheduled(cron = "${post.timing}")
     public void retrieveVesselsBerthing(){
@@ -44,6 +49,11 @@ public class DatabaseUpdate {
         for(int i = 0; i < results.size(); i++){
             JsonObject j = results.get(i).getAsJsonObject();
             vesselService.createVessel(j.get("abbrVslM").getAsString(),j.get("fullVslM").getAsString());
+
+            if(j.get("berthN") instanceof JsonNull == false){
+                berthService.createBerth(j.get("berthN").getAsString());
+            }
+            System.out.println(j);
         }
     }
 

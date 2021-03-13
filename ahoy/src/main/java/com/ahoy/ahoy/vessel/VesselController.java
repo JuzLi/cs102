@@ -3,6 +3,7 @@ package com.ahoy.ahoy.vessel;
 
 import com.ahoy.ahoy.portnet.PortnetConnector;
 import com.ahoy.ahoy.repo.VesselRepository;
+import com.ahoy.ahoy.scheduled.DatabaseUpdate;
 import com.ahoy.ahoy.user.User;
 import com.ahoy.ahoy.user.UserService;
 import com.google.gson.JsonArray;
@@ -21,6 +22,8 @@ import java.util.List;
 
 @RestController
 public class VesselController {
+    @Autowired
+    DatabaseUpdate databaseUpdate;
 
     @Autowired
     VesselRepository vesselRepository;
@@ -34,12 +37,18 @@ public class VesselController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/getRequest")
+    @GetMapping("/loadDB")
     public String allVesselsName(){
+        databaseUpdate.retrieveVesselsBerthing();
+
         JsonObject j = portnetConnector.getVesselDetails("APLCALIFORNIA", "E8PW1M");
         return j.get("NEXT_PORT_NAME").getAsString();
     }
 
+    @GetMapping("/findShip")
+    public Vessel findVessel(){
+        return vesselRepository.findByFullName("AAL SHANGHAI");
+    }
 
 
 

@@ -9,39 +9,40 @@ import javax.persistence.*;
 public class Vessel {
 
     @Id
-    @Column(name = "abbrvsim")
-    private String shortName;
+    @Column(name = "abbrvslm")
+    private String abbrvslm;
 
-    @Column(name = "fullvsim")
-    private String longName;
+    @Column(name = "fullvslm")
+    private String fullvslm;
 
     public Vessel(){};
-    public Vessel(String shortName, String longName) {
-        this.shortName = shortName;
-        this.longName = longName;
+
+    public Vessel(String abbrvslm, String fullvslm) {
+        this.abbrvslm = abbrvslm;
+        this.fullvslm = fullvslm;
     }
 
-    public String getShortName() {
-        return shortName;
+    public String getAbbrvslm() {
+        return abbrvslm;
     }
 
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
+    public void setAbbrvslm(String abbrvslm) {
+        this.abbrvslm = abbrvslm;
     }
 
-    public String getLongName() {
-        return longName;
+    public String getFullvslm() {
+        return fullvslm;
     }
 
-    public void setLongName(String longName) {
-        this.longName = longName;
+    public void setFullvslm(String fullvslm) {
+        this.fullvslm = fullvslm;
     }
 
     @Override
     public String toString() {
         return "Vessel{" +
-                "shortName='" + shortName + '\'' +
-                ", longName='" + longName + '\'' +
+                "abbrvslm='" + abbrvslm + '\'' +
+                ", fullvslm='" + fullvslm + '\'' +
                 '}';
     }
 }
