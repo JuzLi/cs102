@@ -85,7 +85,7 @@ public class DatabaseUpdate {
                 voyage.setBerth(b);
             }
             voyageService.createVoyage(voyage);
-            System.out.println(j);
+
         }
     }
 }

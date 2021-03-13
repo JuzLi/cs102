@@ -11,7 +11,7 @@ public class VoyageService {
     VoyageRepository voyageRepository;
 
     public void createVoyage(Voyage v){
-        if(voyageRepository.findByVoyageID(v.getVoyageID()) == null){
+        if(voyageRepository.findByPrimarykey(v.getVessel().getAbbrvslm(), v.getInvoyn()) == null){
             voyageRepository.save(v);
         }
     }
