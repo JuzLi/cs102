@@ -88,6 +88,11 @@ public class DatabaseUpdate {
 
         }
     }
+
+    @Scheduled(cron = "${get.timing}")
+    public void getVoyageDetails(){
+        
+    }
 }
 
 

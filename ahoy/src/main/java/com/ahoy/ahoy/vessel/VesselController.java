@@ -37,13 +37,7 @@ public class VesselController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/loadDB")
-    public String allVesselsName(){
-        databaseUpdate.retrieveVesselsBerthing();
 
-        JsonObject j = portnetConnector.getVesselDetails("APLCALIFORNIA", "E8PW1M");
-        return j.get("NEXT_PORT_NAME").getAsString();
-    }
 
     @GetMapping("/findShip")
     public Vessel findVessel(){

@@ -5,23 +5,23 @@ import com.ahoy.ahoy.vessel.Vessel;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "voyage")
-@IdClass(VoyageID.class)
+
 public class Voyage implements Serializable {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private int voyageID;
+    @EmbeddedId
+    private VoyagePK voyagePK;
 
-
-    @Id
+    @MapsId("abbrvslm")
     @ManyToOne
     @JoinColumn(name = "abbrvslm", insertable = false, updatable = false)
     private Vessel vessel;
 
-    @Id
-    private String invoyn;
 
     private String fullinvoyn;
     private String outvoyn;
@@ -33,25 +33,13 @@ public class Voyage implements Serializable {
     @JoinColumn(name = "berthnum")
     private Berth berth;
 
+    @OneToMany(mappedBy = "voyage")
+    Set<VoyageDetails> voyageDetailsSet;
+
     public Voyage() {
+        this.voyagePK = new VoyagePK();
     }
 
-//    public int getVoyageID() {
-//        return voyageID;
-//    }
-//
-//    public void setVoyageID(int voyageID) {
-//        this.voyageID = voyageID;
-//    }
-
-
-//    public String getAbbrvslm() {
-//        return abbrvslm;
-//    }
-//
-//    public void setAbbrvslm(String abbrvslm) {
-//        this.abbrvslm = abbrvslm;
-//    }
 
     public Vessel getVessel() {
         return vessel;
@@ -62,11 +50,11 @@ public class Voyage implements Serializable {
     }
 
     public String getInvoyn() {
-        return invoyn;
+        return this.voyagePK.getInvoyn();
     }
 
     public void setInvoyn(String invoyn) {
-        this.invoyn = invoyn;
+        this.voyagePK.setInvoyn(invoyn);
     }
 
     public String getFullinvoyn() {
@@ -115,5 +103,13 @@ public class Voyage implements Serializable {
 
     public void setBerth(Berth berth) {
         this.berth = berth;
+    }
+
+    public VoyagePK getVoyagePK() {
+        return voyagePK;
+    }
+
+    public void setVoyagePK(VoyagePK voyagePK) {
+        this.voyagePK = voyagePK;
     }
 }
