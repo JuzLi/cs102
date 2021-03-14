@@ -2,6 +2,8 @@ package com.ahoy.ahoy.portnet;
 
 import com.ahoy.ahoy.repo.VesselRepository;
 import com.ahoy.ahoy.vessel.Vessel;
+import com.ahoy.ahoy.voyage.Voyage;
+import com.ahoy.ahoy.voyage.VoyageService;
 import com.google.gson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +18,8 @@ public class PortnetConnector {
 
     @Autowired
     private VesselRepository vesselRepository;
+    @Autowired
+    private VoyageService voyageService;
 
     private static String apiKey;
 
@@ -51,12 +55,11 @@ public class PortnetConnector {
 
     }
 
-    public JsonObject getVesselDetails(String fullVslM, String inVoyN) {
+    public JsonObject getVesselDetails(Voyage voyage) {
         String url = "https://api.portnet.com/extapi/vessels/predictedbtr/?vslvoy=";
 
-        String s = fullVslM + inVoyN;
-        String s2 = s.replaceAll("/", "");
-        String vslvoy = s2.replaceAll("\\s", "");
+
+        String vslvoy = voyageService.generateVslvoy(voyage);
         String getURL = url + vslvoy;
 
         RestTemplate restTemplate = new RestTemplate();
@@ -65,7 +68,7 @@ public class PortnetConnector {
         HttpEntity entity = new HttpEntity(headers);
         ResponseEntity<String> response = restTemplate.exchange(getURL, HttpMethod.GET, entity, String.class);
 
-//        System.out.println(response.getBody());
+
         JsonObject j = new Gson().fromJson(response.getBody(),JsonObject.class);
         return j;
     }

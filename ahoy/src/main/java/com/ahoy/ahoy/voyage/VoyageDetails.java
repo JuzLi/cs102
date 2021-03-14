@@ -18,7 +18,7 @@ public class VoyageDetails implements Serializable {
     public VoyageDetailsPK voyageDetailsPK;
 
     private float avg_speed;
-    private float distance_to_go;
+    private int distance_to_go;
     private float max_speed;
     private int is_patching_activated;
     private String patching_predicted_btr;
@@ -55,11 +55,11 @@ public class VoyageDetails implements Serializable {
         this.avg_speed = avg_speed;
     }
 
-    public float getDistance_to_go() {
+    public int getDistance_to_go() {
         return distance_to_go;
     }
 
-    public void setDistance_to_go(float distance_to_go) {
+    public void setDistance_to_go(int distance_to_go) {
         this.distance_to_go = distance_to_go;
     }
 
