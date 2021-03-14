@@ -4,19 +4,23 @@ import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.vessel.Vessel;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "voyage")
-public class Voyage {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int voyageID;
+@IdClass(VoyageID.class)
+public class Voyage implements Serializable {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private int voyageID;
 
+
+    @Id
     @ManyToOne
-    @JoinColumn(name = "abbrvslm")
+    @JoinColumn(name = "abbrvslm", insertable = false, updatable = false)
     private Vessel vessel;
 
-
+    @Id
     private String invoyn;
 
     private String fullinvoyn;
@@ -32,13 +36,22 @@ public class Voyage {
     public Voyage() {
     }
 
-    public int getVoyageID() {
-        return voyageID;
-    }
+//    public int getVoyageID() {
+//        return voyageID;
+//    }
+//
+//    public void setVoyageID(int voyageID) {
+//        this.voyageID = voyageID;
+//    }
 
-    public void setVoyageID(int voyageID) {
-        this.voyageID = voyageID;
-    }
+
+//    public String getAbbrvslm() {
+//        return abbrvslm;
+//    }
+//
+//    public void setAbbrvslm(String abbrvslm) {
+//        this.abbrvslm = abbrvslm;
+//    }
 
     public Vessel getVessel() {
         return vessel;
