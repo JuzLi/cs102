@@ -16,22 +16,13 @@ public class VesselService {
     @Autowired
     private VesselRepository vesselRepository;
 
-    @Autowired
-    PortnetConnector portnetConnector;
 
 
-    public void createVessel(String abbrvsim, String fullvsim){
-        Vessel v  = vesselRepository.findByFullName(fullvsim);
-        if(v==null){
-            vesselRepository.save(new Vessel(abbrvsim,fullvsim));
+    public void createVessel(Vessel v){
+        if(vesselRepository.findByFullName(v.getFullvslm()) == null){
+            vesselRepository.save(v);
         }
     }
 
-
-//    @Scheduled(cron = "${post.timing}")
-//    public void hello(){
-//        portnetConnector.getUpdate("2021-03-02", "2021-03-05");
-//        System.out.println("Hello");
-//    }
 
 }

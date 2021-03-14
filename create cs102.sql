@@ -2,54 +2,53 @@ create schema CS102;
 use CS102;
 
 create table vessel
-( abbrvsim varchar (100) not null primary key,
-  fullvsim varchar (100) not null
+( abbrvslm varchar (100) not null primary key,
+  fullvslm varchar (100) not null
  );
  
  create table berth
  ( berthnum int not null primary key
  );
  
- create table berthvessel
- ( constraint berthvessel_pk primary key(abbrvsim,berthnum),
-   constraint berthsessel_fk1 foreign key (abbrvsim) references vessel(abbrvsim),
-   constraint berthVessel_fk2 foreign key (berthnum) references berth(berthnum),
-   abbrvsim varchar (100) not null,
-   berthnum int not null,
-   btrdt datetime not null,
-   unbthgdt datetime not null
-);
- 
-  create table voyageref
- ( outvoynum int not null primary key,
-   fullinvoynum int
- );
- 
- create table voyage
- ( constraint voyage_pk primary key(outvoyNum, abbrvsim),
-   constraint voyage_fk1 foreign key(outvoynum) references voyageref(outvoynum),
-   constraint voyage_fk2 foreign key(abbrvsim) references vessel(abbrvsim),
-   avgspeed decimal (5,2) not null,
-   maxspeed decimal (5,2) not null,
-   outvoynum int not null,
-   abbrvsim varchar(100) not null,
-   invoynum int not null,
-   Status varchar(20) not null,
-   distancetogo int not null,
-   ispatchingactivated bool not null,
-   patchingpredictedbtr datetime not null,
-   predictedbtr datetime not null,
-   voyagecodeinbound varchar(20) not null,
-   vslvoy varchar(100) not null
- );
-
-create table user(
+ create table user(
   username varchar(50) not null primary key,
   email varchar(50) not null,
   password varchar(64) not null,
   role varchar(45) not null,
   enabled tinyint(4) default null
 );
+ 
+create table voyage(
+abbrvslm varchar(100) not null,
+inVoyN varchar (8) not null,
+fullinvoyn varchar(12) not null,
+outvoyn varchar(12) not null,
+btrDt datetime not null,
+unbthgDt datetime not null,
+berthnum int not null,
+status varchar(20) not null,
+constraint voyage_pk primary key (abbrvslm, invoyn),
+constraint voyage_fk1 foreign key(abbrvslm) references vessel(abbrvslm),
+constraint voyage_fk2 foreign key (berthnum) references berth(berthnum)
+);
+
+ 
+create table voyagedetails(
+	id int not null auto_increment,
+    avg_speed float(5,2),
+    distance_to_go float (8,2),
+    max_speed float (5,2),
+    is_patching_activated int,
+    patching_predicted_btr datetime,
+    predicted_btr datetime,
+    abbrvslm varchar(100) not null,
+    invoyn varchar(8) not null,
+    vslvoy varchar(108) not null,
+    constraint voyagedetails primary key (id, abbrvslm, invoyn),
+    constraint voyagedetails foreign key (abbrvslm, invoyn) references voyage (abbrvslm, invoyn)
+);
+
+
 
 
 
@@ -57,21 +56,35 @@ create table alert(
  alerttype varchar(30) not null,
  alertcontent varchar (100) not null,
  alertdatetime datetime not null,
- outvoynum int not null,
+ invoyn int not null,
  abbrvsim varchar(100) not null,
- constraint alert_pk primary key(outvoynum,abbrvsim, alertdatetime),
- constraint alert_fk1 foreign key(outvoynum,abbrvsim) references voyage(outvoynum, abbrvsim)
+ id int not null,
+ constraint alert_pk primary key(id, abbrvslm, invoyn),
+ constraint alert_fk1 foreign key(id, abbrvslm, invoyn) references voyagedetails(id, abbrvslm, invoyn)
 );
 
-create table preferences(
- preferencetype varchar(30) not null,
- username varchar(50) not null,
- alertdatetime datetime not null,
- outvoynum int not null,
- abbrvsim varchar(100) not null,
- constraint preferences_pk primary key(outvoynum,abbrvsim, alertdatetime, username),
- constraint preferences_fk1 foreign key(outvoynum,abbrvsim,alertdatetime) references alert(outvoynum,abbrvsim,alertdatetime),
- constraint preferences_fk2 foreign key(username) references user(username)
- );
+create table berthpreference(
+username varchar(50) not null,
+berthnum int not null,
+constraint berthpreference_pk primary key (username, berthnum),
+constraint berthpreference_fk1 foreign key (username) references user(username),
+constraint berthpreference_fk2 foreign key (berthnum) references berth(berthnum)
+);
 
+create table vesselpreference(
+username varchar(50) not null,
+abbrvslm varchar (100) not null,
+constraint vesselpreference_pk primary key (username, abbrvslm),
+constraint vesselpreference_fk1 foreign key (username) references user(username),
+constraint vesselpreference_fk2 foreign key (abbrvslm) references vessel(abbrvslm)
+);
 
+create table userpreference(
+username varchar(50) not null,
+abbrvslm varchar(100) not null,
+berthnum int not null,
+constraint userpreference_pk primary key (username, abbrvslm),
+constraint userpreference_fk1 foreign key (username) references user(username),
+constraint userpreference_fk2 foreign key (abbrvslm) references vessel(abbrvslm),
+constraint userpreference_fk3 foreign key (berthnum) references berth(berthnum)
+);
