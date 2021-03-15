@@ -1,4 +1,4 @@
-package com.ahoy.ahoy.repo;
+package com.ahoy.ahoy.user;
 
 import com.ahoy.ahoy.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

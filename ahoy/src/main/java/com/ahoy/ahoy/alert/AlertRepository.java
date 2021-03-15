@@ -1,4 +1,4 @@
-package com.ahoy.ahoy.repo;
+package com.ahoy.ahoy.alert;
 
 import com.ahoy.ahoy.alert.Alert;
 import org.springframework.data.jpa.repository.JpaRepository;

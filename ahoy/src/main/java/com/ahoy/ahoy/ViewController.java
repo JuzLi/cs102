@@ -1,6 +1,6 @@
 package com.ahoy.ahoy;
 
-import com.ahoy.ahoy.repo.UserRepository;
+import com.ahoy.ahoy.user.UserRepository;
 import com.ahoy.ahoy.user.User;
 import com.ahoy.ahoy.user.UserService;
 import com.ahoy.ahoy.vessel.Vessel;

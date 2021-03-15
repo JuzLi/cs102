@@ -10,13 +10,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 @Service
 public class EmailService {
+    @Autowired
     private JavaMailSender javaMailSender;
 
 
 
-    @Autowired
-    public EmailService(JavaMailSender javaMailSender){
-        this.javaMailSender = javaMailSender;
+
+    public EmailService(){
+
     }
 
     public void sendEmail(Email email) throws MailException {

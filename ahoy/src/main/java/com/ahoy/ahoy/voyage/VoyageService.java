@@ -1,7 +1,5 @@
 package com.ahoy.ahoy.voyage;
 
-import com.ahoy.ahoy.repo.VoyageDetailsRepository;
-import com.ahoy.ahoy.repo.VoyageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

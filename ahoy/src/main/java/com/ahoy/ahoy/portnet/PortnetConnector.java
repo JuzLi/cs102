@@ -1,6 +1,6 @@
 package com.ahoy.ahoy.portnet;
 
-import com.ahoy.ahoy.repo.VesselRepository;
+import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.voyage.Voyage;
 import com.ahoy.ahoy.voyage.VoyageService;

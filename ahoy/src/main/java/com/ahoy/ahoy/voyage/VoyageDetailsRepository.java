@@ -1,4 +1,4 @@
-package com.ahoy.ahoy.repo;
+package com.ahoy.ahoy.voyage;
 
 import com.ahoy.ahoy.voyage.Voyage;
 import com.ahoy.ahoy.voyage.VoyageDetails;

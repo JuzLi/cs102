@@ -1,7 +1,6 @@
 package com.ahoy.ahoy.voyage;
 
 import com.ahoy.ahoy.alert.Alert;
-import com.ahoy.ahoy.repo.VoyageDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
