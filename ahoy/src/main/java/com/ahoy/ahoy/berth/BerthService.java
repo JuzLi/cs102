@@ -1,6 +1,5 @@
 package com.ahoy.ahoy.berth;
 
-import com.ahoy.ahoy.repo.BerthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

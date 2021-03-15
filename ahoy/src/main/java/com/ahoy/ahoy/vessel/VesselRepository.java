@@ -1,4 +1,4 @@
-package com.ahoy.ahoy.repo;
+package com.ahoy.ahoy.vessel;
 
 import com.ahoy.ahoy.vessel.Vessel;
 import com.google.gson.JsonArray;

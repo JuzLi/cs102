@@ -1,16 +1,15 @@
-package com.ahoy.ahoy.scheduled;
+package com.ahoy.ahoy.portnet;
 
 
 import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.berth.BerthService;
 import com.ahoy.ahoy.portnet.PortnetConnector;
-import com.ahoy.ahoy.repo.VoyageRepository;
+import com.ahoy.ahoy.voyage.VoyageRepository;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselService;
 import com.ahoy.ahoy.voyage.Voyage;
 import com.ahoy.ahoy.voyage.VoyageService;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
