@@ -53,17 +53,17 @@ create table voyagedetails(
 
 
 
--- create table alert(
---  alertid int not null primary key auto_increment,
---  alerttype varchar(30) not null,
---  alertcontent varchar (100) not null,
---  alertdatetime datetime not null,
---  invoyn varchar (8) not null,
---  abbrvslm varchar(100) not null,
---  voyagedetailsid int not null,
---  
---  constraint alert_fk1 foreign key(voyagedetailsid) references voyagedetails(voyagedetailsid)
--- );
+create table alert(
+ 
+ alerttype varchar(30) not null,
+ alertcontent varchar (100) not null,
+ alertdatetime datetime not null,
+ invoyn varchar (8) not null,
+ abbrvslm varchar(100) not null,
+ voyagedetailsid int not null,
+ constraint alert_pk primary key (abbrvslm,invoyn, voyagedetailsid),
+ constraint alert_fk1 foreign key(abbrvslm,invoyn,voyagedetailsid) references voyagedetails(abbrvslm,invoyn,voyagedetailsid)
+);
 
 -- create table berthpreference(
 -- bpid int not null primary key auto_increment,

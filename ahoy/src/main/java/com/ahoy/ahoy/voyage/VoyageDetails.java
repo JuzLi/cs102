@@ -1,8 +1,8 @@
 package com.ahoy.ahoy.voyage;
 
+import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.repo.VoyageDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,6 +34,9 @@ public class VoyageDetails implements Serializable {
     )
     @ManyToOne
     private Voyage voyage;
+
+    @OneToOne(mappedBy = "voyageDetails")
+    private Alert alert;
 
     public VoyageDetails() {
         this.voyageDetailsPK = new VoyageDetailsPK();

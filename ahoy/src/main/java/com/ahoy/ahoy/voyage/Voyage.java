@@ -34,7 +34,7 @@ public class Voyage implements Serializable {
     private Berth berth;
 
     @OneToMany(mappedBy = "voyage")
-    Set<VoyageDetails> voyageDetailsSet;
+    private Set<VoyageDetails> voyageDetailsSet;
 
     public Voyage() {
         this.voyagePK = new VoyagePK();
