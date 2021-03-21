@@ -1,6 +1,6 @@
 package com.ahoy.ahoy;
 
-import com.ahoy.ahoy.repo.UserRepository;
+import com.ahoy.ahoy.user.UserRepository;
 import com.ahoy.ahoy.user.User;
 import com.ahoy.ahoy.user.UserService;
 import com.ahoy.ahoy.vessel.Vessel;
@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ViewController {
@@ -21,16 +20,14 @@ public class ViewController {
     @Autowired
     UserService userService;
 
-
     @GetMapping("/")
-    public String landing(){
-        return "landing";
-    }
+    public String landing(){return "landing";}
 
     @GetMapping("/homepage")
     public String homePage(){
         return "homepage";
     }
+
 
     @GetMapping("/schedule")
     public String schedule(){
@@ -42,15 +39,6 @@ public class ViewController {
         return "settings";
     }
 
-    @RequestMapping("/signup")
-    public String signup(){
-        return "signup";
-    }
-
-    @GetMapping("/login")
-    public String loginPage(){
-        return "login";
-    }
 
     @GetMapping("/index")
     public String index(Model model){
