@@ -9,7 +9,6 @@ import javax.persistence.*;
 public class Alert {
     @EmbeddedId private AlertPK alertPK;
 
-    private String alerttype;
     private String alertcontent;
     private String alertdatetime;
 
@@ -30,14 +29,6 @@ public class Alert {
 
     public void setAlertPK(AlertPK alertPK) {
         this.alertPK = alertPK;
-    }
-
-    public String getAlerttype() {
-        return alerttype;
-    }
-
-    public void setAlerttype(String alerttype) {
-        this.alerttype = alerttype;
     }
 
     public String getAlertcontent() {
@@ -64,11 +55,14 @@ public class Alert {
         this.voyageDetails = voyageDetails;
     }
 
+    public void setAlerttype(String type){
+        this.alertPK.setAlerttype(type);
+    }
+
     @Override
     public String toString() {
         return "Alert{" +
                 "alertPK=" + alertPK +
-                ", alerttype='" + alerttype + '\'' +
                 ", alertcontent='" + alertcontent + '\'' +
                 ", alertdatetime='" + alertdatetime + '\'' +
                 ", voyageDetails=" + voyageDetails +
