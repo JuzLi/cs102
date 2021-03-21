@@ -1,11 +1,14 @@
 package com.ahoy.ahoy.voyage;
 
+import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.voyage.Voyage;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,4 +20,24 @@ public interface VoyageRepository extends JpaRepository<Voyage, Integer> {
 
     @Query("Select v from Voyage v where v.voyagePK.abbrvslm = :abbrvslm and v.voyagePK.invoyn = :invoyn")
     public Voyage findByPrimarykey(@Param("abbrvslm") String abbrvslm, @Param("invoyn") String invoyn);
+
+    @Transactional
+    @Modifying
+    @Query("update Voyage v set v.btrdt = :updateBtr where v.voyagePK = :voyagePK")
+    public void updateBtrdt(@Param("voyagePK") VoyagePK voyagePK, @Param("updateBtr") String updateBtr);
+
+    @Transactional
+    @Modifying
+    @Query("update Voyage v set v.unbthgdt = :updateUnbthgdt where v.voyagePK = :voyagePK")
+    public void updateUnbthgdt(@Param("voyagePK") VoyagePK voyagePK, @Param("updateUnbthgdt") String updateUnbthgdt);
+
+    @Transactional
+    @Modifying
+    @Query("update Voyage v set v.berth = :updateBerth where v.voyagePK = :voyagePK")
+    public void updateBerth(@Param("voyagePK") VoyagePK voyagePK, @Param("updateBerth") Berth berth);
+
+    @Transactional
+    @Modifying
+    @Query("update Voyage v set v.status = :updateStatus where v.voyagePK = :voyagePK")
+    public void updateStatus(@Param("voyagePK") VoyagePK voyagePK, @Param("updateStatus") String status);
 }

@@ -1,5 +1,6 @@
 package com.ahoy.ahoy.alert;
 
+import com.ahoy.ahoy.voyage.Voyage;
 import com.ahoy.ahoy.voyage.VoyageDetails;
 
 import javax.persistence.*;
@@ -12,12 +13,14 @@ public class Alert {
     private String alertcontent;
     private String alertdatetime;
 
-    @MapsId("voyageDetailsPK")
-    @JoinColumns({@JoinColumn(name = "abbrvslm", referencedColumnName = "abbrvslm"),
-            @JoinColumn(name = "invoyn", referencedColumnName = "invoyn"),
-            @JoinColumn(name = "voyagedetailsid", referencedColumnName = "voyagedetailsid")})
-    @OneToOne
-    private VoyageDetails voyageDetails;
+    @MapsId("voyagePK")
+    @JoinColumns({
+            @JoinColumn(name = "abbrvslm", referencedColumnName = "abbrvslm"),
+            @JoinColumn(name = "invoyn", referencedColumnName = "invoyn")
+    }
+    )
+    @ManyToOne
+    private Voyage voyage;
 
     public Alert() {
         this.alertPK = new AlertPK();
@@ -47,16 +50,20 @@ public class Alert {
         this.alertdatetime = alertdatetime;
     }
 
-    public VoyageDetails getVoyageDetails() {
-        return voyageDetails;
+    public Voyage getVoyage() {
+        return voyage;
     }
 
-    public void setVoyageDetails(VoyageDetails voyageDetails) {
-        this.voyageDetails = voyageDetails;
+    public void setVoyage(Voyage voyage) {
+        this.voyage = voyage;
     }
 
     public void setAlerttype(String type){
         this.alertPK.setAlerttype(type);
+    }
+
+    public void setAlertCount(int i){
+        this.alertPK.setAlertCount(i);
     }
 
     @Override
@@ -65,7 +72,7 @@ public class Alert {
                 "alertPK=" + alertPK +
                 ", alertcontent='" + alertcontent + '\'' +
                 ", alertdatetime='" + alertdatetime + '\'' +
-                ", voyageDetails=" + voyageDetails +
+                ", voyage=" + voyage +
                 '}';
     }
 }

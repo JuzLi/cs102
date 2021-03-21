@@ -5,7 +5,7 @@ import java.io.Serializable;
 @Embeddable
 public class VoyageDetailsPK implements Serializable {
     private VoyagePK voyagePK;
-    private int voyageDetailsID;
+    private int voyageDetailsID = 1;
 
     public VoyagePK getVoyagePK() {
         return voyagePK;

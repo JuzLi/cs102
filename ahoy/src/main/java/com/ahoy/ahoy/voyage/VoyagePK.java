@@ -28,4 +28,12 @@ public class VoyagePK implements Serializable {
     public void setInvoyn(String invoyn) {
         this.invoyn = invoyn;
     }
+
+    @Override
+    public String toString() {
+        return "VoyagePK{" +
+                "abbrvslm='" + abbrvslm + '\'' +
+                ", invoyn='" + invoyn + '\'' +
+                '}';
+    }
 }
