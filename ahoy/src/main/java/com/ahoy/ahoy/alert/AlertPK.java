@@ -9,11 +9,21 @@ import java.io.Serializable;
 public class AlertPK implements Serializable {
     private VoyageDetailsPK voyageDetailsPK;
 
+    public String alerttype;
+
     public VoyageDetailsPK getVoyageDetailsPK() {
         return voyageDetailsPK;
     }
 
     public void setVoyageDetailsPK(VoyageDetailsPK voyageDetailsPK) {
         this.voyageDetailsPK = voyageDetailsPK;
+    }
+
+    public String getAlerttype() {
+        return alerttype;
+    }
+
+    public void setAlerttype(String alerttype) {
+        this.alerttype = alerttype;
     }
 }
