@@ -32,6 +32,16 @@ public class ViewController {
         return "homepage";
     }
 
+    @GetMapping("/schedule")
+    public String schedule(){
+        return "schedule";
+    }
+
+    @GetMapping("/settings")
+    public String settings(){
+        return "settings";
+    }
+
     @RequestMapping("/signup")
     public String signup(){
         return "signup";
