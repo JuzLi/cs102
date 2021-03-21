@@ -27,19 +27,6 @@ public class ViewController {
     public String homePage(){
         return "homepage";
     }
-
-
-    @GetMapping("/schedule")
-    public String schedule(){
-        return "schedule";
-    }
-
-    @GetMapping("/settings")
-    public String settings(){
-        return "settings";
-    }
-
-
     @GetMapping("/index")
     public String index(Model model){
         model.addAttribute("vesselDetails", new Vessel());
