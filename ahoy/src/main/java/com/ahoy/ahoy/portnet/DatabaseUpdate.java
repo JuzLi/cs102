@@ -93,9 +93,7 @@ public class DatabaseUpdate {
                 voyageService.createVoyage(vessel, fullinvoyn, invoyn, outvoyn, bthgdt, unbthgdt,berth, status);
             }
             catch (Exception e){
-                //System.out.println(j);
                 System.out.println(e.getMessage());
-//                e.printStackTrace();
             }
 
         }

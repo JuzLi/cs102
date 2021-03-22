@@ -62,6 +62,7 @@ public class VoyageService {
         String vslvoy = temp1.replaceAll("\\s", "");
         return vslvoy;
     }
+
     public void createVoyageDetails(Voyage voyage, float avg, int distance, float max, int patching, String patching_predicted, String predicted){
         int alertCount = voyageDetailsRepository.countDetailsOfVoyage(voyage);
         alertCount++;
@@ -79,11 +80,18 @@ public class VoyageService {
             }
             voyageDetails.setPredicted_btr(predicted);
             voyageDetailsRepository.save(voyageDetails);
+            generateVoyageDetailsAlert(voyageDetails);
         } catch (Exception e){
             e.printStackTrace(System.out);
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public void generateVoyageDetailsAlert(VoyageDetails latest){
+        Voyage latest_voyage = latest.getVoyage();
+        VoyageDetails second_latest = findSecondLatestDetails(latest_voyage);
+        alertService.generateVoyageDetailsAlerts(second_latest,latest);
     }
 
     public String berthingTime(VoyageDetails voyageDetails){
