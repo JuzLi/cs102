@@ -9,9 +9,6 @@ import java.io.Serializable;
 @Entity
 @Table(name="voyagedetails")
 public class VoyageDetails implements Serializable {
-    @Transient
-    @Autowired
-    VoyageDetailsRepository voyageDetailsRepository;
 
     @EmbeddedId
     public VoyageDetailsPK voyageDetailsPK;
@@ -33,9 +30,6 @@ public class VoyageDetails implements Serializable {
     )
     @ManyToOne
     private Voyage voyage;
-
-    @OneToOne(mappedBy = "voyageDetails")
-    private Alert alert;
 
     public VoyageDetails() {
         this.voyageDetailsPK = new VoyageDetailsPK();

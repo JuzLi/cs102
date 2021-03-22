@@ -8,163 +8,40 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="style.css">
+    <link th:href="@{/styles/style.css}" rel="stylesheet" />
+
+
     <style>
-        body, html {
+      body, html {
       background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9) ), url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  box-shadow: 2px 2px 10px rgb(36, 152, 202);
-  margin: 0;
-  padding: 0;
-  font-family: 'Open Sans', sans-serif;
-}
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      box-shadow: 2px 2px 10px rgb(36, 152, 202);
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      }
 
-::selection {
-  background: rgba(19, 97, 241, 0.5);
-  color: rgb(24, 120, 175);
-}
-::-moz-selection {
-  background: rgba(0, 0, 0, 0.5);
-  color:rgba(40, 188, 225, 0.856);
-}
+    </style>
 
-.mobile-screen{
-  position: absolute;
-  margin: auto;
-  top: 0; left: 0; bottom: 0; right: 0;
-  width: 300px;
-  height: 300px;
-  background: rgba(3,3,3,.7);
-  overflow: hidden;
-}
-
-.header{
-  position: relative;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: auto;
-  background: rgba(3,3,3,.1);
-}
-
-h1{
-  margin: 0;
-  padding: 10px 0;
-  text-align: center;
-  font-weight: 300;
-  font-size: 21px;
-  font-family: 'Open Sans Condensed', sans-serif;
-  letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.918);
-  font-weight: bold;
-
-}
-
-.logo{
-  position: relative;
-  top: 30px;
-  width: 150px;
-  height: 150px;
-  margin: auto;
-  background: url(https://s10.postimg.org/z6xqdowix/imageedit_1_8168502978.gif) no-repeat center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  -webkit-transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
-}
-
-form{
-  position: absolute;
-  bottom: 50px;
-  width: 100%;
-}
-
-input,
-.login-btn{
-  font-family: 'Open Sans', sans-serif;
-  position: relative;
-  display: block;
-  margin: 20px auto;
-  padding: 10px;
-  width: 84%;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
-
-.login-btn1{
-  font-family: 'Open Sans', sans-serif;
-  position: relative;
-  display: block;
-  margin: 20px auto;
-  padding: 10px;
-  width: 84%;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
-
-
-a{
-  text-decoration: none;
-}
-
-.login-btn{
-  position:absolute;
-  left:25px;
-  bottom:90px;
-  border-radius: 4px;
-  text-align: center;
-  background:rgba(231, 231, 231, 0.931);
-  color: rgb(39, 39, 39);
-
-}
-
-.login-btn1{
-  position:absolute;
-  left:25px;
-  bottom:10px;
-  border-radius: 4px;
-  text-align: center;
-  background:rgba(231, 231, 231, 0.931);
-  color: rgb(39, 39, 39);
-}
-
-#fpass-form,
-#registration-form{
-  display: none;
-}
-
-/* Change colors container */
-.change-colors-container{
-  position: absolute;
-  height: 300px;
-  width: 50px;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  background: rgba(255, 255, 255, 0.884);
-}
-        </style>
 </head>
-<!-- <body>
-   Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<div class="mobile-screen">
+
+
+<body>
+    <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  
+  <div class="centerbox">
     <div class="header">
-        <h1 style="color: rgb(211, 211, 211);">AHOY</h1>
-        <p style="color: rgb(211, 211, 211); font-family: 'Open Sans Condensed', sans-serif; font-weight:150;" class="text-center">Where shipment is made easy</p>
+        <h4 style="color: rgb(211, 211, 211); padding: 10px 0; font-family: 'Open Sans Condensed', sans-serif; font-weight:bold;" class="text-center">AHOY</h1>
+        <p style="color: rgb(211, 211, 211); font-family: 'Open Sans Condensed', sans-serif; font-weight:150;" class="text-center">Making your life easier</p>
     </div>
 
     <div class="logo"></div>
@@ -176,6 +53,6 @@ a{
     </form>
 
 
-</div>
+  </div>
 </body>
 </html>

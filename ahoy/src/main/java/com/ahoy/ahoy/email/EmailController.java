@@ -21,7 +21,7 @@ public class EmailController {
             Email msg = new Email();
             msg.setName("Jonathan");
             msg.setEmailAddress("arvin.aik.2020@sis.smu.edu.sg");
-            msg.setMessage("Ahoy " + msg.getName() + ", this is an automated alert from AHOY.");
+//            msg.setMessage("Ahoy " + msg.getName() + ", this is an automated alert from AHOY.");
 
             emailService.sendEmail(msg);
             System.out.println("email sent");

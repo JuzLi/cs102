@@ -1,0 +1,161 @@
+.body.html {
+  font-family: 'Open Sans', sans-serif;
+}
+/* For landing page */
+
+
+
+::selection {
+background: rgba(19, 97, 241, 0.5);
+color: rgb(24, 120, 175);
+}
+::-moz-selection {
+background: rgba(0, 0, 0, 0.5);
+color:rgba(40, 188, 225, 0.856);
+}
+
+.centerbox{
+position: absolute;
+margin: auto;
+top: 0; left: 0; bottom: 0; right: 0;
+width: 300px;
+height: 300px;
+background: rgba(3,3,3,.7);
+overflow: hidden;
+}
+
+.header{
+position: relative;
+margin: 0;
+padding: 0;
+width: 100%;
+height: auto;
+background: rgba(3,3,3,.1);
+}
+
+
+.logo{
+position: relative;
+top: 30px;
+width: 150px;
+height: 150px;
+margin: auto;
+background: url(https://s10.postimg.org/z6xqdowix/imageedit_1_8168502978.gif) no-repeat center;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+-webkit-transition: all .2s ease-in-out;
+-moz-transition: all .2s ease-in-out;
+-o-transition: all .2s ease-in-out;
+transition: all .2s ease-in-out;
+}
+
+form{
+position: absolute;
+bottom: 50px;
+width: 100%;
+}
+
+input,
+.login-btn{
+font-family: 'Open Sans', sans-serif;
+position: relative;
+display: block;
+margin: 20px auto;
+padding: 10px;
+width: 84%;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+}
+
+.login-btn1{
+font-family: 'Open Sans', sans-serif;
+position: relative;
+display: block;
+margin: 20px auto;
+padding: 10px;
+width: 84%;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+}
+
+
+a{
+text-decoration: none;
+}
+
+.login-btn{
+position:absolute;
+left:25px;
+bottom:90px;
+border-radius: 4px;
+text-align: center;
+background:rgba(231, 231, 231, 0.931);
+color: rgb(39, 39, 39);
+
+}
+
+.login-btn1{
+position:absolute;
+left:25px;
+bottom:10px;
+border-radius: 4px;
+text-align: center;
+background:rgba(231, 231, 231, 0.931);
+color: rgb(39, 39, 39);
+}
+
+
+
+/* hompage and settings */
+
+.navbar {
+  box-shadow: inset 0 -1px 0 #0000001a;
+    background-color:rgb(34, 34, 34)
+}
+
+@media (min-width: 767.98px) {
+  .navbar {
+    top: 0;
+    position: sticky;
+    z-index: 999;
+  }
+}
+
+.nav-link {
+  color: rgb(255, 255, 255);
+  font-family: 'Open Sans', sans-serif;
+ font-weight: bold;
+}
+
+.navbar-brand{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    padding-left:11px;
+}
+.card-header{
+  background-color:rgb(34, 34, 34);
+  color: white;
+}
+.table {
+  font-family: 'Open Sans', sans-serif;
+  overflow-y: scroll;
+  height: 300px;
+  display: block;
+  text-align: center;
+
+}
+
+.table>thead>tr>th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: rgb(255, 255, 255);
+
+}
+

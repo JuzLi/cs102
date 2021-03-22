@@ -1,5 +1,6 @@
 package com.ahoy.ahoy.voyage;
 
+import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.vessel.Vessel;
 
@@ -19,7 +20,7 @@ public class Voyage implements Serializable {
 
     @MapsId("abbrvslm")
     @ManyToOne
-    @JoinColumn(name = "abbrvslm", insertable = false, updatable = false)
+    @JoinColumn(name = "abbrvslm")
     private Vessel vessel;
 
 
@@ -35,6 +36,9 @@ public class Voyage implements Serializable {
 
     @OneToMany(mappedBy = "voyage")
     private Set<VoyageDetails> voyageDetailsSet;
+
+    @OneToMany(mappedBy = "voyage")
+    private Set<Alert> alertSet;
 
     public Voyage() {
         this.voyagePK = new VoyagePK();
@@ -111,5 +115,21 @@ public class Voyage implements Serializable {
 
     public void setVoyagePK(VoyagePK voyagePK) {
         this.voyagePK = voyagePK;
+    }
+
+    @Override
+    public String toString() {
+        return "Voyage{" +
+                "voyagePK=" + voyagePK +
+                ", vessel=" + vessel +
+                ", fullinvoyn='" + fullinvoyn + '\'' +
+                ", outvoyn='" + outvoyn + '\'' +
+                ", btrdt='" + btrdt + '\'' +
+                ", unbthgdt='" + unbthgdt + '\'' +
+                ", status='" + status + '\'' +
+                ", berth=" + berth +
+                ", voyageDetailsSet=" + voyageDetailsSet +
+                ", alertSet=" + alertSet +
+                '}';
     }
 }
