@@ -2,8 +2,9 @@ package com.ahoy.ahoy.portnet;
 
 
 import com.ahoy.ahoy.berth.Berth;
+import com.ahoy.ahoy.berth.BerthRepository;
 import com.ahoy.ahoy.berth.BerthService;
-import com.ahoy.ahoy.portnet.PortnetConnector;
+import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.voyage.VoyageRepository;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselService;
@@ -32,10 +33,12 @@ public class DatabaseUpdate {
 
     @Autowired
     VesselService vesselService;
-
+    @Autowired
+    VesselRepository vesselRepository;
     @Autowired
     BerthService berthService;
-
+    @Autowired
+    BerthRepository berthRepository;
     @Autowired
     VoyageService voyageService;
 
@@ -57,40 +60,44 @@ public class DatabaseUpdate {
         temp = c.getTime();
         String dateTo = dateFormat.format(temp);
         JsonArray results = portnetConnector.getUpdate(dateFrom, dateTo);
-
         for (int i = 0; i < results.size(); i++) {
             JsonObject j = results.get(i).getAsJsonObject();
             Vessel v = new Vessel();
             Berth b = new Berth();
-            Voyage voyage = new Voyage();
+
 
 
             v.setAbbrvslm(j.get("abbrVslM").getAsString());
             v.setFullvslm(j.get("fullVslM").getAsString());
             vesselService.createVessel(v);
-
-
+            Vessel vessel = vesselRepository.findByShortName(j.get("abbrVslM").getAsString());
+            Berth berth = null;
             if (j.get("berthN") instanceof JsonNull == false) {
                 b.setBerthnum(j.get("berthN").getAsString());
                 berthService.createBerth(b);
+                berth = berthRepository.findByBerthNum(j.get("berthN").getAsString());
             }
 
 
-            voyage.setVessel(v);
-            voyage.setInvoyn(j.get("inVoyN").getAsString());
-            voyage.setBtrdt(j.get("bthgDt").getAsString());
-            voyage.setOutvoyn(j.get("outVoyN").getAsString());
-            voyage.setUnbthgdt(j.get("unbthgDt").getAsString());
-            voyage.setStatus(j.get("status").getAsString());
+            String invoyn = j.get("inVoyN").getAsString();
+            String bthgdt = j.get("bthgDt").getAsString();
+            String outvoyn = j.get("outVoyN").getAsString();
+            String unbthgdt = j.get("unbthgDt").getAsString();
+            String status = j.get("status").getAsString();
+            String fullinvoyn = null;
             if (j.get("fullInVoyN") instanceof JsonNull == false) {
-                voyage.setFullinvoyn(j.get("fullInVoyN").getAsString());
+                fullinvoyn = j.get("fullInVoyN").getAsString();
             }
-            if(b.getBerthnum() != null){
-                voyage.setBerth(b);
+
+            try{
+                voyageService.createVoyage(vessel, fullinvoyn, invoyn, outvoyn, bthgdt, unbthgdt,berth, status);
             }
-            voyageService.createVoyage(voyage);
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
 
         }
+
     }
 
     @Scheduled(cron = "${get.timing}")
@@ -127,7 +134,6 @@ public class DatabaseUpdate {
                 Thread.currentThread().interrupt();
             }
         }
-
     }
 }
 

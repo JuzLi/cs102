@@ -18,7 +18,7 @@ public class Vessel {
     private String fullvslm;
 
     @OneToMany(mappedBy = "vessel")
-    private Set<Voyage> voyage;
+    private Set<Voyage> voyageSet;
 
     public Vessel(){};
 
