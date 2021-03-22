@@ -1,5 +1,6 @@
 package com.ahoy.ahoy.vessel;
 
+import com.ahoy.ahoy.user.VesselPreferences;
 import com.ahoy.ahoy.voyage.Voyage;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,9 @@ public class Vessel {
 
     @OneToMany(mappedBy = "vessel")
     private Set<Voyage> voyageSet;
+
+    @OneToMany(mappedBy = "vessel")
+    private Set<VesselPreferences> vesselPreferencesSet;
 
     public Vessel(){};
 

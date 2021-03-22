@@ -1,4 +1,4 @@
-package com.ahoy.ahoy.voyage;
+package com.ahoy.ahoy.test;
 
 
 import com.ahoy.ahoy.alert.Alert;
@@ -7,19 +7,28 @@ import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.berth.BerthRepository;
 import com.ahoy.ahoy.portnet.PortnetConnector;
 import com.ahoy.ahoy.alert.AlertRepository;
+import com.ahoy.ahoy.user.User;
+import com.ahoy.ahoy.user.UserService;
+import com.ahoy.ahoy.user.VesselPreferences;
+import com.ahoy.ahoy.user.VesselPreferencesRepository;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.portnet.DatabaseUpdate;
+import com.ahoy.ahoy.voyage.Voyage;
+import com.ahoy.ahoy.voyage.VoyageDetails;
+import com.ahoy.ahoy.voyage.VoyageRepository;
+import com.ahoy.ahoy.voyage.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 @RestController
-public class VoyageController {
+public class TestController {
 
     @Autowired
     VoyageService voyageService;
@@ -31,8 +40,10 @@ public class VoyageController {
     DatabaseUpdate databaseUpdate;
     @Autowired
     BerthRepository berthRepository;
-
-
+    @Autowired
+    UserService userService;
+    @Autowired
+    VesselPreferencesRepository vesselPreferencesRepository;
     @Autowired
     AlertService alertService;
     @Autowired
@@ -70,6 +81,28 @@ public class VoyageController {
             e.printStackTrace();
         }
         return "success";
+    }
+
+    @GetMapping("/test4")
+    public VesselPreferences createPreference(){
+        User u = userService.getCurrentUser();
+        VesselPreferences vp = new VesselPreferences();
+        vp.setUser(u);
+        Vessel v = vesselRepository.findByShortName("ACTUARIA");
+        vp.setVessel(v);
+        vesselPreferencesRepository.save(vp);
+        return vp;
+    }
+
+    @RequestMapping(value = "/test5", method = RequestMethod.POST)
+    public List<Vessel> test5(@RequestBody String vesselname){
+        System.out.println(vesselname);
+        return vesselRepository.findVesselsLike(vesselname);
+    }
+
+    @GetMapping("/test6")
+    public List<Vessel> test6(){
+        return userService.subscribedVessels();
     }
 
 
