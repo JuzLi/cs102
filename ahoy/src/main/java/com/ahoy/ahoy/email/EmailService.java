@@ -25,7 +25,7 @@ public class EmailService {
         mail.setTo(email.getEmailAddress());
         mail.setFrom("ahoy.alert@gmail.com");
         mail.setSubject("Alert! <Alert Details>");
-        mail.setText(email.getMessage());
+//        mail.setText(email.getMessage());
 
         javaMailSender.send(mail);
     }

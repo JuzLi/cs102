@@ -66,7 +66,9 @@ public class AlertService {
 
     public void createSpeedAlert(VoyageDetails secondLast, VoyageDetails last){
         String content = null;
+
         String alertType = "Change in Average Speed";
+
         double last_average_speed = last.getAvg_speed();
         double secondLast_average_speed = secondLast.getAvg_speed();
         if(last_average_speed - secondLast_average_speed == 0){
@@ -74,8 +76,10 @@ public class AlertService {
         }
         Alert alert = new Alert();
         alert.setVoyage(last.getVoyage());
+
         alert.setAlerttype(alertType);
         alert.setAlertCount(generateNewAlertCount(last.getVoyage(),alertType));
+
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
 
         if(last_average_speed > secondLast_average_speed){
@@ -91,11 +95,13 @@ public class AlertService {
 
     public void createSpeedAlert(VoyageDetails last){
         double last_average_speed = last.getAvg_speed();
+
         String alertType = "Change in Average Speed";
         Alert alert = new Alert();
         alert.setVoyage(last.getVoyage());
         alert.setAlerttype(alertType);
         alert.setAlertCount(generateNewAlertCount(last.getVoyage(),alertType));
+
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
         String content = "Average speed is " + last_average_speed;
         alert.setAlertcontent(content);
@@ -105,8 +111,10 @@ public class AlertService {
     public void createBtrAlert(VoyageDetails secondLast, VoyageDetails last){
         String secondLast_Btr_String = voyageService.berthingTime(secondLast);
         String last_Btr_String = voyageService.berthingTime(last);
+
         LocalDateTime last_Btr = parseDateTimeString(last_Btr_String);
         LocalDateTime secondLast_Btr = parseDateTimeString(secondLast_Btr_String);
+
 
 
         if(last_Btr.isEqual(secondLast_Btr)){
@@ -119,6 +127,7 @@ public class AlertService {
 
     public void createBtrAlert(VoyageDetails last){
         String content = null;
+
         String alertType = "Change in Berthing Time";
         String last_Btr_String = voyageService.berthingTime(last);
         Voyage voyage = last.getVoyage();
@@ -130,6 +139,7 @@ public class AlertService {
         alert.setVoyage(last.getVoyage());
         alert.setAlerttype(alertType);
         alert.setAlertCount(generateNewAlertCount(last.getVoyage(),alertType));
+
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
 
         if(last_Btr.isEqual(voyage_Btr)){
@@ -148,6 +158,7 @@ public class AlertService {
 
     public void createBtrAlert(Voyage voyage, String updatedBtrString){
         String content = null;
+
         String alertType = "Change in Berthing Time";
         String voyage_Btr_String = voyage.getBtrdt();
 
@@ -155,13 +166,16 @@ public class AlertService {
         LocalDateTime voyage_Btr = parseDateTimeString(voyage_Btr_String);
 
 
+
         if(updatedBtr.isEqual(voyage_Btr)){
             return;
         }
         Alert alert = new Alert();
         alert.setVoyage(voyage);
+
         alert.setAlerttype(alertType);
         alert.setAlertCount(generateNewAlertCount(voyage,alertType));
+
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
 
 
@@ -181,7 +195,6 @@ public class AlertService {
         String voyage_Unbtr_String = voyage.getBtrdt();
         LocalDateTime updatedUnbtr = parseDateTimeString(updatedUnbtrString);
         LocalDateTime voyage_Unbtr = parseDateTimeString(voyage_Unbtr_String);
-
         if(updatedUnbtr.isEqual(voyage_Unbtr)){
             return;
         }
@@ -243,6 +256,7 @@ public class AlertService {
         alert.setVoyage(voyage);
         alert.setAlerttype(alertType);
         alert.setAlertCount(generateNewAlertCount(voyage,alertType));
+
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
         content = "Vessel is now " + updatedStatus;
         alert.setAlertcontent(content);
@@ -255,7 +269,7 @@ public class AlertService {
         createBerthNumAlert(voyage, updatedBerth);
         createStatusAlert(voyage,updatedStatus);
     }
-
+  
     public void generateVoyageDetailsAlerts(VoyageDetails second_latest, VoyageDetails latest){
         try {
             if (second_latest == null) {
@@ -268,4 +282,5 @@ public class AlertService {
             e.printStackTrace();
         }
     }
+
 }

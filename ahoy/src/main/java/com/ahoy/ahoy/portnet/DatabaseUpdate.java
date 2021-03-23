@@ -94,6 +94,7 @@ public class DatabaseUpdate {
             }
             catch (Exception e){
                 System.out.println(e.getMessage());
+
             }
 
         }
