@@ -25,9 +25,11 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
+@CrossOrigin
 public class TestController {
 
     @Autowired
@@ -83,21 +85,24 @@ public class TestController {
         return "success";
     }
 
-    @GetMapping("/test4")
-    public VesselPreferences createPreference(){
-        User u = userService.getCurrentUser();
-        VesselPreferences vp = new VesselPreferences();
-        vp.setUser(u);
-        Vessel v = vesselRepository.findByShortName("ACTUARIA");
-        vp.setVessel(v);
-        vesselPreferencesRepository.save(vp);
-        return vp;
+    @ResponseBody
+    @RequestMapping(path = "/test4", method = RequestMethod.POST)
+    public List<Vessel> test4(@RequestParam("abbrvslm") String name){
+
+        return vesselRepository.findVesselsLike(name);
+
     }
 
-    @RequestMapping(value = "/test5", method = RequestMethod.POST)
-    public List<Vessel> test5(@RequestBody String vesselname){
-        System.out.println(vesselname);
-        return vesselRepository.findVesselsLike(vesselname);
+    @ResponseBody
+    @RequestMapping(path = "/test5", method = RequestMethod.POST)
+    public List<Vessel> test5(@RequestBody Map<String,String> map){
+//        System.out.println(vesselname);
+//        System.out.println(map.toString());
+        List<Vessel> vesselList= vesselRepository.findVesselsLike(map.get("abbrvslm"));
+        Vessel v = vesselList.get(0);
+        System.out.println(v);
+        return vesselRepository.findVesselsLike(map.get("abbrvslm"));
+
     }
 
     @GetMapping("/test6")
