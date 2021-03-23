@@ -34,3 +34,11 @@ application.properties
 
 ### VS Code ###
 .vscode/
+
+
+.DS_Store
+ahoy/.DS_Store
+ahoy/src/.DS_Store
+ahoy/src/main/.DS_Store
+ahoy/src/main/resources/.DS_Store
+ahoy/src/main/resources/application.properties

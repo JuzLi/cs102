@@ -1,4 +1,4 @@
-package com.ahoy.ahoy.voyage;
+package com.ahoy.ahoy.test;
 
 
 import com.ahoy.ahoy.alert.Alert;
@@ -7,19 +7,30 @@ import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.berth.BerthRepository;
 import com.ahoy.ahoy.portnet.PortnetConnector;
 import com.ahoy.ahoy.alert.AlertRepository;
+import com.ahoy.ahoy.user.User;
+import com.ahoy.ahoy.user.UserService;
+import com.ahoy.ahoy.user.VesselPreferences;
+import com.ahoy.ahoy.user.VesselPreferencesRepository;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.portnet.DatabaseUpdate;
+import com.ahoy.ahoy.voyage.Voyage;
+import com.ahoy.ahoy.voyage.VoyageDetails;
+import com.ahoy.ahoy.voyage.VoyageRepository;
+import com.ahoy.ahoy.voyage.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
-public class VoyageController {
+@CrossOrigin
+public class TestController {
 
     @Autowired
     VoyageService voyageService;
@@ -31,21 +42,23 @@ public class VoyageController {
     DatabaseUpdate databaseUpdate;
     @Autowired
     BerthRepository berthRepository;
-
-
+    @Autowired
+    UserService userService;
+    @Autowired
+    VesselPreferencesRepository vesselPreferencesRepository;
     @Autowired
     AlertService alertService;
     @Autowired
     AlertRepository alertRepository;
 
-    @GetMapping("/test")
+    @GetMapping("/test/1")
     public String allVesselsName(){
         databaseUpdate.retrieveVesselsBerthing();
         databaseUpdate.getVoyageDetails();
         return "Success";
     }
 
-    @GetMapping("/test2")
+    @GetMapping("/test/2")
     public String alert(){
         Voyage voyage = voyageRepository.findByPrimarykey("ALS JUPITER", "109S");
         VoyageDetails voyageDetails = voyageService.findLatestDetails(voyage);
@@ -60,7 +73,7 @@ public class VoyageController {
     }
 
 
-    @GetMapping("/test3")
+    @GetMapping("/test/3")
     public String generateAutoAlert(){
         Vessel v = vesselRepository.findByShortName("ABHIMATA 1");
         Berth b = berthRepository.findByBerthNum("K09");
@@ -70,6 +83,28 @@ public class VoyageController {
             e.printStackTrace();
         }
         return "success";
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/test/4", method = RequestMethod.POST)
+    public List<Vessel> test4(@RequestParam("abbrvslm") String name){
+
+        return vesselRepository.findVesselsLike(name);
+
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/test/5", method = RequestMethod.POST)
+    public List<Vessel> test5(@RequestBody Map<String,String> map){
+        return vesselRepository.findVesselsLike(map.get("abbrvslm"));
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/test/6", method = RequestMethod.POST)
+    public String test6(@RequestBody Map<String,String> map){
+        Vessel v = vesselRepository.findByShortName(map.get("abbrvslm"));
+        userService.createVesselPreference(v);
+        return "Success";
     }
 
 

@@ -72,13 +72,13 @@ create table alert(
 -- constraint berthpreference_fk2 foreign key (berthnum) references berth(berthnum)
 -- );
 
--- create table vesselpreference(
--- vpid int not null primary key auto_increment,
--- username varchar(50) not null,
--- abbrvslm varchar (100) not null,
--- constraint vesselpreference_fk1 foreign key (username) references user(username),
--- constraint vesselpreference_fk2 foreign key (abbrvslm) references vessel(abbrvslm)
--- );
+create table vesselpreference(
+username varchar(50) not null,
+abbrvslm varchar (100) not null,
+constraint vesselpreference_pk primary key (username, abbrvslm),
+constraint vesselpreference_fk1 foreign key (username) references user(username),
+constraint vesselpreference_fk2 foreign key (abbrvslm) references vessel(abbrvslm)
+);
 
 -- create table userpreference(
 -- upid int not null primary key auto_increment,

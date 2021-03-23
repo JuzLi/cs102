@@ -2,7 +2,9 @@ package com.ahoy.ahoy.user;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -19,6 +21,8 @@ public class User {
 
     private int enabled = 1;
 
+    @OneToMany(mappedBy = "user")
+    private Set<VesselPreferences>  vesselPreferencesSet;
 
     public User() {
     }

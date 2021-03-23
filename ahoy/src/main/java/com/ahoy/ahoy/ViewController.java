@@ -70,4 +70,9 @@ public class ViewController {
         }
     }
 
+    @GetMapping("/vpref")
+    public String vpref(){
+        return "vesselSubscriptions";
+    }
+
 }
