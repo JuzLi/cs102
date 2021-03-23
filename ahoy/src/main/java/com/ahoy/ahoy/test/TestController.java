@@ -51,14 +51,14 @@ public class TestController {
     @Autowired
     AlertRepository alertRepository;
 
-    @GetMapping("/test")
+    @GetMapping("/test/1")
     public String allVesselsName(){
         databaseUpdate.retrieveVesselsBerthing();
         databaseUpdate.getVoyageDetails();
         return "Success";
     }
 
-    @GetMapping("/test2")
+    @GetMapping("/test/2")
     public String alert(){
         Voyage voyage = voyageRepository.findByPrimarykey("ALS JUPITER", "109S");
         VoyageDetails voyageDetails = voyageService.findLatestDetails(voyage);
@@ -73,7 +73,7 @@ public class TestController {
     }
 
 
-    @GetMapping("/test3")
+    @GetMapping("/test/3")
     public String generateAutoAlert(){
         Vessel v = vesselRepository.findByShortName("ABHIMATA 1");
         Berth b = berthRepository.findByBerthNum("K09");
@@ -86,7 +86,7 @@ public class TestController {
     }
 
     @ResponseBody
-    @RequestMapping(path = "/test4", method = RequestMethod.POST)
+    @RequestMapping(path = "/test/4", method = RequestMethod.POST)
     public List<Vessel> test4(@RequestParam("abbrvslm") String name){
 
         return vesselRepository.findVesselsLike(name);
@@ -94,20 +94,17 @@ public class TestController {
     }
 
     @ResponseBody
-    @RequestMapping(path = "/test5", method = RequestMethod.POST)
+    @RequestMapping(path = "/test/5", method = RequestMethod.POST)
     public List<Vessel> test5(@RequestBody Map<String,String> map){
-//        System.out.println(vesselname);
-//        System.out.println(map.toString());
-        List<Vessel> vesselList= vesselRepository.findVesselsLike(map.get("abbrvslm"));
-        Vessel v = vesselList.get(0);
-        System.out.println(v);
         return vesselRepository.findVesselsLike(map.get("abbrvslm"));
-
     }
 
-    @GetMapping("/test6")
-    public List<Vessel> test6(){
-        return userService.subscribedVessels();
+    @ResponseBody
+    @RequestMapping(path = "/test/6", method = RequestMethod.POST)
+    public String test6(@RequestBody Map<String,String> map){
+        Vessel v = vesselRepository.findByShortName(map.get("abbrvslm"));
+        userService.createVesselPreference(v);
+        return "Success";
     }
 
 

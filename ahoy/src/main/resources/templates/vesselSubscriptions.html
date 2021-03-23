@@ -7,12 +7,15 @@
 <body>
 <div>
     <form id = "vesselFinder">
-        <input id = "vesselSearchTerm" type = "text" name = "vesselname" value = "searchFor">
-        <button class="submission" type="button">
+        <input id = "vesselSearchTerm" type = "text" name = "vesselname" placeholder="Search">
+        <button class="submission" type="button">Search</button>
     </form>
-    <li id = "allVesselsLike">
-
-    </li>
+    <ul id = "allVesselsLike">
+        <div>
+            <button class="createPref" value = "ACTUARIA" type="button">ACTUARIA</button>
+        </div>
+        
+    </ul>
 </div>
 
 <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
