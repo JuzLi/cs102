@@ -11,7 +11,7 @@ $(".submission").click(function(){
       success: function(response){
         $(".ajax").remove();
         $.each(response, function(key,val){
-          var card = '<li class = "ajax" name = ' + val.abbrvslm + '>' + val.abbrvslm + '</li>'
+          var card = '<div><button class="createPref" value = "' + val.abbrvslm + '" type="button">' + val.abbrvslm + '</button></div>';
           $(card).insertAfter("#allVesselsLike")
         })
       }
@@ -20,7 +20,7 @@ $(".submission").click(function(){
 
 })
 
-$(".createPref").click(function(){
+$(document).on('click','.createPref',function(){
   let vessel = $(this).val();
   let mid = {"abbrvslm" : vessel}
   data = JSON.stringify(mid);
