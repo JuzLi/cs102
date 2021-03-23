@@ -12,17 +12,50 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
 @Service
 public class AlertService {
-
+    private List<DateTimeFormatter> formatterList;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private DateTimeFormatter alternate_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
     @Autowired
     private AlertRepository alertRepository;
     @Autowired
     BerthRepository berthRepository;
     @Autowired
     private VoyageService voyageService;
+
+    public AlertService(){
+        initialiseFormatters();
+    }
+    public void initialiseFormatters(){
+        List<String> formatStrings = new ArrayList<String>();
+        formatStrings.add("yyyy-MM-dd HH:mm:ss");
+        formatStrings.add("yyyy-MM-dd'T'HH:mm:ss");
+        formatStrings.add("yyyy-MM-dd HH:mm");
+        List<DateTimeFormatter> formatterList= new ArrayList<DateTimeFormatter>();
+        for(String format:formatStrings){
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format);
+            formatterList.add(dtf);
+        }
+        this.formatterList = formatterList;
+
+    }
+
+    public LocalDateTime parseDateTimeString(String datestring){
+        for(DateTimeFormatter dtf: this.formatterList){
+            try{
+                return LocalDateTime.parse(datestring, dtf);
+            }
+            catch (DateTimeParseException e){
+            }
+        }
+        return null;
+    }
 
     public int generateNewAlertCount(Voyage voyage, String alertType){
         int count = alertRepository.countAlertsOfVoyageAndType(voyage, alertType);
@@ -33,6 +66,9 @@ public class AlertService {
 
     public void createSpeedAlert(VoyageDetails secondLast, VoyageDetails last){
         String content = null;
+
+        String alertType = "Change in Average Speed";
+
         double last_average_speed = last.getAvg_speed();
         double secondLast_average_speed = secondLast.getAvg_speed();
         if(last_average_speed - secondLast_average_speed == 0){
@@ -40,8 +76,10 @@ public class AlertService {
         }
         Alert alert = new Alert();
         alert.setVoyage(last.getVoyage());
-        alert.setAlerttype("Speed");
-        alert.setAlertCount(generateNewAlertCount(last.getVoyage(),"Speed"));
+
+        alert.setAlerttype(alertType);
+        alert.setAlertCount(generateNewAlertCount(last.getVoyage(),alertType));
+
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
 
         if(last_average_speed > secondLast_average_speed){
@@ -57,10 +95,13 @@ public class AlertService {
 
     public void createSpeedAlert(VoyageDetails last){
         double last_average_speed = last.getAvg_speed();
+
+        String alertType = "Change in Average Speed";
         Alert alert = new Alert();
         alert.setVoyage(last.getVoyage());
-        alert.setAlerttype("Speed");
-        alert.setAlertCount(generateNewAlertCount(last.getVoyage(),"Speed"));
+        alert.setAlerttype(alertType);
+        alert.setAlertCount(generateNewAlertCount(last.getVoyage(),alertType));
+
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
         String content = "Average speed is " + last_average_speed;
         alert.setAlertcontent(content);
@@ -70,21 +111,11 @@ public class AlertService {
     public void createBtrAlert(VoyageDetails secondLast, VoyageDetails last){
         String secondLast_Btr_String = voyageService.berthingTime(secondLast);
         String last_Btr_String = voyageService.berthingTime(last);
-        LocalDateTime last_Btr;
-        LocalDateTime secondLast_Btr;
-        try{
-            last_Btr  = LocalDateTime.parse(last_Btr_String, this.formatter);
-        }
-        catch(Exception e){
-            last_Btr = LocalDateTime.parse(last_Btr_String, this.alternate_formatter);
-        }
 
-        try{
-            secondLast_Btr = LocalDateTime.parse(secondLast_Btr_String, this.formatter);
-        }
-        catch(Exception e){
-            secondLast_Btr = LocalDateTime.parse(secondLast_Btr_String, this.alternate_formatter);
-        }
+        LocalDateTime last_Btr = parseDateTimeString(last_Btr_String);
+        LocalDateTime secondLast_Btr = parseDateTimeString(secondLast_Btr_String);
+
+
 
         if(last_Btr.isEqual(secondLast_Btr)){
             return;
@@ -96,27 +127,19 @@ public class AlertService {
 
     public void createBtrAlert(VoyageDetails last){
         String content = null;
+
+        String alertType = "Change in Berthing Time";
         String last_Btr_String = voyageService.berthingTime(last);
         Voyage voyage = last.getVoyage();
         String voyage_Btr_String = voyage.getBtrdt();
-        LocalDateTime last_Btr;
-        LocalDateTime voyage_Btr;
-        try{
-            last_Btr  = LocalDateTime.parse(last_Btr_String, this.formatter);
-        }
-        catch(Exception e){
-            last_Btr = LocalDateTime.parse(last_Btr_String, this.alternate_formatter);
-        }
-        try{
-            voyage_Btr = LocalDateTime.parse(voyage_Btr_String, this.formatter);
-        }
-        catch(Exception e){
-            voyage_Btr = LocalDateTime.parse(voyage_Btr_String, this.alternate_formatter);
-        }
+        LocalDateTime last_Btr = parseDateTimeString(last_Btr_String);
+        LocalDateTime voyage_Btr = parseDateTimeString(voyage_Btr_String);
+
         Alert alert = new Alert();
         alert.setVoyage(last.getVoyage());
-        alert.setAlerttype("Berthing Time");
-        alert.setAlertCount(generateNewAlertCount(last.getVoyage(),"Berthing Time"));
+        alert.setAlerttype(alertType);
+        alert.setAlertCount(generateNewAlertCount(last.getVoyage(),alertType));
+
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
 
         if(last_Btr.isEqual(voyage_Btr)){
@@ -135,30 +158,24 @@ public class AlertService {
 
     public void createBtrAlert(Voyage voyage, String updatedBtrString){
         String content = null;
+
+        String alertType = "Change in Berthing Time";
         String voyage_Btr_String = voyage.getBtrdt();
 
-        LocalDateTime updatedBtr;
-        LocalDateTime voyage_Btr;
+        LocalDateTime updatedBtr = parseDateTimeString(updatedBtrString);
+        LocalDateTime voyage_Btr = parseDateTimeString(voyage_Btr_String);
 
-        try{
-            updatedBtr = LocalDateTime.parse(updatedBtrString, this.formatter);
-        }
-        catch(Exception e){
-            updatedBtr = LocalDateTime.parse(updatedBtrString, this.alternate_formatter);
-        }
-        try{
-            voyage_Btr = LocalDateTime.parse(voyage_Btr_String, this.formatter);
-        }
-        catch(Exception e){
-            voyage_Btr = LocalDateTime.parse(voyage_Btr_String, this.alternate_formatter);
-        }
+
+
         if(updatedBtr.isEqual(voyage_Btr)){
             return;
         }
         Alert alert = new Alert();
         alert.setVoyage(voyage);
-        alert.setAlerttype("Berthing Time");
-        alert.setAlertCount(generateNewAlertCount(voyage,"Berthing Time"));
+
+        alert.setAlerttype(alertType);
+        alert.setAlertCount(generateNewAlertCount(voyage,alertType));
+
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
 
 
@@ -174,28 +191,17 @@ public class AlertService {
 
     public void createUnberthingAlert(Voyage voyage, String updatedUnbtrString){
         String content = null;
+        String alertType = "Change in Unberthing Time";
         String voyage_Unbtr_String = voyage.getBtrdt();
-        LocalDateTime updatedUnbtr;
-        LocalDateTime voyage_Unbtr;
-        try{
-            updatedUnbtr = LocalDateTime.parse(updatedUnbtrString, this.formatter);
-        }
-        catch(Exception e){
-            updatedUnbtr = LocalDateTime.parse(updatedUnbtrString, this.alternate_formatter);
-        }
-        try{
-            voyage_Unbtr = LocalDateTime.parse(voyage_Unbtr_String, this.formatter);
-        }
-        catch(Exception e){
-            voyage_Unbtr = LocalDateTime.parse(voyage_Unbtr_String, this.alternate_formatter);
-        }
+        LocalDateTime updatedUnbtr = parseDateTimeString(updatedUnbtrString);
+        LocalDateTime voyage_Unbtr = parseDateTimeString(voyage_Unbtr_String);
         if(updatedUnbtr.isEqual(voyage_Unbtr)){
             return;
         }
         Alert alert = new Alert();
         alert.setVoyage(voyage);
-        alert.setAlerttype("Unberthing Time");
-        alert.setAlertCount(1);
+        alert.setAlerttype(alertType);
+        alert.setAlertCount(generateNewAlertCount(voyage, alertType));
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
 
 
@@ -210,6 +216,7 @@ public class AlertService {
     }
 
     public void createBerthNumAlert(Voyage voyage, Berth berth){
+        String alertType = "Change in Berth";
         String content = null;
         if(berth == null){
             if(voyage.getBerth() == null){
@@ -231,8 +238,8 @@ public class AlertService {
 
         Alert alert = new Alert();
         alert.setVoyage(voyage);
-        alert.setAlerttype("Unberthing Time");
-        alert.setAlertCount(generateNewAlertCount(voyage,"Unberthing Time"));
+        alert.setAlerttype(alertType);
+        alert.setAlertCount(generateNewAlertCount(voyage,alertType));
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
         alert.setAlertcontent(content);
         alertRepository.save(alert);
@@ -240,15 +247,16 @@ public class AlertService {
 
     public void createStatusAlert(Voyage voyage, String updatedStatus){
         String content = null;
-
+        String alertType = "Change in Status";
         String voyage_status = voyage.getStatus();
         if (voyage_status.equals(updatedStatus)){
             return ;
         }
         Alert alert = new Alert();
         alert.setVoyage(voyage);
-        alert.setAlerttype("Change in Status");
-        alert.setAlertCount(generateNewAlertCount(voyage,"Change in Status"));
+        alert.setAlerttype(alertType);
+        alert.setAlertCount(generateNewAlertCount(voyage,alertType));
+
         alert.setAlertdatetime(java.time.LocalDateTime.now().format(this.formatter));
         content = "Vessel is now " + updatedStatus;
         alert.setAlertcontent(content);
@@ -261,4 +269,18 @@ public class AlertService {
         createBerthNumAlert(voyage, updatedBerth);
         createStatusAlert(voyage,updatedStatus);
     }
+  
+    public void generateVoyageDetailsAlerts(VoyageDetails second_latest, VoyageDetails latest){
+        try {
+            if (second_latest == null) {
+                createBtrAlert(latest);
+            } else {
+                createBtrAlert(second_latest, latest);
+                createSpeedAlert(second_latest, latest);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
