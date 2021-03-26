@@ -64,13 +64,12 @@ create table alert(
  constraint alert_fk1 foreign key(abbrvslm,invoyn) references voyage(abbrvslm,invoyn)
 );
 
--- create table berthpreference(
--- bpid int not null primary key auto_increment,
--- username varchar(50) not null,
--- berthnum varchar(10) not null,
--- constraint berthpreference_fk1 foreign key (username) references user(username),
--- constraint berthpreference_fk2 foreign key (berthnum) references berth(berthnum)
--- );
+create table alertpreference(
+username varchar(50) not null,
+alerttype varchar (30) not null,
+constraint alertpreference_pk primary key (username, alerttype),
+constraint alertpreference_fk1 foreign key (username) references user(username)
+);
 
 create table vesselpreference(
 username varchar(50) not null,

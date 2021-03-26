@@ -5,12 +5,10 @@ import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.alert.AlertService;
 import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.berth.BerthRepository;
-import com.ahoy.ahoy.portnet.PortnetConnector;
 import com.ahoy.ahoy.alert.AlertRepository;
-import com.ahoy.ahoy.user.User;
+import com.ahoy.ahoy.user.AlertPreferenceRepository;
 import com.ahoy.ahoy.user.UserService;
-import com.ahoy.ahoy.user.VesselPreferences;
-import com.ahoy.ahoy.user.VesselPreferencesRepository;
+import com.ahoy.ahoy.user.VesselPreferenceRepository;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.portnet.DatabaseUpdate;
@@ -19,11 +17,10 @@ import com.ahoy.ahoy.voyage.VoyageDetails;
 import com.ahoy.ahoy.voyage.VoyageRepository;
 import com.ahoy.ahoy.voyage.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +29,8 @@ import java.util.Map;
 @CrossOrigin
 public class TestController {
 
+    @Autowired
+    AlertPreferenceRepository alertPreferenceRepository;
     @Autowired
     VoyageService voyageService;
     @Autowired
@@ -45,7 +44,7 @@ public class TestController {
     @Autowired
     UserService userService;
     @Autowired
-    VesselPreferencesRepository vesselPreferencesRepository;
+    VesselPreferenceRepository vesselPreferencesRepository;
     @Autowired
     AlertService alertService;
     @Autowired
@@ -96,7 +95,8 @@ public class TestController {
     @ResponseBody
     @RequestMapping(path = "/test/5", method = RequestMethod.POST)
     public List<Vessel> test5(@RequestBody Map<String,String> map){
-        return vesselRepository.findVesselsLike(map.get("abbrvslm"));
+        List<Vessel> vesselList = vesselRepository.findVesselsLike(map.get("abbrvslm"));
+        return userService.removeSubscribedVesselsFromList(vesselList);
     }
 
     @ResponseBody
@@ -107,6 +107,20 @@ public class TestController {
         return "Success";
     }
 
+
+    @RequestMapping(path = "/test/7")
+    public String test7(){
+        userService.createAlertPreference("Change in Berth");
+        return "Success";
+    }
+
+    @RequestMapping(path = "/test/8")
+    public List<String> test8(){
+        System.out.println(userService.unsubscribedAlertTypes());
+        System.out.println(userService.subscribedAlertTypes());
+        userService.removeAlertPreference("Change in Berth");
+        return userService.unsubscribedAlertTypes();
+    }
 
 
 

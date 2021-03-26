@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "VesselPreference")
-public class VesselPreferences {
+public class VesselPreference {
     @EmbeddedId private VesselPreferencePK vesselPreferencePK;
 
     @MapsId("abbrvslm")
@@ -19,7 +19,7 @@ public class VesselPreferences {
     @JoinColumn(name = "username")
     private User user;
 
-    public VesselPreferences() {
+    public VesselPreference() {
         this.vesselPreferencePK = new VesselPreferencePK();
     }
 

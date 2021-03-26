@@ -22,7 +22,10 @@ public class User {
     private int enabled = 1;
 
     @OneToMany(mappedBy = "user")
-    private Set<VesselPreferences>  vesselPreferencesSet;
+    private Set<VesselPreference> vesselPreferenceSet;
+
+    @OneToMany(mappedBy = "user")
+    private Set<AlertPreference>  alertPreferenceSet;
 
     public User() {
     }

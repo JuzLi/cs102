@@ -1,18 +1,13 @@
 $(".submission").click(function(){
-    let searchTerm = $("#vesselSearchTerm").val();
-    let  mid = {"abbrvslm" : searchTerm}
-    let data = JSON.stringify(mid);
     $.ajax({
-      url: "/ajax/searchVessels",
-      type:"POST",
-      data:data,
-      contentType:"application/json; charset=utf-8",
+      url: "/ajax/searchAlerts",
+      type:"GET",
       dataType:"json",
       success: function(response){
         $(".ajax").remove();
         $.each(response, function(key,val){
-          var card = '<div><button class="createPref ajax" value = "' + val.abbrvslm + '" type="button">' + val.abbrvslm + '</button></div>';
-          $(card).insertAfter("#allVesselsLike")
+          var card = '<div><button class="createPref ajax" value = "' + val + '" type="button">' + val + '</button></div>';
+          $(card).insertAfter("#unsubbedAlerts")
         })
       }
     })
@@ -22,10 +17,10 @@ $(".submission").click(function(){
 
 $(document).on('click','.createPref',function(){
   let vessel = $(this).val();
-  let mid = {"abbrvslm" : vessel}
+  let mid = {"alertType" : vessel}
   data = JSON.stringify(mid);
   $.ajax({
-    url: "/ajax/createVesselPreference",
+    url: "/ajax/createAlertPreference",
     type:"POST",
     data:data,
     contentType:"application/json; charset=utf-8",
