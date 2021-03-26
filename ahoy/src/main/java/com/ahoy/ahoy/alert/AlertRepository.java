@@ -3,9 +3,11 @@ package com.ahoy.ahoy.alert;
 import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.voyage.Voyage;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ public interface AlertRepository extends JpaRepository<Alert, Integer> {
     @Query("select distinct a.alertPK.alerttype from Alert a")
     public List<String> allAlertType();
 
-    @Query("select distinct a.alertPK.alerttype from Alert a where a.alertPK.alerttype <> :type")
-    public List<String> allAlertTypeNotLike(@Param("type") String type);
+
+    @Query(value = "select distinct alerttype from alert where alerttype not in :types", nativeQuery = true)
+    public List<String> allAlertTypeNotLike(@Param("types") List<String> types);
 }

@@ -1,9 +1,9 @@
 $(".submission").click(function(){
     let searchTerm = $("#vesselSearchTerm").val();
     let  data = {"abbrvslm" : searchTerm}
-    data2 = JSON.stringify(data);
+    let data2 = JSON.stringify(data);
     $.ajax({
-      url: "/test/5",
+      url: "/ajax/searchVessels",
       type:"POST",
       data:data2,
       contentType:"application/json; charset=utf-8",
@@ -25,7 +25,7 @@ $(document).on('click','.createPref',function(){
   let mid = {"abbrvslm" : vessel}
   data = JSON.stringify(mid);
   $.ajax({
-    url: "/test/6",
+    url: "/ajax/createVesselPreference",
     type:"POST",
     data:data,
     contentType:"application/json; charset=utf-8",

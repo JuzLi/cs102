@@ -1,5 +1,6 @@
 package com.ahoy.ahoy.user;
 
+import com.ahoy.ahoy.alert.AlertRepository;
 import com.ahoy.ahoy.vessel.Vessel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,7 +19,8 @@ public class UserService {
     private User user;
     @Autowired
     AlertPreferenceRepository alertPreferenceRepository;
-
+    @Autowired
+    AlertRepository alertRepository;
 
     public User getCurrentUser(){
 
@@ -66,12 +68,33 @@ public class UserService {
 
     }
 
+    public void removeSubscribedVessel(Vessel vessel){
+        User user = getCurrentUser();
+        vesselPreferencesRepository.deleteVesselPreference(user, vessel);
+    }
+
     public void createAlertPreference(String alerttype){
         User user = getCurrentUser();
         AlertPreference alertPreference = new AlertPreference();
         alertPreference.setUser(user);
         alertPreference.setAlerttype(alerttype);
         alertPreferenceRepository.save(alertPreference);
+    }
+
+    public List<String> subscribedAlertTypes(){
+        User user = getCurrentUser();
+        List<String> alertTypeList = alertPreferenceRepository.allSubscribedAlertTypes(user);
+        return alertTypeList;
+    }
+
+    public List<String> unsubscribedAlertTypes(){
+        List<String> subscribedAlerts = subscribedAlertTypes();
+        return alertRepository.allAlertTypeNotLike(subscribedAlerts);
+    }
+
+    public void removeAlertPreference(String type){
+        User user = getCurrentUser();
+        alertPreferenceRepository.deleteAlertPreference(user,type);
     }
 
 

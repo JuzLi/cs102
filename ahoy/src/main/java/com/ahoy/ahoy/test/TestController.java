@@ -89,7 +89,7 @@ public class TestController {
     }
 
     @ResponseBody
-    @RequestMapping(path = "/test/5", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/test/5", method = RequestMethod.POST)
     public List<Vessel> test5(@RequestBody Map<String,String> map){
         List<Vessel> vesselList = vesselRepository.findVesselsLike(map.get("abbrvslm"));
         return userService.removeSubscribedVesselsFromList(vesselList);
@@ -105,12 +105,18 @@ public class TestController {
 
 
     @RequestMapping(path = "/test/7")
-    public List<String> test7(){
+    public String test7(){
         userService.createAlertPreference("Change in Berth");
-        System.out.println(alertRepository.allAlertType());
-        return alertRepository.allAlertTypeNotLike("Change in Berth");
+        return "Success";
     }
 
+    @RequestMapping(path = "/test/8")
+    public List<String> test8(){
+        System.out.println(userService.unsubscribedAlertTypes());
+        System.out.println(userService.subscribedAlertTypes());
+        userService.removeAlertPreference("Change in Berth");
+        return userService.unsubscribedAlertTypes();
+    }
 
 
 }
