@@ -7,8 +7,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,8 +14,10 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    VesselPreferencesRepository vesselPreferencesRepository;
+    VesselPreferenceRepository vesselPreferencesRepository;
     private User user;
+    @Autowired
+    AlertPreferenceRepository alertPreferenceRepository;
 
 
     public User getCurrentUser(){
@@ -39,18 +39,18 @@ public class UserService {
     public void createVesselPreference(Vessel vessel){
         User user = getCurrentUser();
         if(vesselPreferencesRepository.findVesselPreferences(user, vessel) == null){
-            VesselPreferences vesselPreferences = new VesselPreferences();
-            vesselPreferences.setVessel(vessel);
-            vesselPreferences.setUser(user);
-            vesselPreferencesRepository.save(vesselPreferences);
+            VesselPreference vesselPreference = new VesselPreference();
+            vesselPreference.setVessel(vessel);
+            vesselPreference.setUser(user);
+            vesselPreferencesRepository.save(vesselPreference);
         }
     }
 
     public List<Vessel> subscribedVessels(){
         User user = getCurrentUser();
-        List<VesselPreferences> vesselPreferencesList = vesselPreferencesRepository.allVesselPreferences(user);
+        List<VesselPreference> vesselPreferenceList = vesselPreferencesRepository.allVesselPreferences(user);
         List<Vessel> subscribedVessels = new ArrayList<Vessel>();
-        for(VesselPreferences vp: vesselPreferencesList){
+        for(VesselPreference vp: vesselPreferenceList){
             Vessel vessel = vp.getVessel();
             subscribedVessels.add(vessel);
         }
@@ -65,4 +65,14 @@ public class UserService {
         return returnList;
 
     }
+
+    public void createAlertPreference(String alerttype){
+        User user = getCurrentUser();
+        AlertPreference alertPreference = new AlertPreference();
+        alertPreference.setUser(user);
+        alertPreference.setAlerttype(alerttype);
+        alertPreferenceRepository.save(alertPreference);
+    }
+
+
 }

@@ -5,12 +5,9 @@ import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.alert.AlertService;
 import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.berth.BerthRepository;
-import com.ahoy.ahoy.portnet.PortnetConnector;
 import com.ahoy.ahoy.alert.AlertRepository;
-import com.ahoy.ahoy.user.User;
 import com.ahoy.ahoy.user.UserService;
-import com.ahoy.ahoy.user.VesselPreferences;
-import com.ahoy.ahoy.user.VesselPreferencesRepository;
+import com.ahoy.ahoy.user.VesselPreferenceRepository;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.portnet.DatabaseUpdate;
@@ -20,11 +17,8 @@ import com.ahoy.ahoy.voyage.VoyageRepository;
 import com.ahoy.ahoy.voyage.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +40,7 @@ public class TestController {
     @Autowired
     UserService userService;
     @Autowired
-    VesselPreferencesRepository vesselPreferencesRepository;
+    VesselPreferenceRepository vesselPreferencesRepository;
     @Autowired
     AlertService alertService;
     @Autowired
@@ -109,6 +103,13 @@ public class TestController {
         return "Success";
     }
 
+
+    @RequestMapping(path = "/test/7")
+    public List<String> test7(){
+        userService.createAlertPreference("Change in Berth");
+        System.out.println(alertRepository.allAlertType());
+        return alertRepository.allAlertTypeNotLike("Change in Berth");
+    }
 
 
 
