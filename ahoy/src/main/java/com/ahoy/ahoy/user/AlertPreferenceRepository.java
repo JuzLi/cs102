@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface AlertPreferenceRepository extends JpaRepository<AlertPreference, Integer> {
 
-    @Query("select distinct a.alerttype from AlertPreference a where a.user = :user")
-    public List<String> allSubscribedAlertTypes(@Param("user") User user);
+    @Query(value = "select alerttype from alertpreference where username = :user", nativeQuery = true)
+    public List<String> allSubscribedAlertTypes(@Param("user") String user);
 
     @Transactional
     @Modifying

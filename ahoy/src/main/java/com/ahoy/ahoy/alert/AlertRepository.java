@@ -19,7 +19,4 @@ public interface AlertRepository extends JpaRepository<Alert, Integer> {
     @Query("select distinct a.alertPK.alerttype from Alert a")
     public List<String> allAlertType();
 
-
-    @Query(value = "select distinct alerttype from alert where alerttype not in :types", nativeQuery = true)
-    public List<String> allAlertTypeNotLike(@Param("types") List<String> types);
 }

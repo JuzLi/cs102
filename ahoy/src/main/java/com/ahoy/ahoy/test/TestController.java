@@ -6,6 +6,7 @@ import com.ahoy.ahoy.alert.AlertService;
 import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.berth.BerthRepository;
 import com.ahoy.ahoy.alert.AlertRepository;
+import com.ahoy.ahoy.user.AlertPreferenceRepository;
 import com.ahoy.ahoy.user.UserService;
 import com.ahoy.ahoy.user.VesselPreferenceRepository;
 import com.ahoy.ahoy.vessel.Vessel;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +29,8 @@ import java.util.Map;
 @CrossOrigin
 public class TestController {
 
+    @Autowired
+    AlertPreferenceRepository alertPreferenceRepository;
     @Autowired
     VoyageService voyageService;
     @Autowired
@@ -117,6 +121,7 @@ public class TestController {
         userService.removeAlertPreference("Change in Berth");
         return userService.unsubscribedAlertTypes();
     }
+
 
 
 }

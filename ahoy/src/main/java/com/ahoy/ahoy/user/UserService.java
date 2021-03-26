@@ -83,13 +83,16 @@ public class UserService {
 
     public List<String> subscribedAlertTypes(){
         User user = getCurrentUser();
-        List<String> alertTypeList = alertPreferenceRepository.allSubscribedAlertTypes(user);
+        List<String> alertTypeList = alertPreferenceRepository.allSubscribedAlertTypes(user.getUsername());
         return alertTypeList;
     }
 
     public List<String> unsubscribedAlertTypes(){
         List<String> subscribedAlerts = subscribedAlertTypes();
-        return alertRepository.allAlertTypeNotLike(subscribedAlerts);
+        List<String> returnList = new ArrayList<String>();
+        returnList.addAll(alertRepository.allAlertType());
+        returnList.removeAll(subscribedAlerts);
+        return returnList;
     }
 
     public void removeAlertPreference(String type){

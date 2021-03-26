@@ -67,8 +67,8 @@ create table alert(
 create table alertpreference(
 username varchar(50) not null,
 alerttype varchar (30) not null,
-constraint vesselpreference_pk primary key (username, alerttype),
-constraint vesselpreference_fk1 foreign key (username) references user(username)
+constraint alertpreference_pk primary key (username, alerttype),
+constraint alertpreference_fk1 foreign key (username) references user(username)
 );
 
 create table vesselpreference(

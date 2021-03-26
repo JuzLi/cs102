@@ -32,4 +32,17 @@ public class UserController {
         return userService.removeSubscribedVesselsFromList(vesselList);
     }
 
+    @ResponseBody
+    @RequestMapping(path = "/ajax/createAlertPreference", method = RequestMethod.POST)
+    public String createAlertPreference(@RequestBody Map<String,String> map){
+        userService.createAlertPreference(map.get("alertType"));
+        return "Success";
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/searchAlerts", method = RequestMethod.GET)
+    public List<String> searchAlerts(){
+        System.out.println(userService.unsubscribedAlertTypes());
+        return userService.unsubscribedAlertTypes();
+    }
 }

@@ -75,4 +75,9 @@ public class ViewController {
         return "vesselSubscriptions";
     }
 
+    @GetMapping("/apref")
+    public String apref(){
+        return "alertSubscriptions";
+    }
+
 }
