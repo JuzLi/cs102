@@ -19,6 +19,7 @@ import com.ahoy.ahoy.voyage.VoyageDetails;
 import com.ahoy.ahoy.voyage.VoyageRepository;
 import com.ahoy.ahoy.voyage.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
@@ -94,9 +95,10 @@ public class TestController {
     }
 
     @ResponseBody
-    @RequestMapping(path = "/test/5", method = RequestMethod.POST)
+    @RequestMapping(path = "/test/5", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Vessel> test5(@RequestBody Map<String,String> map){
-        return vesselRepository.findVesselsLike(map.get("abbrvslm"));
+        List<Vessel> vesselList = vesselRepository.findVesselsLike(map.get("abbrvslm"));
+        return userService.removeSubscribedVesselsFromList(vesselList);
     }
 
     @ResponseBody

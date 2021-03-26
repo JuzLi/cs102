@@ -7,6 +7,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -53,5 +55,14 @@ public class UserService {
             subscribedVessels.add(vessel);
         }
         return subscribedVessels;
+    }
+
+    public List<Vessel> removeSubscribedVesselsFromList(List<Vessel> vesselList){
+        List<Vessel> returnList = new ArrayList<Vessel>();
+        List<Vessel> subscribedVessels = subscribedVessels();
+        returnList.addAll(vesselList);
+        returnList.removeAll(subscribedVessels);
+        return returnList;
+
     }
 }

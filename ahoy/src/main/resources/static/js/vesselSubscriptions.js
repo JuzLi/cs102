@@ -1,7 +1,7 @@
 $(".submission").click(function(){
     let searchTerm = $("#vesselSearchTerm").val();
     let  data = {"abbrvslm" : searchTerm}
-    data2 = JSON.stringify(data)
+    data2 = JSON.stringify(data);
     $.ajax({
       url: "/test/5",
       type:"POST",
@@ -11,7 +11,7 @@ $(".submission").click(function(){
       success: function(response){
         $(".ajax").remove();
         $.each(response, function(key,val){
-          var card = '<div><button class="createPref" value = "' + val.abbrvslm + '" type="button">' + val.abbrvslm + '</button></div>';
+          var card = '<div><button class="createPref ajax" value = "' + val.abbrvslm + '" type="button">' + val.abbrvslm + '</button></div>';
           $(card).insertAfter("#allVesselsLike")
         })
       }
