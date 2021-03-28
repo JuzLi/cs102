@@ -1,18 +1,7 @@
 .body.html {
   font-family: 'Open Sans', sans-serif;
 }
-/* For landing page */
 
-
-
-::selection {
-background: rgba(19, 97, 241, 0.5);
-color: rgb(24, 120, 175);
-}
-::-moz-selection {
-background: rgba(0, 0, 0, 0.5);
-color:rgba(40, 188, 225, 0.856);
-}
 
 .centerbox{
 position: absolute;
@@ -51,24 +40,12 @@ background-size: cover;
 transition: all .2s ease-in-out;
 }
 
-form{
+registerform{
 position: absolute;
 bottom: 50px;
 width: 100%;
 }
 
-input,
-.login-btn{
-font-family: 'Open Sans', sans-serif;
-position: relative;
-display: block;
-margin: 20px auto;
-padding: 10px;
-width: 84%;
-box-sizing: border-box;
--moz-box-sizing: border-box;
--webkit-box-sizing: border-box;
-}
 
 .login-btn1{
 font-family: 'Open Sans', sans-serif;
@@ -110,8 +87,6 @@ color: rgb(39, 39, 39);
 
 
 
-/* hompage and settings */
-
 .navbar {
   box-shadow: inset 0 -1px 0 #0000001a;
     background-color:rgb(34, 34, 34)
@@ -145,17 +120,7 @@ color: rgb(39, 39, 39);
   font-family: 'Open Sans', sans-serif;
   overflow-y: scroll;
   height: 300px;
-  display: block;
+  /* display: block; */
   text-align: center;
 
 }
-
-.table>thead>tr>th {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background-color: rgb(255, 255, 255);
-
-}
-
