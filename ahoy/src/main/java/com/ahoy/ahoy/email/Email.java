@@ -13,6 +13,7 @@ public class Email {
     private ArrayList<Alert> alertList;
     private String subject;
 
+
     public Email(){
         alertList = new ArrayList<Alert>();
     }

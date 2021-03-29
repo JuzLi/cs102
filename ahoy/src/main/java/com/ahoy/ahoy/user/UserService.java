@@ -1,14 +1,18 @@
 package com.ahoy.ahoy.user;
 
 import com.ahoy.ahoy.alert.AlertRepository;
+import com.ahoy.ahoy.email.Email;
+import com.ahoy.ahoy.email.EmailService;
 import com.ahoy.ahoy.vessel.Vessel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class UserService {
@@ -16,11 +20,12 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     VesselPreferenceRepository vesselPreferencesRepository;
-    private User user;
     @Autowired
     AlertPreferenceRepository alertPreferenceRepository;
     @Autowired
     AlertRepository alertRepository;
+    @Autowired
+    EmailService emailService;
 
     public User getCurrentUser(){
 
@@ -36,6 +41,43 @@ public class UserService {
         }
         return true;
 
+    }
+
+    public String createTempPass(){
+        Random random = new Random();
+        int targetStringLength = 8 + random.nextInt(8);
+        int leftLimit = 48;
+        int rightLimit = 122;
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
+    }
+
+    public void recoverAccount(String username, String email){
+        User user = userRepository.findByUsernameAndEmail(username, email);
+        if(user != null) {
+            String tempPass = createTempPass();
+            emailService.createRecoveryEmail(username, email, tempPass);
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encoded_pass = passwordEncoder.encode(tempPass);
+            userRepository.updatePassword(username, encoded_pass);
+        }
+
+    }
+
+    public void updatePassword(String password){
+        User user = getCurrentUser();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encoded_pass = passwordEncoder.encode(password);
+        userRepository.updatePassword(user.getUsername(), encoded_pass);
+    }
+
+    public void updateEmail(String email){
+        User user = getCurrentUser();
+        userRepository.updateEmail(user.getUsername(), email);
     }
 
     public void createVesselPreference(Vessel vessel){

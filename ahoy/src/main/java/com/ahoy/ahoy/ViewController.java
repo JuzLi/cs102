@@ -89,4 +89,9 @@ public class ViewController {
         return "changeAccountDetails";
     }
 
+    @GetMapping("/recoverAccount")
+    public String recoverAccount(){
+        return "forgotPassword";
+    }
+
 }

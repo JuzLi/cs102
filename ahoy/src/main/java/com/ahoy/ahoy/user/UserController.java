@@ -52,8 +52,8 @@ public class UserController {
     @ResponseBody
     @RequestMapping(path = "/ajax/changeEmail", method = RequestMethod.POST)
     public String changeEmail(@RequestBody Map<String,String> map){
-        User u = userService.getCurrentUser();
-        userRepository.updateEmail(u.getUsername(),map.get("email"));
+        String email = map.get("email");
+        userService.updateEmail(email);
         return "Success";
 
     }
@@ -61,10 +61,18 @@ public class UserController {
     @ResponseBody
     @RequestMapping(path = "/ajax/changePassword", method = RequestMethod.POST)
     public String changePassword(@RequestBody Map<String,String> map){
-        User u = userService.getCurrentUser();
+        String password = map.get("password");
+        userService.updatePassword(password);
+        return "Success";
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/recoverAccount", method = RequestMethod.POST)
+    public String recoverAccount(@RequestBody Map<String,String> map){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encoded_pass = passwordEncoder.encode(map.get("password"));
-        userRepository.updatePassword(u.getUsername(), encoded_pass);
+        String username = map.get("username");
+        String email = map.get("email");
+        userService.recoverAccount(username,email);
         return "Success";
     }
 }
