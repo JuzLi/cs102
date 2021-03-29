@@ -33,6 +33,10 @@ public class ViewController {
     public String schedule(){
         return "schedule";
     }
+    @GetMapping("/alerts")
+    public String alerts(){
+        return "alerts";
+    }
 
     @GetMapping("/settings")
     public String settings(){

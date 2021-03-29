@@ -9,10 +9,11 @@ $(".submission").click(function(){
       contentType:"application/json; charset=utf-8",
       dataType:"json",
       success: function(response){
-        $(".ajax").remove();
+        $(".ajax").remove(); 
         $.each(response, function(key,val){
-          var card = '<div><button class="createPref ajax" value = "' + val.abbrvslm + '" type="button">' + val.abbrvslm + '</button></div>';
-          $(card).insertAfter("#allVesselsLike")
+          var tablerow = '<tr><td>' + val.abbrvslm + '</td><td><button class="createPref ajax" value="' + val.abbrvslm + '" type = "button">Subscribe</button></td></tr>';
+
+          $(tablerow).insertAfter("#allVesselsLike")
         })
       }
     })
