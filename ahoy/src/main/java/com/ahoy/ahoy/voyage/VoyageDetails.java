@@ -20,6 +20,7 @@ public class VoyageDetails implements Serializable {
     private String patching_predicted_btr;
     private String predicted_btr;
     private String vslvoy;
+    private String timestamp;
 
 
     @MapsId("voyagePK")
@@ -97,6 +98,14 @@ public class VoyageDetails implements Serializable {
 
     public void setVslvoy(String vslvoy) {
         this.vslvoy = vslvoy;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Voyage getVoyage() {

@@ -8,6 +8,8 @@ import com.ahoy.ahoy.vessel.Vessel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class VoyageService {
     @Autowired
@@ -18,6 +20,7 @@ public class VoyageService {
     VoyageDetailsRepository voyageDetailsRepository;
     @Autowired
     AlertService alertService;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public void generateAlertsAndUpdateVoyage(Voyage voyage, String updatedBtr, String updatedUnbtr, Berth updatedBerth, String updatedStatus){
         alertService.generateVoyageAlerts(voyage, updatedBtr, updatedUnbtr, updatedBerth, updatedStatus);
@@ -75,6 +78,7 @@ public class VoyageService {
             voyageDetails.setDistance_to_go(distance);
             voyageDetails.setMax_speed(max);
             voyageDetails.setIs_patching_activated(patching);
+            voyageDetails.setTimestamp(java.time.LocalDateTime.now().format(this.formatter));
             if (patching_predicted.equals("NaT") == false) {
                 voyageDetails.setPatching_predicted_btr(patching_predicted);
             }

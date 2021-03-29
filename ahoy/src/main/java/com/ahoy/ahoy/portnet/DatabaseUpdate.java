@@ -53,7 +53,7 @@ public class DatabaseUpdate {
         String date_from = dateFormat.format(today);
         Calendar c = Calendar.getInstance();
         c.setTime(today);
-        c.add(Calendar.DATE, 1);
+        //c.add(Calendar.DATE, 1);
         Date temp = c.getTime();
         String dateFrom = dateFormat.format(temp);
         c.add(Calendar.DATE, 6);
@@ -62,6 +62,9 @@ public class DatabaseUpdate {
         JsonArray results = portnetConnector.getUpdate(dateFrom, dateTo);
         for (int i = 0; i < results.size(); i++) {
             JsonObject j = results.get(i).getAsJsonObject();
+            if(j.get("shiftSeqN").getAsString().equals("2")){
+                continue;
+            }
             Vessel v = new Vessel();
             Berth b = new Berth();
 
