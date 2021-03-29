@@ -45,6 +45,7 @@ create table voyagedetails(
     abbrvslm varchar(100) not null,
     invoyn varchar(8) not null,
     vslvoy varchar(108) not null,
+    timestamp datetime,
     constraint voyagedetails_pk primary key (abbrvslm, invoyn, voyagedetailsid),
     constraint voyagedetails_fk foreign key (abbrvslm,invoyn) references voyage (abbrvslm,invoyn)
 );

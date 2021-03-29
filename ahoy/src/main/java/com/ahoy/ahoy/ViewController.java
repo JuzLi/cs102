@@ -84,4 +84,14 @@ public class ViewController {
         return "alertSubscriptions";
     }
 
+    @GetMapping("/changeAccountDetails")
+    public String changeAccountDetails(){
+        return "changeAccountDetails";
+    }
+
+    @GetMapping("/recoverAccount")
+    public String recoverAccount(){
+        return "forgotPassword";
+    }
+
 }

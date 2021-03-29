@@ -3,6 +3,7 @@ package com.ahoy.ahoy.user;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class UserController {
     private VesselRepository vesselRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @ResponseBody
     @RequestMapping(path = "/ajax/createVesselPreference", method = RequestMethod.POST)
@@ -44,5 +47,32 @@ public class UserController {
     public List<String> searchAlerts(){
         System.out.println(userService.unsubscribedAlertTypes());
         return userService.unsubscribedAlertTypes();
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/changeEmail", method = RequestMethod.POST)
+    public String changeEmail(@RequestBody Map<String,String> map){
+        String email = map.get("email");
+        userService.updateEmail(email);
+        return "Success";
+
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/changePassword", method = RequestMethod.POST)
+    public String changePassword(@RequestBody Map<String,String> map){
+        String password = map.get("password");
+        userService.updatePassword(password);
+        return "Success";
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/recoverAccount", method = RequestMethod.POST)
+    public String recoverAccount(@RequestBody Map<String,String> map){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String username = map.get("username");
+        String email = map.get("email");
+        userService.recoverAccount(username,email);
+        return "Success";
     }
 }

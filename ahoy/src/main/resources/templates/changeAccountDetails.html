@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form class="accountManager">
+        <input type="email" id="newEmail" placeholder="Update Email">
+        <button id="emailSubmission" type="button">Enter New Email</button>
+    </form>
+
+    <form class="accountManager">
+        <input type ="password" id = "newPass" placeholder="Enter New Password">
+        <input type="password" id = "confirmPass" placeholder="Confirm Password">
+        <button id="passwordSubmission" type="button">Update Password</button>
+    </form>
+
+
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/changeAccountDetails.js}"></script>
+</body>
+</html>
