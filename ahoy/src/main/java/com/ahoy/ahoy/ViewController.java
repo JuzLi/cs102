@@ -84,4 +84,9 @@ public class ViewController {
         return "alertSubscriptions";
     }
 
+    @GetMapping("/changeAccountDetails")
+    public String changeAccountDetails(){
+        return "changeAccountDetails";
+    }
+
 }
