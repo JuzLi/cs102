@@ -62,14 +62,22 @@
         <br>
     </div>
 
-    <div class="row text-end">
+    <div class="row">
         <div class="col-2"></div>
-        <div>
-            <button type="button" class="btn btn-dark" data-toggle="button" aria-pressed="false" autocomplete="off">Changes</button>
-            <button type="button" class="btn btn-dark" data-toggle="button" aria-pressed="false" autocomplete="off">Subscribed </button>
+
+        <div class="col-4">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-dark active">
+                  <input type="radio" name="options" id="option1" autocomplete="off" checked>All Voyages
+                </label>
+                <label class="btn btn-dark">
+                  <input type="radio" name="options" id="option2" autocomplete="off">Subscribed
+                </label>
+              </div>
         </div>
-        <br>
-        <br>
+          <br> 
+          <br>  
+
     </div>
 
     <div class="row">
@@ -104,26 +112,21 @@
         <br>
     </div>
 
-    <div class="text-left" style="padding-bottom: 8px;">
-        <div class="dropdown flex-column">
-            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Filter By
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Monday</a>
-                <a class="dropdown-item" href="#">Tuesday</a>
-                <a class="dropdown-item" href="#">Wednesday</a>
-                <a class="dropdown-item" href="#">Thursday</a>
-                <a class="dropdown-item" href="#">Friday</a>
-                <a class="dropdown-item" href="#">Saturday</a>
-                <a class="dropdown-item" href="#">Sunday</a>
-            </div>
+    <div class="row" style="padding-bottom: 8px;">
+        <div class="col-2"></div>
+        <div class="col-10">
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Filter by:
+                </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#">All Alerts</a></li>
+                    <li><a class="dropdown-item" href="#">Berthing Time Change</a></li>
+                    <li><a class="dropdown-item" href="#">Berth Number Change</a></li>
+                    <li><a class="dropdown-item" href="#">Average Speed Change</a></li>
+                    </ul>
+              </div>
         </div>
-
-    </div>
-
-    <div class="row">
         <br>
     </div>
 
