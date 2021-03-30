@@ -12,9 +12,6 @@ public class VoyageController {
     VoyageService voyageService;
 
     @Autowired
-    VoyageDetailsService voyageDetailsService;
-
-    @Autowired
     VoyageRepository voyageRepository;
 
     @ResponseBody
