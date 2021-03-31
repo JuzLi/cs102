@@ -39,10 +39,10 @@
         <div class="dropdown">
             <ul class="navbar-nav mr-auto mt-1"></ul>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                Hello, user!
+                Hello, [[${#httpServletRequest.remoteUser}]]
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{settings}">Settings</a></li>
+                <li><a class="dropdown-item" th:href="@{settings}">Account Preferences</a></li>
                 <li><a class="dropdown-item" th:href="@{landing}">Log out</a></li>
             </ul>
         </div>
