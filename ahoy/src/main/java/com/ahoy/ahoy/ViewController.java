@@ -38,6 +38,11 @@ public class ViewController {
         return "alerts";
     }
 
+    @GetMapping("/alertconfigurations")
+    public String alertconfigurations(){
+        return "alertconfigurations";
+    }
+
     @GetMapping("/settings")
     public String settings(){
         return "settings";
