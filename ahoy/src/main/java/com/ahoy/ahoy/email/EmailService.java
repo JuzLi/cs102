@@ -32,9 +32,8 @@ public class EmailService {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(email.getEmailAddress());
         mail.setFrom("ahoy.alert@gmail.com");
-        mail.setSubject("Alert! <Alert Details>");
-//        mail.setText(email.getMessage());
-
+        mail.setSubject("Your Voyage Alerts!");
+        mail.setText(email.populateText());
         javaMailSender.send(mail);
     }
 

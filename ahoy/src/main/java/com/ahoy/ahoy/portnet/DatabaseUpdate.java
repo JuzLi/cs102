@@ -1,9 +1,15 @@
 package com.ahoy.ahoy.portnet;
 
 
+import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.berth.BerthRepository;
 import com.ahoy.ahoy.berth.BerthService;
+import com.ahoy.ahoy.email.Email;
+import com.ahoy.ahoy.email.EmailService;
+import com.ahoy.ahoy.user.User;
+import com.ahoy.ahoy.user.UserRepository;
+import com.ahoy.ahoy.user.UserService;
 import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.voyage.VoyageRepository;
 import com.ahoy.ahoy.vessel.Vessel;
@@ -20,6 +26,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -41,9 +49,15 @@ public class DatabaseUpdate {
     BerthRepository berthRepository;
     @Autowired
     VoyageService voyageService;
-
     @Autowired
     VoyageRepository voyageRepository;
+    @Autowired
+    EmailService emailService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    UserRepository userRepository;
+
 
     @Scheduled(cron = "${post.timing}")
     public void retrieveVesselsBerthing() {
@@ -139,6 +153,37 @@ public class DatabaseUpdate {
             }
         }
     }
+
+
+    //send alert email
+    @Scheduled(cron = "${email.timing}")
+    public void sendEmailAlert() {
+
+        //get current date
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String datetimeString = now.toString();
+        String[] dateArr = datetimeString.split("T");
+        String date = dateArr[0];
+
+        for (User user : userRepository.findAll()) {
+            Email email = new Email();
+            email.setName(user.getUsername());
+            email.setEmailAddress(user.getEmail());
+            List<Alert> alertList = userService.retrieveAlerts(user, date);
+            email.setAlertList(alertList);
+
+            try{
+                //create message to send
+                emailService.sendEmail(email);
+                System.out.println("alert email sent to " + user.getEmail());
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
 
 
