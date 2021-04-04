@@ -21,6 +21,9 @@ public interface VoyageRepository extends JpaRepository<Voyage, Integer> {
     @Query("Select v from Voyage v where v.voyagePK.abbrvslm = :abbrvslm and v.voyagePK.invoyn = :invoyn")
     public Voyage findByPrimarykey(@Param("abbrvslm") String abbrvslm, @Param("invoyn") String invoyn);
 
+    @Query("Select v from Voyage v where v.vessel = :vessel")
+    List<Voyage> findByVessel(@Param("vessel") Vessel vessel);
+
     @Transactional
     @Modifying
     @Query("update Voyage v set v.btrdt = :updateBtr where v.voyagePK = :voyagePK")

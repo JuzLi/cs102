@@ -5,6 +5,8 @@ import com.ahoy.ahoy.alert.AlertRepository;
 import com.ahoy.ahoy.email.Email;
 import com.ahoy.ahoy.email.EmailService;
 import com.ahoy.ahoy.vessel.Vessel;
+import com.ahoy.ahoy.voyage.Voyage;
+import com.ahoy.ahoy.voyage.VoyageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +30,8 @@ public class UserService {
     AlertRepository alertRepository;
     @Autowired
     EmailService emailService;
+    @Autowired
+    VoyageRepository voyageRepository;
 
     public User getCurrentUser(){
 
@@ -118,6 +122,15 @@ public class UserService {
     public void removeSubscribedVessel(Vessel vessel){
         User user = getCurrentUser();
         vesselPreferencesRepository.deleteVesselPreference(user, vessel);
+    }
+
+    public List<Voyage> subscribedVoyages(){
+        List<Vessel> subscribedVessels = subscribedVessels();
+        List<Voyage> subscribedVoyages = new ArrayList<Voyage>();
+        for(Vessel v:subscribedVessels){
+            subscribedVoyages.addAll(voyageRepository.findByVessel(v));
+        }
+        return subscribedVoyages;
     }
 
     public void createAlertPreference(String alerttype){
