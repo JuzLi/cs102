@@ -1,5 +1,6 @@
 package com.ahoy.ahoy.user;
 
+import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.alert.AlertRepository;
 import com.ahoy.ahoy.email.Email;
 import com.ahoy.ahoy.email.EmailService;
@@ -10,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -43,6 +45,9 @@ public class UserService {
 
     }
 
+    public List<User> findAllUsers(){
+        return userRepository.findAll();
+    }
     public String createTempPass(){
         Random random = new Random();
         int targetStringLength = 8 + random.nextInt(8);
@@ -140,6 +145,26 @@ public class UserService {
     public void removeAlertPreference(String type){
         User user = getCurrentUser();
         alertPreferenceRepository.deleteAlertPreference(user,type);
+    }
+
+    public List<Alert> retrieveAlerts(User user, String date){
+        List<String> alertTypeList = alertPreferenceRepository.allSubscribedAlertTypes(user.getUsername());
+        List<VesselPreference> vesselPreferencesList = vesselPreferencesRepository.allVesselPreferences(user);
+        List<Alert> alertList = new ArrayList<Alert>();
+        List<String> alertPreference = alertPreferenceRepository.allSubscribedAlertTypes(user.getUsername());
+        for(VesselPreference vesselPreference : vesselPreferencesList) {
+            String abbrvslm = vesselPreference.getVesselPreferencePK().getAbbrvslm();
+            alertList.addAll(alertRepository.retrieveAlerts(abbrvslm, alertPreference, date));
+        }
+
+//        for(String alertType : alertTypeList) {
+//            for(VesselPreference vesselPreference : vesselPreferencesList) {
+//                String abbrvslm = vesselPreference.getVesselPreferencePK().getAbbrvslm();
+//                alertList.addAll(alertRepository.retrieveAlerts(abbrvslm, alertType, date));
+//            }
+//        }
+
+        return alertList;
     }
 
 

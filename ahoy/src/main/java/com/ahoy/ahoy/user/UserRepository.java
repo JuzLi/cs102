@@ -28,4 +28,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Query("update User u set u.password = :newPass where u.username = :username")
     public void updatePassword(@Param("username") String username, @Param("newPass") String newPass);
 
+    @Query("Select u from User u")
+    public List<User> retrieveAllUsers();
+
+
 }

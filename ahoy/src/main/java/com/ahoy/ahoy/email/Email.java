@@ -6,16 +6,17 @@ package com.ahoy.ahoy.email;
 import com.ahoy.ahoy.alert.Alert;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Email {
     private String name; //name of sendee
     private String emailAddress;
-    private ArrayList<Alert> alertList;
+    private List<Alert> alertList;
     private String subject;
 
 
     public Email(){
-        alertList = new ArrayList<Alert>();
+        alertList = new ArrayList<>();
     }
 
     public String getName() {
@@ -42,13 +43,31 @@ public class Email {
         this.subject = subject;
     }
 
-    //alert methods
     public void addAlert(Alert alert){
         alertList.add(alert);
     }
 
+    public void setAlertList(List<Alert> alertList){
+        this.alertList = alertList;
+    }
 
-    
+    //generate Email message from alerts: as soon as all messages are out
+    public String populateText(){
+        String text = "Ahoy " + name + "! \n" +
+                "Shiver me timbers matey, you have the following alerts for ye subscribed voyages! \n\n";
+
+        int count = 1;
+        for (Alert a : alertList) {
+            text += "Alert " + count++ + " : ";
+            text += a.toText() + "\n \n \n";
+        }
+        text += "That's it! Goodbye and godspeed!\n The Ahoy Team";
+
+        return text;
+    }
+
+
+
 
 
 

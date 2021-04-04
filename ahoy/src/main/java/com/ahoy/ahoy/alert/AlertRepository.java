@@ -1,6 +1,7 @@
 package com.ahoy.ahoy.alert;
 
 import com.ahoy.ahoy.alert.Alert;
+import com.ahoy.ahoy.user.User;
 import com.ahoy.ahoy.voyage.Voyage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,5 +19,12 @@ public interface AlertRepository extends JpaRepository<Alert, Integer> {
 
     @Query("select distinct a.alertPK.alerttype from Alert a")
     public List<String> allAlertType();
+
+
+//    @Query("select a from Alert a where a.alertPK.voyagePK.abbrvslm = :abbrvslm and date(a.alertdatetime) = :date")
+//    public List<Alert> retrieveAlerts(@Param("abbrvslm") String abbrvslm, @Param("date") String date);
+
+    @Query (value = "select * from alert where abbrvslm = :abbrvslm and alerttype IN (:alerttype) and alertdatetime >= :date", nativeQuery = true)
+    public List<Alert> retrieveAlerts(@Param("abbrvslm") String abbrvslm, @Param("alerttype") List<String> alertType, @Param("date") String date);
 
 }

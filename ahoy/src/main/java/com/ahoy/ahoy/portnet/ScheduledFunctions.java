@@ -1,9 +1,15 @@
 package com.ahoy.ahoy.portnet;
 
 
+import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.berth.BerthRepository;
 import com.ahoy.ahoy.berth.BerthService;
+import com.ahoy.ahoy.email.Email;
+import com.ahoy.ahoy.email.EmailService;
+import com.ahoy.ahoy.user.User;
+import com.ahoy.ahoy.user.UserRepository;
+import com.ahoy.ahoy.user.UserService;
 import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.voyage.VoyageRepository;
 import com.ahoy.ahoy.vessel.Vessel;
@@ -20,13 +26,15 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 
 @Service
-public class DatabaseUpdate {
+public class ScheduledFunctions {
 
     @Autowired
     PortnetConnector portnetConnector;
@@ -41,11 +49,17 @@ public class DatabaseUpdate {
     BerthRepository berthRepository;
     @Autowired
     VoyageService voyageService;
-
     @Autowired
     VoyageRepository voyageRepository;
+    @Autowired
+    EmailService emailService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    UserRepository userRepository;
 
-    @Scheduled(cron = "${post.timing}")
+
+    @Scheduled(cron = "${post.timing}", zone = "GMT+8.00")
     public void retrieveVesselsBerthing() {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -104,7 +118,7 @@ public class DatabaseUpdate {
 
     }
 
-    @Scheduled(cron = "${get.timing}")
+    @Scheduled(cron = "${get.timing}", zone = "GMT+8.00")
     public void getVoyageDetails(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date today = new Date();
@@ -139,6 +153,39 @@ public class DatabaseUpdate {
             }
         }
     }
+
+
+    //send alert email
+    @Scheduled(cron = "${email.timing}", zone = "GMT+8.00")
+    public void sendEmailAlert() {
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date today = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(today);
+        c.add(Calendar.HOUR, -6);
+        Date temp = c.getTime();
+        String last6hours = dateFormat.format(temp);
+
+        List<User> allUsers = userService.findAllUsers();
+        for(User user: allUsers){
+            Email email = new Email();
+
+            email.setName(user.getUsername());
+            email.setEmailAddress(user.getEmail());
+            email.setAlertList(userService.retrieveAlerts(user,last6hours));
+
+            try{
+                //create message to send
+                emailService.sendEmail(email);
+                System.out.println("alert email sent to " + user.getEmail());
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
 
 
