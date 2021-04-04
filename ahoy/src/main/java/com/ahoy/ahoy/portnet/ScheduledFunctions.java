@@ -34,7 +34,7 @@ import java.util.List;
 
 
 @Service
-public class DatabaseUpdate {
+public class ScheduledFunctions {
 
     @Autowired
     PortnetConnector portnetConnector;
@@ -59,7 +59,7 @@ public class DatabaseUpdate {
     UserRepository userRepository;
 
 
-    @Scheduled(cron = "${post.timing}")
+    @Scheduled(cron = "${post.timing}", zone = "GMT+8.00")
     public void retrieveVesselsBerthing() {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -118,7 +118,7 @@ public class DatabaseUpdate {
 
     }
 
-    @Scheduled(cron = "${get.timing}")
+    @Scheduled(cron = "${get.timing}", zone = "GMT+8.00")
     public void getVoyageDetails(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date today = new Date();
@@ -156,22 +156,24 @@ public class DatabaseUpdate {
 
 
     //send alert email
-    @Scheduled(cron = "${email.timing}")
+    @Scheduled(cron = "${email.timing}", zone = "GMT+8.00")
     public void sendEmailAlert() {
 
-        //get current date
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String datetimeString = now.toString();
-        String[] dateArr = datetimeString.split("T");
-        String date = dateArr[0];
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date today = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(today);
+        c.add(Calendar.HOUR, -6);
+        Date temp = c.getTime();
+        String last6hours = dateFormat.format(temp);
 
-        for (User user : userRepository.findAll()) {
+        List<User> allUsers = userService.findAllUsers();
+        for(User user: allUsers){
             Email email = new Email();
+
             email.setName(user.getUsername());
             email.setEmailAddress(user.getEmail());
-            List<Alert> alertList = userService.retrieveAlerts(user, date);
-            email.setAlertList(alertList);
+            email.setAlertList(userService.retrieveAlerts(user,last6hours));
 
             try{
                 //create message to send

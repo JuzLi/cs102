@@ -45,6 +45,9 @@ public class UserService {
 
     }
 
+    public List<User> findAllUsers(){
+        return userRepository.findAll();
+    }
     public String createTempPass(){
         Random random = new Random();
         int targetStringLength = 8 + random.nextInt(8);
@@ -147,14 +150,19 @@ public class UserService {
     public List<Alert> retrieveAlerts(User user, String date){
         List<String> alertTypeList = alertPreferenceRepository.allSubscribedAlertTypes(user.getUsername());
         List<VesselPreference> vesselPreferencesList = vesselPreferencesRepository.allVesselPreferences(user);
-        List<Alert> alertList = new ArrayList<>();
-
-        for(String alertType : alertTypeList) {
-            for(VesselPreference vesselPreference : vesselPreferencesList) {
-                String abbrvslm = vesselPreference.getVesselPreferencePK().getAbbrvslm();
-                alertList.addAll(alertRepository.retrieveAlerts(abbrvslm, alertType, date));
-            }
+        List<Alert> alertList = new ArrayList<Alert>();
+        List<String> alertPreference = alertPreferenceRepository.allSubscribedAlertTypes(user.getUsername());
+        for(VesselPreference vesselPreference : vesselPreferencesList) {
+            String abbrvslm = vesselPreference.getVesselPreferencePK().getAbbrvslm();
+            alertList.addAll(alertRepository.retrieveAlerts(abbrvslm, alertPreference, date));
         }
+
+//        for(String alertType : alertTypeList) {
+//            for(VesselPreference vesselPreference : vesselPreferencesList) {
+//                String abbrvslm = vesselPreference.getVesselPreferencePK().getAbbrvslm();
+//                alertList.addAll(alertRepository.retrieveAlerts(abbrvslm, alertType, date));
+//            }
+//        }
 
         return alertList;
     }

@@ -24,7 +24,7 @@ public interface AlertRepository extends JpaRepository<Alert, Integer> {
 //    @Query("select a from Alert a where a.alertPK.voyagePK.abbrvslm = :abbrvslm and date(a.alertdatetime) = :date")
 //    public List<Alert> retrieveAlerts(@Param("abbrvslm") String abbrvslm, @Param("date") String date);
 
-    @Query (value = "select * from alert where abbrvslm = :abbrvslm and alerttype = :alerttype and alertdatetime > :date", nativeQuery = true)
-    public List<Alert> retrieveAlerts(@Param("abbrvslm") String abbrvslm, @Param("alerttype") String alertType, @Param("date") String date);
+    @Query (value = "select * from alert where abbrvslm = :abbrvslm and alerttype IN (:alerttype) and alertdatetime >= :date", nativeQuery = true)
+    public List<Alert> retrieveAlerts(@Param("abbrvslm") String abbrvslm, @Param("alerttype") List<String> alertType, @Param("date") String date);
 
 }

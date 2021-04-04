@@ -61,7 +61,7 @@ public class Email {
             text += "Alert " + count++ + " : ";
             text += a.toText() + "\n \n \n";
         }
-        text += "That's it! Goodbye and go  dspeed!\n The Ahoy Team";
+        text += "That's it! Goodbye and godspeed!\n The Ahoy Team";
 
         return text;
     }
