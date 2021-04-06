@@ -139,11 +139,21 @@ public class VoyageService {
     }
     public VoyageDetails findLatestDetails(Voyage voyage){
         int latest = voyageDetailsRepository.countDetailsOfVoyage(voyage);
+        System.out.println(latest);
+        System.out.println(voyage.getInvoyn());
         return voyageDetailsRepository.findDetails(voyage, latest);
     }
 
     public VoyageDetails findSecondLatestDetails(Voyage voyage){
         int latest = voyageDetailsRepository.countDetailsOfVoyage(voyage) - 1;
         return voyageDetailsRepository.findDetails(voyage, latest);
+    }
+
+    public VoyageDetails findingOneDetail(Voyage voyage){
+        System.out.println(voyage.getInvoyn());
+        for(VoyageDetails a: voyageDetailsRepository.findOneDetail(voyage)){
+            return a;
+        }
+        return null;
     }
 }

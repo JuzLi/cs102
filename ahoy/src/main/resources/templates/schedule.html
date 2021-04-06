@@ -129,142 +129,7 @@
                             </tr>
                             </thead>
 
-                            <tbody>
-                            <tr>
-                                <th scope="row">CALI878</th>
-                                <td>123</td>
-                                <td>456</td>
-                                <td>23 miles/hr</td>
-                                <td>34 miles/hr</td>
-                                <td>56 miles</td>
-                                <td>10:00</td>
-                                <td>12:00</td>
-                                <td>78</td>
-                                <td>Berthing</td>
-                                <td class="checkbox">
-                                    <input type="checkbox">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">DELI546</th>
-                                <td>128</td>
-                                <td>987</td>
-                                <td>21 miles/hr</td>
-                                <td>32 miles/hr</td>
-                                <td>86 miles</td>
-                                <td>12:00</td>
-                                <td>14:00</td>
-                                <td>47</td>
-                                <td>Alongside</td>
-                                <td class="checkbox">
-                                    <input type="checkbox">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">DELI546</th>
-                                <td>128</td>
-                                <td>987</td>
-                                <td>21 miles/hr</td>
-                                <td>32 miles/hr</td>
-                                <td>98 miles</td>
-                                <td>14:50</td>
-                                <td>16:00</td>
-                                <td>73</td>
-                                <td>Unberthed</td>
-                                <td class="checkbox">
-                                    <input type="checkbox">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">TAKI789</th>
-                                <td>234</td>
-                                <td>457</td>
-                                <td>25 miles/hr</td>
-                                <td>39 miles/hr</td>
-                                <td>19 miles</td>
-                                <td>18:00</td>
-                                <td>19:00</td>
-                                <td>81</td>
-                                <td>Berthing</td>
-                                <td class="checkbox">
-                                    <input type="checkbox">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">ALBI559</th>
-                                <td>346</td>
-                                <td>658</td>
-                                <td>27 miles/hr</td>
-                                <td>45 miles/hr</td>
-                                <td>56 miles</td>
-                                <td>10:90</td>
-                                <td>12:50</td>
-                                <td>69</td>
-                                <td>Alongside</td>
-                                <td class="checkbox">
-                                    <input type="checkbox">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">DWL678</th>
-                                <td>189</td>
-                                <td>340</td>
-                                <td>21 miles/hr</td>
-                                <td>32 miles/hr</td>
-                                <td>76 miles</td>
-                                <td>10:40</td>
-                                <td>11:00</td>
-                                <td>42</td>
-                                <td>Berthing</td>
-                                <td class="checkbox">
-                                    <input type="checkbox">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">TAKI789</th>
-                                <td>234</td>
-                                <td>457</td>
-                                <td>25 miles/hr</td>
-                                <td>39 miles/hr</td>
-                                <td>95 miles</td>
-                                <td>06:00</td>
-                                <td>09:00</td>
-                                <td>54</td>
-                                <td>Unberthed</td>
-                                <td class="checkbox">
-                                    <input type="checkbox">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">ALBI559</th>
-                                <td>346</td>
-                                <td>658</td>
-                                <td>27 miles/hr</td>
-                                <td>45 miles/hr</td>
-                                <td>56 miles</td>
-                                <td>12:00</td>
-                                <td>12:40</td>
-                                <td>81</td>
-                                <td>Berthing</td>
-                                <td class="checkbox">
-                                    <input type="checkbox">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">DWL678</th>
-                                <td>189</td>
-                                <td>340</td>
-                                <td>21 miles/hr</td>
-                                <td>32 miles/hr</td>
-                                <td>56 miles</td>
-                                <td>15:00</td>
-                                <td>17:00</td>
-                                <td>29</td>
-                                <td>Alongside</td>
-                                <td class="checkbox">
-                                    <input type="checkbox">
-                                </td>
-                            </tr>
+                            <tbody id = "detailedVoyageRecordByDay">
                             </tbody>
                         </table>
                     </div>
@@ -283,7 +148,8 @@
 <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
-
+<script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
+<script type="text/javascript" th:src="@{/js/schedule.js}"></script>
 </body>
 
 </html>
