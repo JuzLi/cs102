@@ -2,10 +2,16 @@ package com.ahoy.ahoy.user;
 
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselRepository;
+import com.ahoy.ahoy.voyage.Voyage;
+import com.ahoy.ahoy.voyage.VoyageRepository;
+import com.ahoy.ahoy.voyage.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +24,10 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    VoyageService voyageService;
+    @Autowired
+    VoyageRepository voyageRepository;
 
     @ResponseBody
     @RequestMapping(path = "/ajax/createVesselPreference", method = RequestMethod.POST)
@@ -75,4 +85,24 @@ public class UserController {
         userService.recoverAccount(username,email);
         return "Success";
     }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/retrieveTodaySubscribedVoyages", method = RequestMethod.GET)
+    public List<Voyage> retrieveSubscribedVoyages(){
+
+        return voyageService.filterVoyagesArrivingByDate(userService.subscribedVoyages(),0);
+    }
+
+
+
+//    @ResponseBody
+//    @RequestMapping(path = "/ajax/retrieveTodayVoyage", method = RequestMethod.GET)
+//    public List<Voyage> retrieveTodayVoyages(){
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        Date today = new Date();
+//        String todayString = dateFormat.format(today);
+//        String dateFrom = todayString + " 00:00:00";
+//        String dateTo = todayString + " 23:59:59";
+//        return voyageRepository.retrieveVoyagesBetweenDates(dateFrom, dateTo);
+//    }
 }

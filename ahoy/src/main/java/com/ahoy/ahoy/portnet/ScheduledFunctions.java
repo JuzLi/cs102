@@ -125,7 +125,8 @@ public class ScheduledFunctions {
         String date_from = dateFormat.format(today);
         Calendar c = Calendar.getInstance();
         c.setTime(today);
-        c.add(Calendar.DATE, 1);
+        //removed because we include current day
+        //c.add(Calendar.DATE, 1);
         Date temp = c.getTime();
         String dateFrom = dateFormat.format(temp);
         c.add(Calendar.DATE, 2);
