@@ -53,8 +53,22 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(path = "/ajax/searchAlerts", method = RequestMethod.GET)
-    public List<String> searchAlerts(){
+    @RequestMapping(path = "/ajax/deleteAlertPreference", method = RequestMethod.POST)
+    public String deleteAlertPreference(@RequestBody Map<String,String> map){
+        userService.removeAlertPreference(map.get("alertType"));
+        return "Success";
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/searchSubscribedAlerts", method = RequestMethod.GET)
+    public List<String> searchSubscribedAlerts(){
+        System.out.println(userService.subscribedAlertTypes());
+        return userService.subscribedAlertTypes();
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/searchUnsubscribedAlerts", method = RequestMethod.GET)
+    public List<String> searchUnsubscribedAlerts(){
         System.out.println(userService.unsubscribedAlertTypes());
         return userService.unsubscribedAlertTypes();
     }
