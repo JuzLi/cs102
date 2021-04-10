@@ -40,7 +40,7 @@ public class VoyageController {
             VoyageDetails temp = voyageService.findLatestDetails(v);
             todayVoyageDetailsList.add(temp);
         }
-        
+
 
         return todayVoyageDetailsList;
     }

@@ -32,9 +32,16 @@ function loadData() {
        })
 }
 
-$(".dayFilter").click(function () {
-  days = $(this).data("value");
-  loadData();
+$("#colorselector").change(function () {
+  let val = $(this).val();
+  days = val;
+  if($("#filterCheck").prop("checked") == true){
+    loadSubscribedData();
+  }
+  else{
+    loadData();
+  }
+  
 })
 
 $(document).on('click','.createPref',function(){
@@ -68,10 +75,15 @@ $(document).on('click','.createPref',function(){
   
 })
 
-$(".subscribeFilter").click(function(){
-  alert("Clicked");
-  loadSubscribedData();
+$("#filterCheck").click(function(){
+  if($(this).prop("checked") == true){
+    loadSubscribedData();
+  } else{
+    loadData();
+  }
 })
+
+
 
 function loadSubscribedData() {
   let mid = {"numDays" : days, "subscribed" : subscribed};
