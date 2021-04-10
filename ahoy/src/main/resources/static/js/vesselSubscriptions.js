@@ -37,6 +37,6 @@ $(document).on('click','.createPref',function(){
 
     }
   })
-  $(this).parent().remove()
+  $(this).parent().parent().remove()
 })
 
