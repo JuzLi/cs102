@@ -65,6 +65,12 @@ public class VoyageService {
         }
     }
 
+    public List<Voyage> allVoyagesFromToday(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date today = new Date();
+        String dateFrom = dateFormat.format(today);
+        return voyageRepository.retrieveVoyagesFromDates(dateFrom);
+    }
     public List<Voyage> filterVoyagesArrivingByDate(List<Voyage> voyageList, int days){
         //for voyages arriving today, days = 0
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -139,8 +145,6 @@ public class VoyageService {
     }
     public VoyageDetails findLatestDetails(Voyage voyage){
         int latest = voyageDetailsRepository.countDetailsOfVoyage(voyage);
-        System.out.println(latest);
-        System.out.println(voyage.getInvoyn());
         return voyageDetailsRepository.findDetails(voyage, latest);
     }
 

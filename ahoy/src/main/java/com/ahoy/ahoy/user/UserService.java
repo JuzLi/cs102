@@ -5,6 +5,7 @@ import com.ahoy.ahoy.alert.AlertRepository;
 import com.ahoy.ahoy.email.Email;
 import com.ahoy.ahoy.email.EmailService;
 import com.ahoy.ahoy.vessel.Vessel;
+import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.voyage.Voyage;
 import com.ahoy.ahoy.voyage.VoyageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class UserService {
     EmailService emailService;
     @Autowired
     VoyageRepository voyageRepository;
+    @Autowired
+    VesselRepository vesselRepository;
 
     public User getCurrentUser(){
 
@@ -118,14 +121,22 @@ public class UserService {
         return returnList;
 
     }
-
+    public boolean isVesselSubscribed(String abbrvslm){
+        List<Vessel> subscribedVessels = this.subscribedVessels();
+        for(Vessel v : subscribedVessels){
+            if(v.getAbbrvslm().equals(abbrvslm)){
+                return true;
+            }
+        }
+        return false;
+    }
     public void removeSubscribedVessel(Vessel vessel){
         User user = getCurrentUser();
         vesselPreferencesRepository.deleteVesselPreference(user, vessel);
     }
 
     public List<Voyage> subscribedVoyages(){
-        List<Vessel> subscribedVessels = subscribedVessels();
+        List<Vessel> subscribedVessels = this.subscribedVessels();
         List<Voyage> subscribedVoyages = new ArrayList<Voyage>();
         for(Vessel v:subscribedVessels){
             subscribedVoyages.addAll(voyageRepository.findByVessel(v));
