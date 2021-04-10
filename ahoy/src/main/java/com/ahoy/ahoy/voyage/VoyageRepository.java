@@ -18,6 +18,9 @@ public interface VoyageRepository extends JpaRepository<Voyage, Integer> {
     @Query(value = "Select * from voyage where btrdt between :dateFrom and :dateTo", nativeQuery = true)
     List<Voyage> retrieveVoyagesBetweenDates(@Param("dateFrom") String dateFrom, @Param("dateTo") String dateTo);
 
+    @Query(value = "Select * from voyage where btrdt > :dateFrom", nativeQuery = true)
+    List<Voyage> retrieveVoyagesFromDates(@Param("dateFrom") String dateFrom);
+
     @Query("Select v from Voyage v where v.voyagePK.abbrvslm = :abbrvslm and v.voyagePK.invoyn = :invoyn")
     public Voyage findByPrimarykey(@Param("abbrvslm") String abbrvslm, @Param("invoyn") String invoyn);
 

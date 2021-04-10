@@ -65,49 +65,84 @@
 
     <div class="row">
         <h1 style="text-align:center ">Alert Configurations</h1>
-        
+
+        <p style="text-align:center ">Please note: you may need to refresh this page to see your changes reflected</p>
     </div>
 
-    
+
+
     <div class="row">
         <div class="col-sm"></div>
         <div class="col-md">
             <div class="card">
-                <h6 class="card-header">Configure your alert details</h6>
+
+                <h6 class="card-header">Subscribed Alerts</h6>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <div class="form-group">
+                        <div>You're subscribed to the following alerts:</div>
 
-                            <b><label for="alert1a">Subscribe to email alerts</label></b>
-                            <input type="checkbox" id="checkbox1" name="checkbox1" value="tick">
-                            <label for="alert1b">I would like to receive emails
-                                (if subscribed) and view alerts regarding
-                            </label>
+                        <br>
 
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <b><label for="alert2a">Change in status</label></b>
-                            <input type="checkbox" id="checkbox2" name="checkbox2" value="tick2">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <b><label for="alert3a">Change in berthing time</label></b>
-                            <input type="checkbox" id="checkbox3" name="checkbox3" value="tick3">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <b><label for="alert4a">Change in average speed</label></b>
-                            <input type="checkbox" id="checkbox3" name="checkbox4" value="tick3">
-                        </div>
-                        <br>
-                        <button type="submit" class="btn btn-dark" style="float:right">Save</button>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>AlertType</th>
+                                    <th>Unsubscribe</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="subscribedAlerts">
+
+                            </tbody>
+
+                        </table>
+
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm"></div>
     </div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <br>
+            <br>
+        </div>
+        
+    
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-md">
+                <div class="card">
+                    <h6 class="card-header">Unsubscribed Alerts</h6>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div>You are not subscribed to the following alerts. Click to subscribe.</div>
+    
+                            <br>
+    
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>AlertType</th>
+                                        <th>Subscribe</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody id="unsubscribedAlerts">
+    
+                                </tbody>
+    
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -119,6 +154,9 @@
 <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
+<script type="text/javascript" th:src="@{/js/alertConfigurations.js}"></script>
+
 
 </body>
 
