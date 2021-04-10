@@ -151,19 +151,5 @@ public class UserController {
         }
         return alertService.filterAlertsByDate(alertList,0);
     }
-
-
-
-
-
-//    @ResponseBody
-//    @RequestMapping(path = "/ajax/retrieveTodayVoyage", method = RequestMethod.GET)
-//    public List<Voyage> retrieveTodayVoyages(){
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        Date today = new Date();
-//        String todayString = dateFormat.format(today);
-//        String dateFrom = todayString + " 00:00:00";
-//        String dateTo = todayString + " 23:59:59";
-//        return voyageRepository.retrieveVoyagesBetweenDates(dateFrom, dateTo);
-//    }
+    
 }
