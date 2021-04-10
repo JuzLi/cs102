@@ -10,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -120,8 +117,9 @@ public class UserController {
     public List<Alert> retrieveAlerts(){
         String today = java.time.LocalDate.now().toString();
         String startDT = today+" 00:00:00";
-        List<Alert> alertList = userService.retrieveAlerts(userService.getCurrentUser(), startDT);
-        return alertList;
+
+        return userService.retrieveAlerts(userService.getCurrentUser(), startDT);
+
     }
 
 

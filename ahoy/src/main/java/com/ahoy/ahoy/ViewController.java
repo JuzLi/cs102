@@ -28,6 +28,10 @@ public class ViewController {
         return "homepage";
     }
 
+    @GetMapping("/vesselSubscribe")
+    public String vesselSubscribe(){
+        return "vesselSubscribe";
+    }
 
     @GetMapping("/schedule")
     public String schedule(){

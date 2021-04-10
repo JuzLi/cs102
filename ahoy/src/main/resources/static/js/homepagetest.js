@@ -5,6 +5,7 @@ $(document).ready( function () {
   
 
 
+
 function loadVoyages(){
   $.ajax({
     url: "/ajax/retrieveTodayVoyage",
@@ -34,6 +35,7 @@ function loadVoyages(){
     }
   })
 }
+
 
 function loadAlerts(){
   $.ajax({
@@ -109,3 +111,4 @@ $("#option1").click(function(){
            }
          })
   });
+
