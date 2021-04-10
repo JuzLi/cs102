@@ -136,3 +136,45 @@ $("#option1").click(function(){
          })
   });
 
+
+$("#alertFilter").click(function(){
+  console.log("1");
+  let filter = $(this).val();
+
+  if(filter == "allAlerts"){
+    loadAlerts();
+  }
+  else{
+    loadFilteredData(filter);
+  }
+
+});
+
+function loadFilteredData(filter) {
+  let mid = {"filter" : filter};
+  let data = JSON.stringify(mid);
+  $.ajax({
+        url: "/ajax/retrieveSubscribedAlertsFiltered",
+        type:"POST",
+        data:data,
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",
+        success: function(response){
+        $(".alert").remove();
+        $.each(response, function(key,val){
+        
+          let isChecked = ""; 
+          let readKey = "Alert"+val.alertPK.voyagePK.abbrvslm + val.alertPK.voyagePK.invoyn + val.alertPK.alerttype;
+          if (localStorage.getItem(readKey) != null){
+            isChecked = "checked";
+            return;
+          }
+
+          var alertrow = '<tr class = "alert"> <td>'+val.alertPK.alerttype +'</td> <td>'+val.alertPK.voyagePK.abbrvslm + '</td><td>' + val.voyage.status + '</td> <td>' + val.voyage.fullinvoyn + '</td><td>' + val.voyage.btrdt.split(" ")[1] +'</td><td>'+ val.alertcontent+ '</td> <td class = "checkbox"><input type = "checkbox" class = "readNotif" value = "'+ readKey +  '"></td></tr>';
+          $(alertrow).insertAfter("#todayAlertRecord");  
+      })
+    }
+  })
+}
+
+

@@ -127,6 +127,7 @@ public class UserController {
         return alertService.filterAlertsByDate(alertList,0);
     }
 
+
     @ResponseBody
     @RequestMapping(path = "/ajax/retrieveTodayAlerts", method = RequestMethod.GET)
     public List<Alert> retrieveTodayAlerts(){
@@ -151,5 +152,20 @@ public class UserController {
         }
         return alertService.filterAlertsByDate(alertList,0);
     }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/retrieveSubscribedAlertsFiltered", method = RequestMethod.POST)
+    public List<Alert> retrieveSubscribedAlertsFiltered(@RequestBody Map<String,String> map){
+        String filter = map.get("filter");
+        List<Voyage> subscribedVoyages = userService.subscribedVoyages();
+        List<Voyage> todayVoyages = voyageService.filterVoyagesArrivingByDate(subscribedVoyages,0);
+        List<Alert> alertList = new ArrayList<>();
+        for(Voyage voyage: todayVoyages){
+            alertList.add(alertService.retrieveLatestAlertOfVoyageOfType(voyage,filter));
+        }
+        return alertService.filterAlertsByDate(alertList,0);
+    }
+
+
     
 }
