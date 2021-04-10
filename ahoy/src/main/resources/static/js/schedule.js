@@ -115,3 +115,75 @@ function loadSubscribedData() {
          }
        })
 }
+
+
+$(document).ready( function () {
+    loadData();
+});
+
+$("#sortNameButton").click(function(){
+function sortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("scheduleTable");
+  switching = true;
+  dir = "asc";
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("td")[0];
+      y = rows[i + 1].getElementsByTagName("td")[0];
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "original") {
+        loadData();
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      switchcount ++;
+    } else {
+      if (switchcount == 0 && dir == "asc") {
+        dir = "original";
+        switching = true;
+      }
+    }
+  }
+}
+
+sortTable();
+
+});
+
+let filters = ["",""];
+
+function setFilter(thisInput, thisIndex) {
+  filters[thisIndex] = thisInput.value.toUpperCase();
+
+  filterTable();
+}
+function filterTable() {
+  var table = document.getElementById("scheduleTable");
+  var rows = Object.values(table.getElementsByTagName("tr"));
+
+  for(var rowItr=1; rowItr < rows.length; rowItr++) {
+    var row = rows[rowItr];
+    var cells = Object.values(row.getElementsByTagName("td"));
+
+
+    var isRowVisible = filters.every((filter, filterIndex) => {
+        var cell = cells[filterIndex];
+        var txtValue = cell.textContent || cell.innerText;
+
+        return filter === "" || txtValue.toUpperCase().indexOf(filter) > -1;
+    });
+
+    row.style.display = isRowVisible ? "" : "none";
+  };
+}
+

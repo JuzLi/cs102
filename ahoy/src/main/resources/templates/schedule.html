@@ -70,18 +70,18 @@
         <div class="row">
             <div class="text-start">
                 <div>
-                    <div class="container-fluid">
+                    <div class="container">
                         <form class="d-flex input-group w-25">
-                            <input type="search" class="form-control" placeholder="Search by vessel name"
-                                aria-label="Search" />
+                            <input type="text" id = "vesselNameInput" onkeyup = "setFilter(this,0)" placeholder="Search by vessel name..."
+                            />
                             <button class="btn btn-dark" type="button" data-mdb-ripple-color="dark">
                                 <i class="fa fa-search"></i>
                             </button>
                         </form>
                         <br>
                         <form class="d-flex input-group w-25">
-                            <input type="search" class="form-control" placeholder="Search by berth number"
-                                aria-label="Search" />
+                            <input type="text" id = "berthNumberInput" onkeyup = "setFilter(this,8)" placeholder="Search by berth number..."
+                            />
                             <button class="btn btn-dark" type="button" data-mdb-ripple-color="dark">
                                 <i class="fa fa-search"></i>
                             </button>
@@ -121,10 +121,10 @@
                     <h5 class="card-header">Your Daily Schedule</h5>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id = "scheduleTable">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Vessel Name <i class="fa fa-fw fa-sort"></i></th>
+                                        <th scope="col" id = "sortNameButton">Vessel Name <i class="fa fa-fw fa-sort"></i></th>
                                         <th scope="col">Incoming Voyage No.</th>
                                         <th scope="col">Out Voyage No.</th>
                                         <th scope="col">Average Speed</th>
