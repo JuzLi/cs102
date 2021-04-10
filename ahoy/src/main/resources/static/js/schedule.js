@@ -25,7 +25,12 @@ function loadData() {
               if(localStorage.getItem(vessel) != null){
                 isChecked = "checked"
               }
-              row = '<tr class = "ajax"><td>'+val.voyage.vessel.abbrvslm+"</td><td>"+val.voyage.invoyn+"</td><td>"+val.voyage.outvoyn+"</td><td>"+val.avg_speed+"</td><td>"+val.max_speed+"</td><td>"+val.distance_to_go+"</td><td>"+val.voyage.btrdt.split(" ")[1]+"</td><td>"+val.voyage.unbthgdt.split(" ")[1]+"</td><td>"+val.voyage.berth.berthnum+"</td><td>"+val.voyage.status+'</td><td class="checkbox"><input type="checkbox" class = "createPref" value ="' + val.voyage.vessel.abbrvslm +  '"' + isChecked + '></td></tr>';
+              if(val.voyage.berth==null){
+                row = '<tr class = "ajax"><td><div class="openDetailPage" data-value="'+val.voyage.vessel.abbrvslm+'">'+val.voyage.vessel.abbrvslm+"</div></td><td>"+val.voyage.invoyn+"</td><td>"+val.voyage.outvoyn+"</td><td>"+val.avg_speed+"</td><td>"+val.max_speed+"</td><td>"+val.distance_to_go+"</td><td>"+val.voyage.btrdt.split(" ")[1]+"</td><td>"+val.voyage.unbthgdt.split(" ")[1]+"</td><td>"+val.voyage.berth+"</td><td>"+val.voyage.status+'</td><td class="checkbox"><input type="checkbox" class = "createPref" value ="' + val.voyage.vessel.abbrvslm +  '"' + isChecked + '></td></tr>';
+
+              }else{
+                row = '<tr class = "ajax"><td><div class="openDetailPage" data-value="'+val.voyage.vessel.abbrvslm+'">'+val.voyage.vessel.abbrvslm+"</div></td><td>"+val.voyage.invoyn+"</td><td>"+val.voyage.outvoyn+"</td><td>"+val.avg_speed+"</td><td>"+val.max_speed+"</td><td>"+val.distance_to_go+"</td><td>"+val.voyage.btrdt.split(" ")[1]+"</td><td>"+val.voyage.unbthgdt.split(" ")[1]+"</td><td>"+val.voyage.berth.berthnum+"</td><td>"+val.voyage.status+'</td><td class="checkbox"><input type="checkbox" class = "createPref" value ="' + val.voyage.vessel.abbrvslm +  '"' + isChecked + '></td></tr>';
+              }
               $(row).insertAfter("#detailedVoyageRecordByDay");
             } 
            })
@@ -108,7 +113,12 @@ function loadSubscribedData() {
               if(localStorage.getItem(vessel) != null){
                 isChecked = "checked"
               }
-              row = '<tr class = "ajax"><td>'+val.voyage.vessel.abbrvslm+"</td><td>"+val.voyage.invoyn+"</td><td>"+val.voyage.outvoyn+"</td><td>"+val.avg_speed+"</td><td>"+val.max_speed+"</td><td>"+val.distance_to_go+"</td><td>"+val.voyage.btrdt.split(" ")[1]+"</td><td>"+val.voyage.unbthgdt.split(" ")[1]+"</td><td>"+val.voyage.berth.berthnum+"</td><td>"+val.voyage.status+'</td><td class="checkbox"><input type="checkbox" class = "createPref" value ="' + val.voyage.vessel.abbrvslm +  '"' + isChecked + '></td></tr>';
+              if(val.voyage.berth==null){
+                row = '<tr class = "ajax"><td><div class="openDetailPage" data-value="'+val.voyage.vessel.abbrvslm+'">'+val.voyage.vessel.abbrvslm+"</div></td><td>"+val.voyage.invoyn+"</td><td>"+val.voyage.outvoyn+"</td><td>"+val.avg_speed+"</td><td>"+val.max_speed+"</td><td>"+val.distance_to_go+"</td><td>"+val.voyage.btrdt.split(" ")[1]+"</td><td>"+val.voyage.unbthgdt.split(" ")[1]+"</td><td>"+val.voyage.berth+"</td><td>"+val.voyage.status+'</td><td class="checkbox"><input type="checkbox" class = "createPref" value ="' + val.voyage.vessel.abbrvslm +  '"' + isChecked + '></td></tr>';
+
+              }else{
+                row = '<tr class = "ajax"><td><div class="openDetailPage" data-value="'+val.voyage.vessel.abbrvslm+'">'+val.voyage.vessel.abbrvslm+"</div></td><td>"+val.voyage.invoyn+"</td><td>"+val.voyage.outvoyn+"</td><td>"+val.avg_speed+"</td><td>"+val.max_speed+"</td><td>"+val.distance_to_go+"</td><td>"+val.voyage.btrdt.split(" ")[1]+"</td><td>"+val.voyage.unbthgdt.split(" ")[1]+"</td><td>"+val.voyage.berth.berthnum+"</td><td>"+val.voyage.status+'</td><td class="checkbox"><input type="checkbox" class = "createPref" value ="' + val.voyage.vessel.abbrvslm +  '"' + isChecked + '></td></tr>';
+              }
               $(row).insertAfter("#detailedVoyageRecordByDay");
             } 
            })
@@ -187,3 +197,9 @@ function filterTable() {
   };
 }
 
+$(document).on('click','.openDetailPage',function(){
+    $('.openDetailPage').css('cursor', 'pointer');
+    let detail = $(this).data("value");
+    localStorage.setItem("abbrvslm", detail);
+    window.location.href='voyageDetails';
+})
