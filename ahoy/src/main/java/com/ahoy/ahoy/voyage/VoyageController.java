@@ -1,7 +1,11 @@
 package com.ahoy.ahoy.voyage;
 
 import com.ahoy.ahoy.user.UserService;
+import com.ahoy.ahoy.vessel.Vessel;
+import com.ahoy.ahoy.vessel.VesselRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
@@ -12,6 +16,10 @@ import java.util.*;
 public class VoyageController {
     @Autowired
     VoyageService voyageService;
+
+    @Autowired
+    VesselRepository vesselRepository;
+
     @Autowired
     UserService userService;
     @Autowired
@@ -60,7 +68,21 @@ public class VoyageController {
         return todayVoyageDetailsList;
     }
 
+    @ResponseBody
+    @RequestMapping(path = "/ajax/retrieveVoyageByVessel", method = RequestMethod.POST)
+    public List<Voyage> retrieveVoyageByVessel(@RequestBody Map<String,String> map){
+        Vessel v = vesselRepository.findByShortName(map.get("abbrvslm"));
+        return voyageRepository.findByVessel(v);
+    }
 
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/retrieveVoyageDetailsByVessel", method = RequestMethod.POST)
+    public List<VoyageDetails> retrieveVoyageDetailsByVessel(@RequestBody Map<String,String> map){
+        Voyage v = voyageRepository.findByPrimarykey(map.get("abbrvslm"),map.get("invoyn"));
+        System.out.println(v);
+        return voyageDetailsRepository.findOneDetail(v);
+    }
 
 
 

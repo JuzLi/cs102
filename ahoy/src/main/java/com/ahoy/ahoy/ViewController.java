@@ -103,4 +103,9 @@ public class ViewController {
         return "forgotPassword";
     }
 
+    @GetMapping("/voyageDetails")
+    public String voyageDetails(){
+        return "voyageDetails";
+    }
+
 }
