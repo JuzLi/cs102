@@ -117,22 +117,28 @@
 
     <div class="row" style="padding-bottom: 8px;">
         <div class="col-2"></div>
-        <div class="col-10">
-            <div class="dropdown">
-                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Filter by:
-                </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">All Alerts</a></li>
-                    <li><a class="dropdown-item" href="#">Berthing Time Change</a></li>
-                    <li><a class="dropdown-item" href="#">Berth Number Change</a></li>
-                    <li><a class="dropdown-item" href="#">Average Speed Change</a></li>
-                    </ul>
-              </div>
-              <button id = "showAllAlerts">Show All</button>
+        <div class="col-4">
+            <div class="dropdown" style="margin:5px;">
+                <select class="btn btn-dark" id="alertFilter">
+                    <option value="allAlerts">All Alert Types</option>
+                    <option value="Change in Average Speed">Change in Average Speed</option>
+                    <option value="Change in Berthing Time">Change in Berthing Time</option>
+                    <option value="Change in Unberthing TIme">Change in Unberthing Time</option>
+                    <option value="Change in Berth">Change in Berth</option>
+                    <option value="Change in Status">Change in Status</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <button class="btn btn-dark pull-right" style="margin:5px;" id = "showAllAlerts">Show All</button>
+        </div>
+
+        <div class="col-2">
         </div>
         <br>
     </div>
+
 
     <div class="row">
         <div class="col-2">
