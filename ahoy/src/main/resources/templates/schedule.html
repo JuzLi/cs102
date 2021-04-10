@@ -66,21 +66,22 @@
             <br>
         </div>
 
+
         <div class="row">
             <div class="text-start">
                 <div>
-                    <div class="container-fluid">
+                    <div class="container">
                         <form class="d-flex input-group w-25">
-                            <input type="search" class="form-control" placeholder="Search by vessel name"
-                                aria-label="Search" />
+                            <input type="text" id = "vesselNameInput" onkeyup = "setFilter(this,0)" placeholder="Search by vessel name..."
+                            >
                             <button class="btn btn-dark" type="button" data-mdb-ripple-color="dark">
                                 <i class="fa fa-search"></i>
                             </button>
                         </form>
                         <br>
                         <form class="d-flex input-group w-25">
-                            <input type="search" class="form-control" placeholder="Search by berth number"
-                                aria-label="Search" />
+                            <input type="text" id = "berthNumberInput" onkeyup = "setFilter(this,8)" placeholder="Search by berth number..."
+                            >
                             <button class="btn btn-dark" type="button" data-mdb-ripple-color="dark">
                                 <i class="fa fa-search"></i>
                             </button>
