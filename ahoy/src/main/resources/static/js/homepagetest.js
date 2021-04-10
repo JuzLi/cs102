@@ -43,20 +43,44 @@ function loadAlerts(){
     type:"GET",
     dataType:"json",
     success: function(response){
-      console.log("1");
+      
       $(".alert").remove();
       $.each(response, function(key,val){
-        console.log(val);
-        var alertrow = '<tr class = "alert"> <td>'+val.alertPK.alerttype +'</td> <td>'+val.alertPK.voyagePK.abbrvslm + '</td><td>' + val.voyage.status + '</td> <td>' + val.voyage.fullinvoyn + '</td><td>' + val.voyage.btrdt.split(" ")[1] +'</td><td>'+ val.alertcontent+ '</td> <td>test</td></tr>';
-        console.log("2");
-        // var alertrow = '<tr><td>test</td></tr>';
-        console.log(alertrow);
+        
+        let isChecked = ""; 
+        let readKey = "Alert"+val.alertPK.voyagePK.abbrvslm + val.alertPK.voyagePK.invoyn + val.alertPK.alerttype;
+        if (localStorage.getItem(readKey) != null){
+          isChecked = "checked";
+          return;
+        }
+        var alertrow = '<tr class = "alert"> <td>'+val.alertPK.alerttype +'</td> <td>'+val.alertPK.voyagePK.abbrvslm + '</td><td>' + val.voyage.status + '</td> <td>' + val.voyage.fullinvoyn + '</td><td>' + val.voyage.btrdt.split(" ")[1] +'</td><td>'+ val.alertcontent+ '</td> <td class = "checkbox"><input type = "checkbox" class = "readNotif" value = "'+ readKey +  '"></td></tr>';
+        
         $(alertrow).insertAfter("#todayAlertRecord");
-        console.log("3");
+        
       })
     }
   })
 }
+
+$(document).on('click','.readNotif',function(){
+  
+  if($(this).prop("checked") == true){
+    localStorage.setItem($(this).val(), "checked");
+    $(this).parent().parent().remove();
+  } 
+  
+})
+
+$("#showAllAlerts").click(function (){
+  for(let i=0; i<localStorage.length; i++) {
+    let key = localStorage.key(i);
+    if(key.startsWith("Alert")){
+      localStorage.removeItem(key);
+      i--;
+    }
+  }
+  loadAlerts();
+})
 
 $("#option2").click(function(){
   	 $.ajax({
