@@ -117,9 +117,11 @@ public class UserController {
     public List<Alert> retrieveAlerts(){
         String today = java.time.LocalDate.now().toString();
         String startDT = today+" 00:00:00";
+
         return userService.retrieveAlerts(userService.getCurrentUser(), startDT);
 
     }
+
 
 
 
