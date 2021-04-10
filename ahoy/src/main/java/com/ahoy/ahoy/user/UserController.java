@@ -1,5 +1,6 @@
 package com.ahoy.ahoy.user;
 
+import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.voyage.Voyage;
@@ -113,6 +114,16 @@ public class UserController {
 
         return voyageService.filterVoyagesArrivingByDate(userService.subscribedVoyages(),0);
     }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/retrieveSubscribedAlerts", method = RequestMethod.GET)
+    public List<Alert> retrieveAlerts(){
+        String today = java.time.LocalDate.now().toString();
+        String startDT = today+" 00:00:00";
+        List<Alert> alertList = userService.retrieveAlerts(userService.getCurrentUser(), startDT);
+        return alertList;
+    }
+
 
 
 
