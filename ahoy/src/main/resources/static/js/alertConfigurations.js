@@ -1,21 +1,26 @@
 $(document).ready( function () {
-    $.ajax({
-      url: "/ajax/searchSubscribedAlerts",
-      type:"GET",
-      dataType:"json",
-      success: function(response){
-        $(".ajax1").remove();
-        $.each(response, function(key,val){
-          console.log(val);
-          var subrow = '<tr><td>' + val +'</td><td><button class="deletePref ajax1" value = "' + val + '" type="button">Unsubscribe</button></td></tr>';
-          $(subrow).insertAfter("#subscribedAlerts")
-        })
-      }
-  
-    })
+    loadSubscribed();
+    loadUnsubscribed();
 })
 
-$(document).ready( function () {
+function loadSubscribed(){
+  $.ajax({
+    url: "/ajax/searchSubscribedAlerts",
+    type:"GET",
+    dataType:"json",
+    success: function(response){
+      $(".ajax1").remove();
+      $.each(response, function(key,val){
+        console.log(val);
+        var subrow = '<tr class = "ajax1"><td>' + val +'</td><td><button class="deletePref" value = "' + val + '" type="button">Unsubscribe</button></td></tr>';
+        $(subrow).insertAfter("#subscribedAlerts")
+      })
+    }
+
+  })
+}
+
+function loadUnsubscribed(){
   $.ajax({
     url: "/ajax/searchUnsubscribedAlerts",
     type:"GET",
@@ -23,12 +28,12 @@ $(document).ready( function () {
     success: function(response){
       $(".ajax2").remove();
       $.each(response, function(key,val){
-        var unsubrow = '<tr><td>' + val +'</td><td><button class="createPref ajax2" value = "' + val + '" type="button">Subscribe</button></td></tr>';
+        var unsubrow = '<tr class = "ajax2"><td>' + val +'</td><td><button class="createPref" value = "' + val + '" type="button">Subscribe</button></td></tr>';
         $(unsubrow).insertAfter("#unsubscribedAlerts")
       })
     }
   })
-})
+}
 
 
 $(document).on('click','.createPref',function(){
@@ -42,11 +47,14 @@ $(document).on('click','.createPref',function(){
     contentType:"application/json; charset=utf-8",
     dataType:"text",
     success: function(response){
-      alert("Subscribed!")
+      $(this).parent().parent().remove()
+      loadSubscribed();
+      loadUnsubscribed();
 
     }
   })
-  $(this).remove()
+  
+  
 })
 
 
@@ -61,9 +69,11 @@ $(document).on('click','.deletePref',function(){
     contentType:"application/json; charset=utf-8",
     dataType:"text",
     success: function(response){
-      alert("Unsubscribed!")
+      $(this).parent().parent().remove()
+      loadSubscribed();
+      loadUnsubscribed();
 
     }
   })
-  $(this).remove()
+ 
 })
