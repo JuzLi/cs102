@@ -1,10 +1,10 @@
 
 let days = "0"
-let subscribed = "unsubscribed";
+
 $(document).ready(loadData());
 
 function loadData() {
-  let mid = {"numDays" : days, "subscribed" : subscribed};
+  let mid = {"numDays" : days, "subscribed" : "unsubscribed"};
   let data = JSON.stringify(mid);
 
  $.ajax({
@@ -33,7 +33,7 @@ function loadData() {
        })
 }
 
-$("#colorselector").change(function () {
+$("#daySelector").change(function () {
   let val = $(this).val();
   days = val;
   if($("#filterCheck").prop("checked") == true){
@@ -87,7 +87,7 @@ $("#filterCheck").click(function(){
 
 
 function loadSubscribedData() {
-  let mid = {"numDays" : days, "subscribed" : subscribed};
+  let mid = {"numDays" : days, "subscribed" : "subscribed"};
   let data = JSON.stringify(mid);
 
  $.ajax({
