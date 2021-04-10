@@ -42,7 +42,7 @@
                 Hello, [[${#httpServletRequest.remoteUser}]]
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{settings}">Settings</a></li>
+                <li><a class="dropdown-item" th:href="@{settings}">Account Preferences</a></li>
                 <li><a class="dropdown-item" th:href="@{landing}">Log out</a></li>
             </ul>
         </div>
@@ -59,7 +59,7 @@
     </div>
 
     <div class="row">
-        <h1 style="text-align:center ">Account Settings</h1>
+        <h1 style="text-align:center ">Alert Configurations</h1>
         <!-- <p style="text-align:center">Tell me what you’re interested in! Customise the alerts that you would like to receive.</p>
         <br>
         <br>
@@ -136,26 +136,32 @@
         <div class="col-sm"></div>
         <div class="col-md">
             <div class="card">
-                <h6 class="card-header">Profile Settings</h6>
+                <h6 class="card-header">Configure your alert details</h6>
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="form-group">
-                            <label for="exampleInputUsername1">Username</label>
-                            <input type="username" class="form-control" id="exampleInputUsername1"
-                                   aria-describedby="emailHelp" placeholder="Enter username">
-                            <label for="exampleInputUsername1">* Username cannot be changed</label>
+
+                            <b><label for="alert1a">Subscribe to email alerts</label></b>
+                            <input type="checkbox" id="checkbox1" name="checkbox1" value="tick">
+                            <label for="alert1b">I would like to receive emails
+                                (if subscribed) and view alerts regarding
+                            </label>
+
                         </div>
                         <br>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1"
-                                   placeholder="Enter Email">
+                            <b><label for="alert2a">Change in status</label></b>
+                            <input type="checkbox" id="checkbox2" name="checkbox2" value="tick2">
                         </div>
                         <br>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Enter password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1"
-                                   placeholder="Enter Password">
+                            <b><label for="alert3a">Change in berthing time</label></b>
+                            <input type="checkbox" id="checkbox3" name="checkbox3" value="tick3">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <b><label for="alert4a">Change in average speed</label></b>
+                            <input type="checkbox" id="checkbox3" name="checkbox4" value="tick3">
                         </div>
                         <br>
                         <button type="submit" class="btn btn-dark" style="float:right">Save</button>
