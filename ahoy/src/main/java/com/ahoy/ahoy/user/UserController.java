@@ -36,6 +36,13 @@ public class UserController {
         userService.createVesselPreference(v);
         return "Success";
     }
+    @ResponseBody
+    @RequestMapping(path = "/ajax/removeVesselPreference", method = RequestMethod.POST)
+    public String removeVesselPreference(@RequestBody Map<String,String> map){
+        Vessel v = vesselRepository.findByShortName(map.get("abbrvslm") );
+        userService.removeSubscribedVessel(v);
+        return "Success";
+    }
 
 
     @ResponseBody
