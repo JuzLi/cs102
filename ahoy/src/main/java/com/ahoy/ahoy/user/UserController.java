@@ -1,5 +1,6 @@
 package com.ahoy.ahoy.user;
 
+import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.voyage.Voyage;
@@ -9,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -112,6 +110,15 @@ public class UserController {
     public List<Voyage> retrieveSubscribedVoyages(){
 
         return voyageService.filterVoyagesArrivingByDate(userService.subscribedVoyages(),0);
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/retrieveSubscribedAlerts", method = RequestMethod.GET)
+    public List<Alert> retrieveAlerts(){
+        String today = java.time.LocalDate.now().toString();
+        String startDT = today+" 00:00:00";
+        return userService.retrieveAlerts(userService.getCurrentUser(), startDT);
+
     }
 
 

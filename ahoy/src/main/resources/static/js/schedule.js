@@ -1,3 +1,4 @@
+
 let days = "0"
 let subscribed = "unsubscribed";
 $(document).ready(loadData());
