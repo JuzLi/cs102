@@ -124,7 +124,7 @@ public class UserController {
         for(Voyage voyage: subscribedVoyages){
             alertList.addAll(alertService.retrieveLatestAlertsOfVoyage(voyage));
         }
-        return alertService.filterAlertsByDate(alertList,0);
+        return alertService.filterSubscribedAlerts(alertService.filterAlertsByDate(alertList,0));
     }
 
 
@@ -160,10 +160,12 @@ public class UserController {
         List<Voyage> subscribedVoyages = userService.subscribedVoyages();
         List<Voyage> todayVoyages = voyageService.filterVoyagesArrivingByDate(subscribedVoyages,0);
         List<Alert> alertList = new ArrayList<>();
+        boolean isSubscribed = false;
+
         for(Voyage voyage: todayVoyages){
             alertList.add(alertService.retrieveLatestAlertOfVoyageOfType(voyage,filter));
         }
-        return alertService.filterAlertsByDate(alertList,0);
+        return alertService.filterSubscribedAlerts(alertService.filterAlertsByDate(alertList,0));
     }
 
 

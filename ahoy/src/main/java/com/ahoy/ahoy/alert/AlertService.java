@@ -2,6 +2,7 @@ package com.ahoy.ahoy.alert;
 
 import com.ahoy.ahoy.berth.Berth;
 import com.ahoy.ahoy.berth.BerthRepository;
+import com.ahoy.ahoy.user.UserService;
 import com.ahoy.ahoy.voyage.Voyage;
 import com.ahoy.ahoy.voyage.VoyageDetails;
 import com.ahoy.ahoy.voyage.VoyageService;
@@ -27,6 +28,8 @@ public class AlertService {
     BerthRepository berthRepository;
     @Autowired
     private VoyageService voyageService;
+    @Autowired
+    UserService userService;
 
     public AlertService(){
         initialiseFormatters();
@@ -317,6 +320,21 @@ public class AlertService {
     public Alert retrieveLatestAlertOfVoyageOfType(Voyage voyage, String alertType){
         int count = alertRepository.countAlertsOfVoyageAndType(voyage,alertType);
         return alertRepository.retrieveLatestAlertOfTypeAndVoyage(voyage,alertType,count);
+    }
+
+    public List<Alert> filterSubscribedAlerts(List<Alert> alertList){
+        List<String> subscribedAlertTypes = userService.subscribedAlertTypes();
+        List<Alert> filteredList = new ArrayList<>();
+        for(Alert a : alertList){
+            String alertType = a.getAlertPK().getAlerttype();
+            for(String s: subscribedAlertTypes){
+                if(alertType.equals(s)){
+                    filteredList.add(a);
+                    break;
+                }
+            }
+        }
+        return filteredList;
     }
 
 }
