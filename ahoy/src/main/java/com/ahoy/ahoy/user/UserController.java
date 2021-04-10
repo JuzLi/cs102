@@ -1,7 +1,6 @@
 package com.ahoy.ahoy.user;
 
 import com.ahoy.ahoy.alert.Alert;
-import com.ahoy.ahoy.alert.AlertService;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselRepository;
 import com.ahoy.ahoy.voyage.Voyage;
@@ -11,10 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,10 +26,6 @@ public class UserController {
     VoyageService voyageService;
     @Autowired
     VoyageRepository voyageRepository;
-    @Autowired
-    AlertService alertService;
-
-
 
     @ResponseBody
     @RequestMapping(path = "/ajax/createVesselPreference", method = RequestMethod.POST)
@@ -123,49 +114,23 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(path = "/ajax/retrieveSubscribedAlerts", method = RequestMethod.GET)
-    public List<Alert> retrieveSubscribeAlerts(){
-        List<Voyage> voyageList = userService.subscribedVoyages();
-        ArrayList<Alert> alertList = new ArrayList<>();
-        for(Voyage voyage: voyageList){
-            alertList.addAll(alertService.retrieveLatestAlertsOfVoyage(voyage));
-        }
-        List<Alert> filteredList = alertService.filterAlertsByDate(alertList,0);
-        return filteredList;
-
-    }
-
-    @ResponseBody
-    @RequestMapping(path = "/ajax/retrieveTodayAlerts", method = RequestMethod.GET)
-    public List<Alert> retrieveTodayAlerts(){
-        List<Voyage> voyageList = voyageService.allVoyagesFromToday();
-        List<Voyage> voyagesArrivingToday = voyageService.filterVoyagesArrivingByDate(voyageList,0);
-        ArrayList<Alert> alertList = new ArrayList<>();
-        for(Voyage voyage: voyageList){
-            alertList.addAll(alertService.retrieveLatestAlertsOfVoyage(voyage));
-        }
-        List<Alert> filteredList = alertService.filterAlertsByDate(alertList,0);
-        return filteredList;
-
-    }
-
-    @ResponseBody
-    @RequestMapping(path = "/ajax/retrieveTodayAlertsFiltered", method = RequestMethod.POST)
-    public List<Alert> retrieveTodayAlertsFiltered(@RequestBody Map<String,String> map){
-        String filter = map.get("filter");
-        List<Voyage> voyageList = voyageService.allVoyagesFromToday();
-        List<Voyage> voyagesArrivingToday = voyageService.filterVoyagesArrivingByDate(voyageList,0);
-        ArrayList<Alert> alertList = new ArrayList<>();
-        for(Voyage voyage: voyageList){
-            alertList.add(alertService.retrieveLatestAlertOfVoyageOfType(voyage,filter));
-        }
-        List<Alert> filteredList = alertService.filterAlertsByDate(alertList,0);
-        return filteredList;
+    public List<Alert> retrieveAlerts(){
+        String today = java.time.LocalDate.now().toString();
+        String startDT = today+" 00:00:00";
+        return userService.retrieveAlerts(userService.getCurrentUser(), startDT);
 
     }
 
 
 
-
-
-
+//    @ResponseBody
+//    @RequestMapping(path = "/ajax/retrieveTodayVoyage", method = RequestMethod.GET)
+//    public List<Voyage> retrieveTodayVoyages(){
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        Date today = new Date();
+//        String todayString = dateFormat.format(today);
+//        String dateFrom = todayString + " 00:00:00";
+//        String dateTo = todayString + " 23:59:59";
+//        return voyageRepository.retrieveVoyagesBetweenDates(dateFrom, dateTo);
+//    }
 }
