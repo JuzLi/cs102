@@ -64,14 +64,17 @@
     <div class="row">
         <div class="text-left" style="padding-bottom: 8px;">
             <div class="dropdown flex-column">
-                <button class="btn btn-dark dropdown-toggle pull-left" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filter By
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Change in berth time</a>
-                    <a class="dropdown-item" href="#">Change in berth number</a>
-                    <a class="dropdown-item" href="#">Change in average speed</a>
+                <div class="dropdown pull-right" style="margin:5px;">
+
+                    <select class="btn btn-dark" id="filterSelector">
+                        <option value="All">Filter By</option>
+                        <option value="Change in Average Speed">Change in Average Speed</option>
+                        <option value="Change in Berth">Change in Berth</option>
+                        <option value="Change in Berthing Time">Change in Berthing Time</option>
+                        <option value="Change in Status">Change in Status</option>
+                        <option value="Change in Unberthing Time">Change in Unberthing Time</option>
+                       
+                    </select>
                 </div>
             </div>
 
@@ -105,70 +108,8 @@
                             </tr>
                             </thead>
 
-                            <tbody>
-                            <tr>
-                                <th scope="row">Dummy data</th>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Lorem ipsum may be used as a placeholder before final copy is available.</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dummy data</th>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Lorem ipsum may be used as a placeholder before final copy is available.</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dummy data</th>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Lorem ipsum may be used as a placeholder before final copy is available.</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dummy data</th>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Lorem ipsum may be used as a placeholder before final copy is available.</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dummy data</th>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Lorem ipsum may be used as a placeholder before final copy is available.</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dummy data</th>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Lorem ipsum may be used as a placeholder before final copy is available.</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dummy data</th>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Lorem ipsum may be used as a placeholder before final copy is available.</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dummy data</th>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Lorem ipsum may be used as a placeholder before final copy is available.</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dummy data</th>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Dummy data</td>
-                                <td>Lorem ipsum may be used as a placeholder before final copy is available.</td>
-                            </tr>
+                            <tbody id = "alertTable">
+
                             </tbody>
                         </table>
                     </div>
@@ -181,12 +122,14 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
         integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-<!-- Github buttons -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/alerts.js}"></script>
 
 </body>
 

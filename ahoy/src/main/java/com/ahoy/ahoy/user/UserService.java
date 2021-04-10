@@ -181,13 +181,6 @@ public class UserService {
             alertList.addAll(alertRepository.retrieveAlerts(abbrvslm, alertPreference, date));
         }
 
-//        for(String alertType : alertTypeList) {
-//            for(VesselPreference vesselPreference : vesselPreferencesList) {
-//                String abbrvslm = vesselPreference.getVesselPreferencePK().getAbbrvslm();
-//                alertList.addAll(alertRepository.retrieveAlerts(abbrvslm, alertType, date));
-//            }
-//        }
-
         return alertList;
     }
 

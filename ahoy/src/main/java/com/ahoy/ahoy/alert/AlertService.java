@@ -10,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class AlertService {
@@ -281,6 +280,43 @@ public class AlertService {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+    public List<Alert> filterAlertsByDate(List<Alert> alertList, int days){
+        //for voyages arriving today, days = 0
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date today = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(today);
+        c.add(Calendar.DATE, days);
+        Date relevantDay = c.getTime();
+        String relevantDayString = dateFormat.format(relevantDay);
+        List<Alert> filteredList = new ArrayList<>();
+        for(Alert alert: alertList) {
+            if(alert == null){
+                continue;
+            }
+            String alertDay = alert.getAlertdatetime().substring(0, 10);
+            if (alertDay.equals(relevantDayString)) {
+                filteredList.add(alert);
+            }
+        }
+        return filteredList;
+
+    }
+
+    public List<Alert> retrieveLatestAlertsOfVoyage(Voyage voyage){
+        List<String> alertTypeList = alertRepository.allAlertType();
+        List<Alert> alertList = new ArrayList<>();
+        for(String s: alertTypeList){
+            Alert a = retrieveLatestAlertOfVoyageOfType(voyage, s);
+            alertList.add(a);
+        }
+        return alertList;
+    }
+
+    public Alert retrieveLatestAlertOfVoyageOfType(Voyage voyage, String alertType){
+        int count = alertRepository.countAlertsOfVoyageAndType(voyage,alertType);
+        return alertRepository.retrieveLatestAlertOfTypeAndVoyage(voyage,alertType,count);
     }
 
 }
