@@ -75,4 +75,14 @@ public class Alert {
                 ", voyage=" + voyage +
                 '}';
     }
+
+    public String toText() {
+        return alertPK.getAlerttype() +
+                "\nDateTime: " + alertdatetime +
+                "\nVessel Name (Abbrvslm): " + voyage.getVessel().getAbbrvslm() +
+                "\nVoyage Number (Invoyn): " + voyage.getInvoyn() +
+                "\nMessage: " + alertcontent;
+    }
+
+
 }

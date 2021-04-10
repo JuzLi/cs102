@@ -11,16 +11,14 @@ import com.ahoy.ahoy.user.UserService;
 import com.ahoy.ahoy.user.VesselPreferenceRepository;
 import com.ahoy.ahoy.vessel.Vessel;
 import com.ahoy.ahoy.vessel.VesselRepository;
-import com.ahoy.ahoy.portnet.DatabaseUpdate;
+import com.ahoy.ahoy.portnet.ScheduledFunctions;
 import com.ahoy.ahoy.voyage.Voyage;
 import com.ahoy.ahoy.voyage.VoyageDetails;
 import com.ahoy.ahoy.voyage.VoyageRepository;
 import com.ahoy.ahoy.voyage.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +36,7 @@ public class TestController {
     @Autowired
     VesselRepository vesselRepository;
     @Autowired
-    DatabaseUpdate databaseUpdate;
+    ScheduledFunctions databaseUpdate;
     @Autowired
     BerthRepository berthRepository;
     @Autowired
@@ -115,11 +113,9 @@ public class TestController {
     }
 
     @RequestMapping(path = "/test/8")
-    public List<String> test8(){
-        System.out.println(userService.unsubscribedAlertTypes());
-        System.out.println(userService.subscribedAlertTypes());
-        userService.removeAlertPreference("Change in Berth");
-        return userService.unsubscribedAlertTypes();
+    public String test8(){
+        databaseUpdate.sendEmailAlert();
+        return "Emails";
     }
 
 

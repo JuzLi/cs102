@@ -1,15 +1,19 @@
 package com.ahoy.ahoy.user;
 
+import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.alert.AlertRepository;
 import com.ahoy.ahoy.email.Email;
 import com.ahoy.ahoy.email.EmailService;
 import com.ahoy.ahoy.vessel.Vessel;
+import com.ahoy.ahoy.voyage.Voyage;
+import com.ahoy.ahoy.voyage.VoyageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,6 +30,8 @@ public class UserService {
     AlertRepository alertRepository;
     @Autowired
     EmailService emailService;
+    @Autowired
+    VoyageRepository voyageRepository;
 
     public User getCurrentUser(){
 
@@ -43,6 +49,9 @@ public class UserService {
 
     }
 
+    public List<User> findAllUsers(){
+        return userRepository.findAll();
+    }
     public String createTempPass(){
         Random random = new Random();
         int targetStringLength = 8 + random.nextInt(8);
@@ -115,6 +124,15 @@ public class UserService {
         vesselPreferencesRepository.deleteVesselPreference(user, vessel);
     }
 
+    public List<Voyage> subscribedVoyages(){
+        List<Vessel> subscribedVessels = subscribedVessels();
+        List<Voyage> subscribedVoyages = new ArrayList<Voyage>();
+        for(Vessel v:subscribedVessels){
+            subscribedVoyages.addAll(voyageRepository.findByVessel(v));
+        }
+        return subscribedVoyages;
+    }
+
     public void createAlertPreference(String alerttype){
         User user = getCurrentUser();
         AlertPreference alertPreference = new AlertPreference();
@@ -140,6 +158,26 @@ public class UserService {
     public void removeAlertPreference(String type){
         User user = getCurrentUser();
         alertPreferenceRepository.deleteAlertPreference(user,type);
+    }
+
+    public List<Alert> retrieveAlerts(User user, String date){
+        List<String> alertTypeList = alertPreferenceRepository.allSubscribedAlertTypes(user.getUsername());
+        List<VesselPreference> vesselPreferencesList = vesselPreferencesRepository.allVesselPreferences(user);
+        List<Alert> alertList = new ArrayList<Alert>();
+        List<String> alertPreference = alertPreferenceRepository.allSubscribedAlertTypes(user.getUsername());
+        for(VesselPreference vesselPreference : vesselPreferencesList) {
+            String abbrvslm = vesselPreference.getVesselPreferencePK().getAbbrvslm();
+            alertList.addAll(alertRepository.retrieveAlerts(abbrvslm, alertPreference, date));
+        }
+
+//        for(String alertType : alertTypeList) {
+//            for(VesselPreference vesselPreference : vesselPreferencesList) {
+//                String abbrvslm = vesselPreference.getVesselPreferencePK().getAbbrvslm();
+//                alertList.addAll(alertRepository.retrieveAlerts(abbrvslm, alertType, date));
+//            }
+//        }
+
+        return alertList;
     }
 
 

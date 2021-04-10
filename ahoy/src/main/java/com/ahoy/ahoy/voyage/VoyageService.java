@@ -8,7 +8,13 @@ import com.ahoy.ahoy.vessel.Vessel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class VoyageService {
@@ -58,6 +64,30 @@ public class VoyageService {
             generateAlertsAndUpdateVoyage(voyage,updatedBtr,updatedUnbtr, updatedBerth, updatedStatus);
         }
     }
+
+    public List<Voyage> filterVoyagesArrivingByDate(List<Voyage> voyageList, int days){
+        //for voyages arriving today, days = 0
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date today = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(today);
+        c.add(Calendar.DATE, days);
+        Date arrivalDay = c.getTime();
+        String arrivalDayString = dateFormat.format(arrivalDay);
+        List<Voyage> filteredList = new ArrayList<Voyage>();
+        for(Voyage voyage: voyageList){
+            String berthingDay = voyage.getBtrdt().substring(0,10);
+            if(berthingDay.equals(arrivalDayString)){
+                filteredList.add(voyage);
+            }
+
+
+
+        }
+
+        return filteredList;
+    }
+
     public String generateVslvoy(Voyage voyage){
         VoyagePK voyagePK = voyage.getVoyagePK();
         String temp = voyagePK.getAbbrvslm() + voyagePK.getInvoyn();
@@ -109,11 +139,21 @@ public class VoyageService {
     }
     public VoyageDetails findLatestDetails(Voyage voyage){
         int latest = voyageDetailsRepository.countDetailsOfVoyage(voyage);
+        System.out.println(latest);
+        System.out.println(voyage.getInvoyn());
         return voyageDetailsRepository.findDetails(voyage, latest);
     }
 
     public VoyageDetails findSecondLatestDetails(Voyage voyage){
         int latest = voyageDetailsRepository.countDetailsOfVoyage(voyage) - 1;
         return voyageDetailsRepository.findDetails(voyage, latest);
+    }
+
+    public VoyageDetails findingOneDetail(Voyage voyage){
+        System.out.println(voyage.getInvoyn());
+        for(VoyageDetails a: voyageDetailsRepository.findOneDetail(voyage)){
+            return a;
+        }
+        return null;
     }
 }

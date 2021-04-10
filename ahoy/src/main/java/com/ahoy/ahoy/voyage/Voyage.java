@@ -117,19 +117,19 @@ public class Voyage implements Serializable {
         this.voyagePK = voyagePK;
     }
 
-    @Override
-    public String toString() {
-        return "Voyage{" +
-                "voyagePK=" + voyagePK +
-                ", vessel=" + vessel +
-                ", fullinvoyn='" + fullinvoyn + '\'' +
-                ", outvoyn='" + outvoyn + '\'' +
-                ", btrdt='" + btrdt + '\'' +
-                ", unbthgdt='" + unbthgdt + '\'' +
-                ", status='" + status + '\'' +
-                ", berth=" + berth +
-                ", voyageDetailsSet=" + voyageDetailsSet +
-                ", alertSet=" + alertSet +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Voyage{" +
+//                "voyagePK=" + voyagePK +
+//                ", vessel=" + vessel +
+//                ", fullinvoyn='" + fullinvoyn + '\'' +
+//                ", outvoyn='" + outvoyn + '\'' +
+//                ", btrdt='" + btrdt + '\'' +
+//                ", unbthgdt='" + unbthgdt + '\'' +
+//                ", status='" + status + '\'' +
+//                ", berth=" + berth +
+//                ", voyageDetailsSet=" + voyageDetailsSet +
+//                ", alertSet=" + alertSet +
+//                '}';
+//    }
 }
