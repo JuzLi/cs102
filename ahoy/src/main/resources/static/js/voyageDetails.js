@@ -1,5 +1,9 @@
+const dateTimeArray = [];
+const avgSpeedArray = [];
+const maxSpeedArray = [];
+const currentAbbrvslm = localStorage.getItem('abbrvslm');
+
 $(document).ready( function () {
-    const currentAbbrvslm = localStorage.getItem('abbrvslm');
     document.getElementById('getVesselName').innerHTML = "Vessel Name: " +currentAbbrvslm;
     let mid = {"abbrvslm" : currentAbbrvslm}
     data1 = JSON.stringify(mid);
@@ -22,7 +26,6 @@ $(document).ready( function () {
                  }else{
                     row = "<tr><td><div class='toggleTable2' data-value='"+val.invoyn+"'>"+val.invoyn+"</div></td><td>"+val.outvoyn+"</td><td>"+val.berth.berthnum+"</td><td>"+val.status+"</td><td>"+val.btrdt.split(" ")[1]+"</td><td>"+val.unbthgdt.split(" ")[1]+"</td></tr>";
                  }
-               
 
                $(row).insertAfter("#voyageOfVessel");
              })
@@ -31,7 +34,7 @@ $(document).ready( function () {
 });
 
 $(document).on('click','.toggleTable2',function(){
-    const currentAbbrvslm = localStorage.getItem('abbrvslm');
+
     $('.toggleTable2').css('cursor', 'pointer');
     let detail = $(this).data("value");
     let mid = {"abbrvslm" : currentAbbrvslm, "invoyn" : detail}
@@ -68,4 +71,82 @@ $(document).on('click','.toggleTable2',function(){
          })
        }
     })
+
+    loadChart();
+    getChart();
+
 })
+
+function loadChart(){
+    $.ajax({
+           async: false,
+           url: "/ajax/retrieveVoyageAvgSpeedByVesselChart",
+           type:"POST",
+           data:data2,
+           contentType:"application/json; charset=utf-8",
+           dataType:"json",
+           success: function(response){
+                dateTimeArray.length=0;
+                avgSpeedArray.length=0;
+
+                for (var i in response){
+                    dateTimeArray.push(i);
+                    avgSpeedArray.push(response[i]);
+                }
+           }
+    })
+    $.ajax({
+           async: false,
+           url: "/ajax/retrieveVoyageMaxSpeedByVesselChart",
+           type:"POST",
+           data:data2,
+           contentType:"application/json; charset=utf-8",
+           dataType:"json",
+           success: function(response){
+                maxSpeedArray.length = 0;
+                for (var i in response){
+                    maxSpeedArray.push(response[i]);
+                }
+           }
+    })
+
+}
+
+function getChart(){
+
+    Highcharts.chart('container', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Visualization of Voyage Speed History'
+        },
+        subtitle: {
+            text: currentAbbrvslm+' Source: PSA'
+        },
+        xAxis: {
+            categories: dateTimeArray
+        },
+        yAxis: {
+            title: {
+                text: 'Knots'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+        series: [{
+            name: 'Average Speed',
+            data: avgSpeedArray
+        },{
+            name: 'Maximum Speed',
+            data: maxSpeedArray
+        }]
+        });
+
+}

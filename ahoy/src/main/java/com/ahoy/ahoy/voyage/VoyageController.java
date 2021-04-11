@@ -6,11 +6,14 @@ import com.ahoy.ahoy.vessel.VesselRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
 import java.util.*;
 
+@Controller
 @RestController
 @CrossOrigin
 public class VoyageController {
@@ -82,6 +85,28 @@ public class VoyageController {
         Voyage v = voyageRepository.findByPrimarykey(map.get("abbrvslm"),map.get("invoyn"));
         System.out.println(v);
         return voyageDetailsRepository.findOneDetail(v);
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/retrieveVoyageAvgSpeedByVesselChart", method = RequestMethod.POST)
+    public Map<String, Float> retrieveVoyageAvgSpeedByVesselChart(@RequestBody Map<String, String> map){
+        Voyage v = voyageRepository.findByPrimarykey(map.get("abbrvslm"),map.get("invoyn"));
+        Map<String, Float> chartData = new LinkedHashMap<>();
+        for(VoyageDetails vd : voyageDetailsRepository.findOneDetail(v) ){
+            chartData.put(vd.getTimestamp(),vd.getAvg_speed());
+        }
+        return chartData;
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/retrieveVoyageMaxSpeedByVesselChart", method = RequestMethod.POST)
+    public Map<String, Float> retrieveVoyageMaxSpeedByVesselChart(@RequestBody Map<String, String> map){
+        Voyage v = voyageRepository.findByPrimarykey(map.get("abbrvslm"),map.get("invoyn"));
+        Map<String, Float> chartData = new LinkedHashMap<>();
+        for(VoyageDetails vd : voyageDetailsRepository.findOneDetail(v) ){
+            chartData.put(vd.getTimestamp(),vd.getMax_speed());
+        }
+        return chartData;
     }
 
 
