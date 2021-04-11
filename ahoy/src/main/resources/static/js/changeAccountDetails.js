@@ -1,3 +1,13 @@
+$(document).ready(function(){
+    $.ajax({
+        url: "/ajax/getCurrentUser",
+        type:"GET",
+        dataType:"json",
+        success: function(data,status,xhr){
+            $("#exampleInputUsername1").attr('placeholder',data.username);
+    }})
+})
+
 $("#emailSubmission").click(function(){
     let newEmail = $("#newEmail").val();
     let mid = {"email" : newEmail};
