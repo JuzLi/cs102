@@ -72,7 +72,13 @@ $("#showAllAlerts").click(function (){
       i--;
     }
   }
-  loadAlerts();
+  let filter = $("#alertFilter").val()
+  if(filter == "allAlerts"){
+    loadAlerts();
+  }
+  else{
+    loadFilteredData(filter);
+  }
 })
 
 $("#option2").click(function(){
@@ -121,7 +127,7 @@ $("#option1").click(function(){
   });
 
 
-$("#alertFilter").click(function(){
+$("#alertFilter").change(function(){
   console.log("1");
   let filter = $(this).val();
 
