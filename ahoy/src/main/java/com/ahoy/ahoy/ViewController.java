@@ -53,11 +53,6 @@ public class ViewController {
     }
 
 
-    @GetMapping("/index")
-    public String index(Model model){
-        model.addAttribute("vesselDetails", new Vessel());
-        return "index";
-    }
     @PostMapping("/index")
     public String indexSubmit(@ModelAttribute("vesselDetails") Vessel v){
         return "result";
@@ -101,6 +96,11 @@ public class ViewController {
     @GetMapping("/forgotPassword")
     public String recoverAccount(){
         return "forgotPassword";
+    }
+
+    @GetMapping("/voyageDetails")
+    public String voyageDetails(){
+        return "voyageDetails";
     }
 
 }
