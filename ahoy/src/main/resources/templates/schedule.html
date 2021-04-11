@@ -20,7 +20,7 @@
     <nav class="navbar navbar-light p-2">
         <div class="d-flex col-1 flex-md-nowrap justify-content-between">
             <img style="padding: 2px"
-                src="https://banner.uclipart.com/20200111/pby/boating-black-and-white-sailing-ship.png" height="56"
+                th:src="@{/logo.png}" height="56"
                 width="60" alt="" loading="lazy" />
             <a class="navbar-brand" style="color:white;" href="/homepage">
                 Ahoy
@@ -67,51 +67,44 @@
             <br>
         </div>
 
-        <div class="row">
-            <div class="text-start">
-                <div>
-                    <div class="container">
-                        <form class="d-flex input-group w-25">
-                            <input type="text" id = "vesselNameInput" onkeyup = "setFilter(this,0)" placeholder="Search by vessel name..."
-                            />
-                            <button class="btn btn-dark" type="button" data-mdb-ripple-color="dark">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </form>
-                        <br>
-                        <form class="d-flex input-group w-25">
-                            <input type="text" id = "berthNumberInput" onkeyup = "setFilter(this,8)" placeholder="Search by berth number..."
-                            />
-                            <button class="btn btn-dark" type="button" data-mdb-ripple-color="dark">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
+        <div class="row text-start">
+            <div class="col-3">
+                <form class="d-flex input-group">
+                    <input type="text" id = "vesselNameInput" onkeyup = "setFilter(this,0)" placeholder="Search by vessel name..."
+                    />
+                    <button class="btn btn-dark" type="button" data-mdb-ripple-color="dark">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
             </div>
-            <div class="text-left" style="padding-bottom: 8px;">
-                <div class="dropdown flex-column">
-                    
-                    <label class="dropdown pull-right" style="margin:5px;">
-                        <select class="btn btn-dark" id="daySelector">
-                            <option value="0">Filter By Day</option>
-                            <option value="1">next 1 day</option>
-                            <option value="2">next 2 days</option>
-                            <option value="3">next 3 days</option>
-                            <option value="4">next 4 days</option>
-                            <option value="5">next 5 days</option>
-                            <option value="6">next 6 days</option>
-                            <option value="7">next 7 days</option>
-                        </select>
-                    </label>
-
-                    <label class="pull-right btn btn-dark" style="padding:1px">
-                        <label  style="margin:5px;" for="filterCheck">Filtered By Subscribed</label></b>
-                        <input type="checkbox" id="filterCheck" name="checkbox1" value="tick">
-                    </label>
-        
-                </div>
+            <div class="col-3">
+                <form class="d-flex input-group">
+                    <input type="text" id = "berthNumberInput" onkeyup = "setFilter(this,8)" placeholder="Search by berth number..."
+                    />
+                    <button class="btn btn-dark" type="button" data-mdb-ripple-color="dark">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="col-4">
+                <label class="btn btn-dark" style="padding:1px">
+                    <label  style="margin:5px;" for="filterCheck">Filtered By Subscribed</label></b>
+                    <input type="checkbox" id="filterCheck" name="checkbox1" value="tick">
+                </label>
+            </div>
+            <div class="col-2">
+                <label class="dropdown " style="margin:5px;">
+                    <select class="btn btn-dark" id="daySelector">
+                        <option value="0">Filter By Day</option>
+                        <option value="1">next 1 day</option>
+                        <option value="2">next 2 days</option>
+                        <option value="3">next 3 days</option>
+                        <option value="4">next 4 days</option>
+                        <option value="5">next 5 days</option>
+                        <option value="6">next 6 days</option>
+                        <option value="7">next 7 days</option>
+                    </select>
+                </label>
             </div>
         </div>
 

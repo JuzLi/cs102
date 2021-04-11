@@ -26,7 +26,18 @@ $("#emailSubmission").click(function(){
     })
 });
     
-
+$("#deleteAccount").click(function(){
+    $.ajax({
+        url: "/deleteAccount",
+        type:"GET",
+        dataType:"json",
+        statusCode: {
+            200: function(response){
+                location.replace("/logout");
+            }
+        }
+    })
+})
 
 $("#passwordSubmission").click(function(){
     let newPass = $("#newPass").val();
