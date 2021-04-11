@@ -123,6 +123,7 @@ color: rgb(39, 39, 39);
   height: 300px;
   display: block;
   text-align: center;
+  width: 100%;
 }
 
 .table>thead>tr>th {
@@ -131,6 +132,7 @@ color: rgb(39, 39, 39);
   top: 0;
   z-index: 2;
   background-color: rgb(255, 255, 255);
+  width: 15%
 
 }
 

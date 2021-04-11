@@ -2,6 +2,7 @@ package com.ahoy.ahoy.controllers;
 
 import com.ahoy.ahoy.alert.Alert;
 import com.ahoy.ahoy.alert.AlertService;
+import com.ahoy.ahoy.user.User;
 import com.ahoy.ahoy.user.UserRepository;
 import com.ahoy.ahoy.user.UserService;
 import com.ahoy.ahoy.vessel.Vessel;
@@ -33,6 +34,13 @@ public class AjaxController {
     VoyageDetailsRepository voyageDetailsRepository;
     @Autowired
     AlertService alertService;
+
+
+    @ResponseBody
+    @RequestMapping(path = "/ajax/getCurrentUser", method = RequestMethod.GET)
+    public User getCurrentUser(){
+        return userService.getCurrentUser();
+    }
 
     @ResponseBody
     @RequestMapping(path = "/ajax/createVesselPreference", method = RequestMethod.POST)

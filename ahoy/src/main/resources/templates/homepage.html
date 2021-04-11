@@ -66,7 +66,12 @@
     </div>
 
     <div class="row">
-        <div class="col-2"></div>
+        <div class="col-2">
+            <audio controls autoplay style="visibility: hidden;">
+                <source th:src="@{/sound.mp3}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
 
         <div class="col-4">
             <div class="btn-group btn-group-toggle"  data-toggle="buttons">
