@@ -48,6 +48,7 @@ $(document).on('click','.toggleTable2',function(){
             alert("No Speed History Found!");
          }
          var prev_speed = parseFloat("0.0");
+         
          $.each(response, function(key,val){
               var curr_speed = parseFloat(val.avg_speed);
               let row = "";

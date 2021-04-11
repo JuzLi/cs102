@@ -11,9 +11,7 @@ $(".submission").click(function(){
       success: function(response){
         $(".ajax").remove(); 
         $.each(response, function(key,val){
-         
          var tablerow = '<tr class = "ajax"><td>' + val.abbrvslm + '</td><td><button class="createPref" value="' + val.abbrvslm + '" type = "button">Subscribe</button></td></tr>';
-             
           $(tablerow).insertAfter("#allVesselsLike")
         })
       }
