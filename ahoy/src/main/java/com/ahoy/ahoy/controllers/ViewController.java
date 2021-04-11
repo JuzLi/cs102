@@ -53,11 +53,11 @@ public class ViewController {
     }
 
 
-    @PostMapping("/index")
-    public String indexSubmit(@ModelAttribute("vesselDetails") Vessel v){
-        return "result";
+    @GetMapping("/deleteAccount")
+    public String deleteAccount(){
+        userService.deleteCurrentUser();
+        return "landing";
     }
-
 
     @GetMapping("/register")
     public String register(Model model){

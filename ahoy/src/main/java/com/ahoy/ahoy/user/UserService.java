@@ -43,6 +43,11 @@ public class UserService {
         return  userRepository.findByUsername(username);
     }
 
+    public void deleteCurrentUser(){
+        User u = getCurrentUser();
+        userRepository.deleteUser(u.getUsername());
+    }
+
     public Boolean doesUserExist(String username){
         User u = userRepository.findByUsername(username);
         if(u == null){

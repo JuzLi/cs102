@@ -69,13 +69,14 @@ create table alertpreference(
 username varchar(50) not null,
 alerttype varchar (30) not null,
 constraint alertpreference_pk primary key (username, alerttype),
-constraint alertpreference_fk1 foreign key (username) references user(username)
+constraint alertpreference_fk1 foreign key (username) references user(username) on delete cascade
 );
 
 create table vesselpreference(
 username varchar(50) not null,
 abbrvslm varchar (100) not null,
 constraint vesselpreference_pk primary key (username, abbrvslm),
-constraint vesselpreference_fk1 foreign key (username) references user(username),
+constraint vesselpreference_fk1 foreign key (username) references user(username) on delete cascade,
 constraint vesselpreference_fk2 foreign key (abbrvslm) references vessel(abbrvslm)
 );
+

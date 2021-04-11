@@ -20,6 +20,11 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     @Transactional
     @Modifying
+    @Query("delete from User u where u.username = :username")
+    public void deleteUser(@Param("username") String username);
+
+    @Transactional
+    @Modifying
     @Query("update User u set u.email = :newEmail where u.username = :username")
     public void updateEmail(@Param("username") String username, @Param("newEmail") String newEmail);
 
