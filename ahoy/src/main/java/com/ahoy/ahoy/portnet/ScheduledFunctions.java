@@ -59,7 +59,7 @@ public class ScheduledFunctions {
     UserRepository userRepository;
 
 
-    @Scheduled(cron = "${post.timing}", zone = "GMT+8.00")
+    @Scheduled(cron = "${post.timing}")
     public void retrieveVesselsBerthing() {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -118,7 +118,7 @@ public class ScheduledFunctions {
 
     }
 
-    @Scheduled(cron = "${get.timing}", zone = "GMT+8.00")
+    @Scheduled(cron = "${get.timing}")
     public void getVoyageDetails(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date today = new Date();
@@ -157,7 +157,7 @@ public class ScheduledFunctions {
 
 
     //send alert email
-    @Scheduled(cron = "${email.timing}", zone = "GMT+8.00")
+    @Scheduled(cron = "${email.timing}")
     public void sendEmailAlert() {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
