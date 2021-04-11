@@ -19,7 +19,7 @@
         <img style="padding: 2px"
              src="https://banner.uclipart.com/20200111/pby/boating-black-and-white-sailing-ship.png" height="56"
              width="60" alt="" loading="lazy" />
-        <a class="navbar-brand" style="color:white;" href="#">
+        <a class="navbar-brand" style="color:white;" href="/homepage">
             Ahoy
         </a>
     </div>
@@ -43,7 +43,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" th:href="@{settings}">Account Preferences</a></li>
-                <li><a class="dropdown-item" th:href="@{landing}">Log out</a></li>
+                <li><a class="dropdown-item" th:href="@{logout}">Log out</a></li>
             </ul>
         </div>
     </div>
@@ -99,11 +99,11 @@
                 <h5 class="card-header">Your Alerts</h5>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" id = "alertTableSort">
                             <thead>
                             <tr>
                                 <th scope="col">Alert Type</th>
-                                <th scope="col">Vessel</th>
+                                <th scope="col" id = "sortNameButtonAlerts">Vessel Name <i class="fa fa-fw fa-sort"></i></th>
                                 <th scope="col">Incoming Voyage No.</th>
                                 <th scope="col">Date Time</th>
                                 <th scope="col">Alert Content</th>

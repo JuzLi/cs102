@@ -22,7 +22,7 @@
             <img style="padding: 2px"
                 src="https://banner.uclipart.com/20200111/pby/boating-black-and-white-sailing-ship.png" height="56"
                 width="60" alt="" loading="lazy" />
-            <a class="navbar-brand" style="color:white;" href="#">
+            <a class="navbar-brand" style="color:white;" href="/homepage">
                 Ahoy
             </a>
         </div>
@@ -46,7 +46,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" th:href="@{settings}">Account Preferences</a></li>
-                    <li><a class="dropdown-item" th:href="@{landing}">Log out</a></li>
+                    <li><a class="dropdown-item" th:href="@{logout}">Log out</a></li>
                 </ul>
             </div>
         </div>
@@ -129,8 +129,8 @@
                                         <th scope="col">Out Voyage No.</th>
                                         <th scope="col">Average Speed</th>
                                         <th scope="col">Max Speed</th>
-                                        <th scope="col">Distance to go</th>
-                                        <th scope="col">Berthing Time<i class="fa fa-fw fa-sort"></i></th>
+                                        <th scope="col">Distance To Go</th>
+                                        <th scope="col" id = "sortBerthingTimeButton">Berthing Time<i class="fa fa-fw fa-sort"></i></th>
                                         <th scope="col">Departure Time</th>
                                         <th scope="col">Berth Number</th>
                                         <th scope="col">Status</th>

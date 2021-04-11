@@ -71,10 +71,10 @@
         <div class="col-4">
             <div class="btn-group btn-group-toggle"  data-toggle="buttons">
                 <label class="btn btn-dark active" style="margin:5px;">
-                  <input type="radio" name="options" id="option1" autocomplete="off" checked>All Voyages
+                  <input type="radio" name="options" id="allVoyages" autocomplete="off" checked>All Voyages
                 </label>
                 <label class="btn btn-dark" style="margin:5px;">
-                  <input type="radio" name="options" id="option2" autocomplete="off">Subscribed
+                  <input type="radio" name="options" id="subscribedVoyages" autocomplete="off">Subscribed
                 </label>
               </div>
         </div>
@@ -90,10 +90,10 @@
             <div class="card" >
                 <h5 class="card-header">Today's Schedule</h5>
                 <div class="card-body table-responsive">
-                    <table class="table">
+                    <table class="table" id = "todayVoyageTable">
                         <thead >
                         <tr>
-                            <th style="position: sticky;" scope="col">Vessel</th>
+                            <th style="position: sticky;" scope="col" id = "sortVesselNameHomepageSchedule">Vessel Name<i class="fa fa-fw fa-sort"></i></th>
                             <th style="position: sticky;" scope="col">Voyage Number</th>
                             <th style="position: sticky;" scope="col">Status</th>
                             <th style="position: sticky;" scope="col">Berth Number</th>
@@ -147,11 +147,11 @@
             <div class="card" >
                 <h5 class="card-header">Today's Alerts</h5>
                 <div class="card-body table-responsive">
-                    <table class="table">
+                    <table class="table" id = "todayAlertsTable" >
                         <thead >
                         <tr>
                             <th style="position: sticky;" scope="col">Alert Type</th>
-                            <th style="position: sticky;" scope="col">Vessel</th>
+                            <th style="position: sticky;" scope="col" id = "sortVesselNameHomepageAlerts">Vessel Name<i class="fa fa-fw fa-sort"></i></th>
                             <th style="position: sticky;" scope="col">Status</th>
                             <th style="position: sticky;" scope="col">Invoyage Number</th>
                             <th style="position: sticky;" scope="col">DateTime</th>
