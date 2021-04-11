@@ -137,7 +137,7 @@ function getChart(){
                 dataLabels: {
                     enabled: true
                 },
-                enableMouseTracking: false
+                enableMouseTracking: true
             }
         },
         series: [{

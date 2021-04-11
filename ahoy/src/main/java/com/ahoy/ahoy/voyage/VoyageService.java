@@ -154,7 +154,6 @@ public class VoyageService {
     }
 
     public VoyageDetails findingOneDetail(Voyage voyage){
-        System.out.println(voyage.getInvoyn());
         for(VoyageDetails a: voyageDetailsRepository.findOneDetail(voyage)){
             return a;
         }

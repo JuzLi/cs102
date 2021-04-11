@@ -1,4 +1,4 @@
-package com.ahoy.ahoy;
+package com.ahoy.ahoy.controllers;
 
 import com.ahoy.ahoy.user.UserRepository;
 import com.ahoy.ahoy.user.User;

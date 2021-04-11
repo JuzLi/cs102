@@ -1,4 +1,4 @@
-package com.ahoy.ahoy.test;
+package com.ahoy.ahoy.controllers;
 
 
 import com.ahoy.ahoy.alert.Alert;
