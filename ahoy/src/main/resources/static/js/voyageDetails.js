@@ -48,11 +48,13 @@ $(document).on('click','.toggleTable2',function(){
             alert("No Speed History Found!");
          }
          var prev_speed = parseFloat("0.0");
-         
+         var count = 0;
          $.each(response, function(key,val){
               var curr_speed = parseFloat(val.avg_speed);
               let row = "";
-               if((curr_speed-prev_speed)>0.0){
+              if(count == 0){
+                row = "<tr class='toggled2'style='background-color:white;' ><td>"+val.timestamp+"</td><td>"+val.avg_speed+"</td><td>"+val.max_speed+"</td><td>"+val.distance_to_go+"</td></tr>";
+              }else if((curr_speed-prev_speed)>0.0){
                 row = "<tr class='toggled2'style='background-color:green;' ><td>"+val.timestamp+"</td><td>"+val.avg_speed+"</td><td>"+val.max_speed+"</td><td>"+val.distance_to_go+"</td></tr>";
               } else if((curr_speed-prev_speed)<0.0){
                 row = "<tr class='toggled2'style='background-color:red;' ><td>"+val.timestamp+"</td><td>"+val.avg_speed+"</td><td>"+val.max_speed+"</td><td>"+val.distance_to_go+"</td></tr>";
@@ -62,6 +64,7 @@ $(document).on('click','.toggleTable2',function(){
 
               $(row).insertAfter("#voyageDetailsOfVessel");
               prev_speed = curr_speed;
+              count++;
          })
        }
     })
