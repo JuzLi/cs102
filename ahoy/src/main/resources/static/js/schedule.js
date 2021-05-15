@@ -1,4 +1,4 @@
-
+let project = "done"
 let days = "0"
 
 $(document).ready(loadData());
